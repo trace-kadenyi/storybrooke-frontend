@@ -1,8 +1,14 @@
-const App = () =>{
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Registration from './Components/Registration/Registration';
+
+const App = () => {
   return (
-    <div className="App">
-     <h1>Hello world</h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Registration />} />
+      </Routes>
+    </Router>
   );
 }
 
