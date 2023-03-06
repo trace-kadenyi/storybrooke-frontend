@@ -16,7 +16,7 @@ const initialState = {
   status: null,
 };
 
-const userSlice = createSlice({
+const registerUserSlice = createSlice({
   name: "user",
   initialState,
   reducers: {},
@@ -34,4 +34,4 @@ const userSlice = createSlice({
   },
 });
 
-export default userSlice.reducer;
+export default registerUserSlice.reducer;

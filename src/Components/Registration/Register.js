@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../Redux/userSlice";
+import { registerUser } from "../../Redux/registerUserSlice";
 
-import "./registration.css";
+import "./register.css";
 
-const Registration = () => {
+const Register = () => {
   const dispatch = useDispatch();
   const { user, status } = useSelector((state) => state.user);
 
@@ -68,4 +68,4 @@ const Registration = () => {
   );
 };
 
-export default Registration;
+export default Register;
