@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
 import { registerUser } from "../../Redux/registerUserSlice";
 
 import "./register.css";
@@ -10,17 +12,22 @@ const Register = () => {
 
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [response, setResponse] = useState("");
 
+  // handle status change
   useEffect(() => {
-    if (status === "success") {
-      alert("Registration successful");
+    if (status === "loading") {
+      setResponse("Loading...");
+    } else if (status === "success") {
+      setResponse(`User ${name} created successfully. Login to continue...`);
       setName("");
       setPassword("");
     } else if (status === "failed") {
-      alert("User already exists. Try another name.");
+      setResponse(`User ${name} already exists. Please try another name.`);
     }
   }, [status]);
 
+  // handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
     const newUser = {
@@ -34,6 +41,9 @@ const Register = () => {
     <section className="registration">
       <h1>Registration</h1>
       <form className="register_form" onSubmit={handleSubmit}>
+        <div>
+          <h2 className="response">{response}</h2>
+        </div>
         <div>
           <label htmlFor="name">Name</label>
           <input
