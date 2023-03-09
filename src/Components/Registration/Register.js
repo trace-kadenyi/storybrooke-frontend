@@ -1,53 +1,110 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import axios from "../../Api/axios";
 
-import { registerUser } from "../../Redux/registerUserSlice";
+// import { registerUser } from "../../Redux/registerUserSlice";
 
 import "./register.css";
 
 const Register = () => {
-  const dispatch = useDispatch();
-  const { user, status } = useSelector((state) => state.user);
+  // const dispatch = useDispatch();
+  // const { user, status } = useSelector((state) => state.user);
 
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [response, setResponse] = useState("");
   const [success, setSuccess] = useState(false);
+  const REGISTER_URL = "/register";
 
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-  // handle status change
   useEffect(() => {
-    if (status === "loading") {
-      setResponse("Loading...");
-    } else if (status === "success") {
-      setResponse(`User ${name} created successfully. Login to continue...`);
-      setName("");
-      setPassword("");
-      setConfirmPassword("");
-      setSuccess(true);
-    } else if (status === "failed") {
-      setResponse(`User ${name} already exists. Please try another name.`);
-    }
-  }, [status]);
+    setResponse("")
+  }, [name, password, confirmPassword])
+
+  // handle status change
+  // useEffect(() => {
+  //   if (status === "loading") {
+  //     setResponse("Loading...");
+  //   } else if (status === "success") {
+  //     setResponse(`User ${name} created successfully. Login to continue...`);
+  //     setName("");
+  //     setPassword("");
+  //     setConfirmPassword("");
+  //     setSuccess(true);
+  //   } else if (status === "failed") {
+  //     setResponse(`User ${name} already exists. Please try another name.`);
+  //   }
+  // }, [status]);
 
   // handle form submit
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const newUser = {
+  //     user: name,
+  //     pwd: password,
+  //   };
+  //   if (!PWD_REGEX.test(password)) {
+  //     setResponse(
+  //       "Password must be 8-24 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+  //     );
+  //   } else if (password !== confirmPassword) {
+  //     setResponse("Passwords do not match");
+  //   } else {
+  //     dispatch(registerUser(newUser));
+  //   }
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newUser = {
-      user: name,
-      pwd: password,
-    };
+
     if (!PWD_REGEX.test(password)) {
       setResponse(
         "Password must be 8-24 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character"
       );
+      return;
     } else if (password !== confirmPassword) {
       setResponse("Passwords do not match");
-    } else {
-      dispatch(registerUser(newUser));
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        REGISTER_URL,
+        JSON.stringify({ user: name, pwd: password }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      console.log(JSON.stringify(response?.data));
+      setSuccess(true);
+      setName("");
+      setPassword("");
+      setConfirmPassword("");
+      // if (!PWD_REGEX.test(password)) {
+      //   setResponse(
+      //     "Password must be 8-24 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+      //   );
+      // } else if (password !== confirmPassword) {
+      //   setResponse("Passwords do not match");
+      // } else {
+      //   console.log(JSON.stringify(response?.data));
+      //   setSuccess(true);
+      //   setName("");
+      //   setPassword("");
+      //   setConfirmPassword("");
+      // }
+    } catch (error) {
+      if (!error.response) {
+        setResponse("No response from server");
+      } else if (error.response.status === 409) {
+        setResponse("User already exists");
+      } else {
+        setResponse("Something went wrong. Please try again later.");
+      }
     }
   };
 
