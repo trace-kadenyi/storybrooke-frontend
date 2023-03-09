@@ -1,18 +1,21 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-import AuthContext from "../../Context/AuthProvider";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
-import "./login.css";
+// import "./login.css";
 
 import axios from "../../Api/axios";
 const LOGIN_URL = "/auth";
 
 const Login = () => {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [response, setResponse] = useState("");
-  const [success, setSuccess] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     setResponse("");
@@ -36,7 +39,7 @@ const Login = () => {
       setAuth({ name, password, roles, accessToken });
       setName("");
       setPassword("");
-      setSuccess(true);
+      navigate(from, { replace: true });
     } catch (error) {
       if (!error.response) {
         setResponse("No server response");
@@ -51,54 +54,43 @@ const Login = () => {
   };
 
   return (
-    <>
-      {success ? (
-        <section className="succesful_registration">
-          <div>
-            <h1>Login Successful</h1>
-            <Link to="/">Go to Home</Link>
-          </div>
-        </section>
-      ) : (
-        <section className="registration">
-          <h1>Login</h1>
-          <form className="register_form" onSubmit={handleSubmit}>
-            <div>
-              <h2 className="response">{response}</h2>
-            </div>
-            <div>
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                placeholder="Enter your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <button className="submit" type="submit">
-                Login
-              </button>
-            </div>
-          </form>
-        </section>
-      )}
-    </>
+    <section className="registration">
+      <h1>Login</h1>
+      <form className="register_form" onSubmit={handleSubmit}>
+        <div>
+          <h2 className="response">{response}</h2>
+        </div>
+        <div>
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <button className="submit" type="submit">
+            Login
+          </button>
+        </div>
+      </form>
+    </section>
   );
 };
 
