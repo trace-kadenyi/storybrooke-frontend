@@ -5,7 +5,7 @@ import axios from "../../Api/axios";
 
 // import { registerUser } from "../../Redux/registerUserSlice";
 
-import "./register.css";
+// import "./register.css";
 
 const Register = () => {
   // const dispatch = useDispatch();
