@@ -1,12 +1,12 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const REGISTER_USER = "http://localhost:4000/register";
+const REGISTER_URL = "http://localhost:4000/register";
 
 export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (user) => {
-    const response = await axios.post(REGISTER_USER, user);
+    const response = await axios.post(REGISTER_URL, user);
     return response.data;
   }
 );
@@ -16,7 +16,7 @@ const initialState = {
   status: null,
 };
 
-const userSlice = createSlice({
+const registerUserSlice = createSlice({
   name: "user",
   initialState,
   reducers: {},
@@ -34,4 +34,4 @@ const userSlice = createSlice({
   },
 });
 
-export default userSlice.reducer;
+export default registerUserSlice.reducer;
