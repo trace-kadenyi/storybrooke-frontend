@@ -43,7 +43,7 @@ const Employees = () => {
       {employees?.length ? (
         <ul>
           {employees.map((employee, index) => (
-            <li key={index}>{employee.firstname}</li>
+            <li key={index}>{`${employee.firstname} ${employee.lastname}`}</li>
           ))}
         </ul>
       ) : (
