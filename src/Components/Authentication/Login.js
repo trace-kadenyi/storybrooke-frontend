@@ -47,6 +47,8 @@ const Login = () => {
         setResponse("Unauthorized");
       } else if (error.response.status === 400) {
         setResponse("Both username and password are required");
+      } else if (error.response.status === 404) {
+        setResponse("User not found");
       } else {
         setResponse("Something went wrong");
       }
@@ -68,6 +70,7 @@ const Login = () => {
             id="name"
             placeholder="Enter your name"
             value={name}
+            autoComplete="off"
             onChange={(e) => setName(e.target.value)}
             required
           />
