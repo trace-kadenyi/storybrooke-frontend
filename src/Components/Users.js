@@ -35,6 +35,7 @@ const Users = () => {
       controller.abort();
       effectRun.current = true;
     };
+        //eslint-disable-next-line
   }, []);
 
   return (
