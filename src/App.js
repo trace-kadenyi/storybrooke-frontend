@@ -11,6 +11,7 @@ import Unauthorized from "./Components/Pages/Unauthorized";
 import Admin from "./Components/Pages/Admin";
 import Editor from "./Components/Pages/Editor";
 import RequireAuth from "./Components/Pages/RequireAuth";
+import UpdateEmployee from "./Components/Pages/UpdateEmployee";
 
 const App = () => {
   return (
@@ -37,6 +38,10 @@ const App = () => {
 
         <Route element={<RequireAuth allowedRoles={[1984, 5150]} />}>
           <Route path="lounge" element={<Lounge />} />
+        </Route>
+
+        <Route element={<RequireAuth allowedRoles={[1984, 5150]} />}>
+          <Route path="update" element={<UpdateEmployee />} />
         </Route>
         {/* catch all */}
         <Route path="*" element={<Missing />} />
