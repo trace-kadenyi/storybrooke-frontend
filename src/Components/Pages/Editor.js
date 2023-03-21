@@ -78,7 +78,6 @@ const Editor = () => {
 
   // delete employee
   const deleteEmployee = async (id, e) => {
-    e.preventDefault();
     try {
       const response = await axiosPrivate.delete("/employees", {
         data: JSON.stringify({ id: id }),
