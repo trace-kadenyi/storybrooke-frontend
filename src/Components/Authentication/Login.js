@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
-// import "./login.css";
+import "./login.css";
 
 import axios from "../../Api/axios";
 const LOGIN_URL = "/auth";
@@ -57,42 +57,73 @@ const Login = () => {
 
   return (
     <section className="registration">
-      <h1>Login</h1>
-      <form className="register_form" onSubmit={handleSubmit}>
-        <div>
-          <h2 className="response">{response}</h2>
-        </div>
-        <div>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Enter your name"
-            value={name}
-            autoComplete="off"
-            onChange={(e) => setName(e.target.value)}
-            required
+      <header className="login_header">
+        <nav>
+          <img
+            src="https://www.freepnglogos.com/uploads/instagram-logo-png-transparent-0.png"
+            alt="logo"
+            className="logo"
           />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <button className="submit" type="submit">
-            Login
-          </button>
-        </div>
-      </form>
+          <ul>
+            <li>
+              <NavLink to="/about" className="link">
+                About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/register" className="link">
+                Register
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/profile" className="link">
+                Welcome
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <div className="login_sect">
+        <form className="register_form" onSubmit={handleSubmit}>
+          <div>
+            <h2 className="response">{response}</h2>
+          </div>
+          <div>
+            <label htmlFor="name" aria-hidden="false" className="label">
+              Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Enter your name"
+              value={name}
+              autoComplete="off"
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="password" aria-hidden="false" className="label">
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <button className="submit" type="submit">
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
     </section>
   );
 };
