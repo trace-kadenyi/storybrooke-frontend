@@ -1,0 +1,21 @@
+.home_sect {
+    min-height: 100vh;
+    background: url("../../../Assets/Images/12.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow-x: auto;
+}
+
+.home_main_div {
+    padding: 20px;
+}
+
+.logout_btn {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background: #548341;
+    color: #fff;
+    margin: 10px auto;
+}

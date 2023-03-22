@@ -1,0 +1,94 @@
+.registration {
+  min-height: 100vh;
+  background: url("../../Assets/Images/12.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow-x: auto;
+}
+
+.login_header {
+  margin: 20px;
+  height: 70px;
+}
+
+.login_header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.login_header ul {
+  display: flex;
+  list-style-type: none;
+  gap: 20px;
+  padding: 20px;
+}
+
+.login_header li {
+  font-size: 16px;
+  width: 70px;
+  height: 30px;
+  backdrop-filter: blur(10px) saturate(70%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+}
+
+.link:hover {
+  background: #548341;
+  padding: 10px;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.login_sect {
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px red solid; */
+}
+
+.register_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px red solid; */
+  width: 50%;
+  padding: 20px;
+  margin: 20px;
+}
+
+.register_form input,
+.submit {
+  margin: 10px;
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.label {
+  display: none;
+}
+
+.toast-message {
+  background: #548341;
+  color: #fff;
+  font-size: 16px;
+  width: 34vw;
+  padding: 30px 20px;
+}
