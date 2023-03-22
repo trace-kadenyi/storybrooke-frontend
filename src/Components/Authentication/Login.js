@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 import useAuth from "../../hooks/useAuth";
 
@@ -24,8 +23,6 @@ const Login = () => {
     setResponse("");
   }, [name, password]);
 
-  const notify = (e) => toast(e);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -44,6 +41,8 @@ const Login = () => {
       setAuth({ name, password, roles, accessToken });
       setName("");
       setPassword("");
+      showToastMessage();
+      localStorage.setItem("user", JSON.stringify(name));
       navigate(from, { replace: true });
     } catch (error) {
       if (!error.response) {
@@ -61,9 +60,9 @@ const Login = () => {
   };
 
   const showToastMessage = () => {
-    toast.success(`Welcome ${name}`, {
+    toast.success(`Welcome ${name} 😃!`, {
       position: toast.POSITION.TOP_RIGHT,
-      className: 'toast-message',
+      className: "toast-message",
     });
   };
 
@@ -125,7 +124,7 @@ const Login = () => {
             />
           </div>
           <div>
-            <button className="submit" type="submit" onClick={showToastMessage}>
+            <button className="submit" type="submit">
               Login
             </button>
           </div>
