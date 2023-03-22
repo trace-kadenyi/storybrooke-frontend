@@ -30,6 +30,10 @@
   font-size: 16px;
   width: 70px;
   height: 30px;
+  backdrop-filter: blur(10px) saturate(70%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .link {
@@ -68,7 +72,7 @@
 }
 
 .register_form input,
-button {
+.submit {
   margin: 10px;
   padding: 10px;
   width: 100%;
@@ -79,4 +83,12 @@ button {
 
 .label {
   display: none;
+}
+
+.toast-message {
+  background: #548341;
+  color: #fff;
+  font-size: 16px;
+  width: 34vw;
+  padding: 30px 20px;
 }

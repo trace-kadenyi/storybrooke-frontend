@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import useAuth from "../../hooks/useAuth";
 
 import "./login.css";
@@ -20,6 +23,8 @@ const Login = () => {
   useEffect(() => {
     setResponse("");
   }, [name, password]);
+
+  const notify = (e) => toast(e);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,6 +60,13 @@ const Login = () => {
     }
   };
 
+  const showToastMessage = () => {
+    toast.success(`Welcome ${name}`, {
+      position: toast.POSITION.TOP_RIGHT,
+      className: 'toast-message',
+    });
+  };
+
   return (
     <section className="registration">
       <header className="login_header">
@@ -73,11 +85,6 @@ const Login = () => {
             <li>
               <NavLink to="/register" className="link">
                 Register
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/profile" className="link">
-                Welcome
               </NavLink>
             </li>
           </ul>
@@ -118,7 +125,7 @@ const Login = () => {
             />
           </div>
           <div>
-            <button className="submit" type="submit">
+            <button className="submit" type="submit" onClick={showToastMessage}>
               Login
             </button>
           </div>
