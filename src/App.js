@@ -1,10 +1,12 @@
 import React from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Routes, Route } from "react-router-dom";
 import Registration from "./Components/Registration/Register";
 import Login from "./Components/Authentication/Login";
 import Layout from "./Components/Pages/Layout";
 import LinkPage from "./Components/Pages/LinkPage";
-import Home from "./Components/Pages/Home";
+import Home from "./Components/Pages/Home/Home";
 import Lounge from "./Components/Pages/Lounge";
 import Missing from "./Components/Pages/Missing";
 import Unauthorized from "./Components/Pages/Unauthorized";
@@ -14,7 +16,10 @@ import RequireAuth from "./Components/Pages/RequireAuth";
 import UpdateEmployee from "./Components/Pages/UpdateEmployee";
 
 const App = () => {
+
   return (
+    <>
+    <ToastContainer />
     <Routes>
       <Route path="/" element={<Layout />}>
         {/* public routes */}
@@ -47,6 +52,7 @@ const App = () => {
         <Route path="*" element={<Missing />} />
       </Route>
     </Routes>
+    </>
   );
 };
 
