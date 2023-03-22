@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from 'react-toastify';
 import { Link, NavLink, useNavigate } from "react-router-dom";
+
 import axios from "../../Api/axios";
-
-// import { registerUser } from "../../Redux/registerUserSlice";
-
+import logo from "../../Assets/Images/logo.png"
 import "./register.css";
 
 const Register = () => {
@@ -52,8 +52,8 @@ const Register = () => {
       setName("");
       setPassword("");
       setConfirmPassword("");
+      showToastMessage();
       navigate("/login", { replace: true });
-      alert("Registration successful.");
     } catch (error) {
       if (!error.response) {
         setResponse("No response from server");
@@ -65,12 +65,19 @@ const Register = () => {
     }
   };
 
+  const showToastMessage = () => {
+    toast.success(`Registration successful 🤝 Please log in to continue.`, {
+      position: toast.POSITION.TOP_RIGHT,
+      className: "toast-message",
+    });
+  };
+
   return (
     <section className="registration">
       <header className="login_header">
         <nav>
           <img
-            src="https://www.freepnglogos.com/uploads/instagram-logo-png-transparent-0.png"
+            src={logo}
             alt="logo"
             className="logo"
           />

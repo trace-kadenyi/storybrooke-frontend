@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 import { useContext } from "react";
 import AuthContext from "../../../Context/AuthProvider";
-
+import logo from "../../../Assets/Images/logo.png";
 import "./home.css";
 
 const Home = () => {
@@ -21,7 +21,7 @@ const Home = () => {
   const showToastMessage = () => {
     toast.success(`See you later ${
       JSON.parse(localStorage.getItem("user"))
-    } 👋!`, {
+    } 👋`, {
       position: toast.POSITION.TOP_RIGHT,
       className: "toast-message",
     });
@@ -32,7 +32,7 @@ const Home = () => {
       <header className="login_header">
         <nav>
           <img
-            src="https://www.freepnglogos.com/uploads/instagram-logo-png-transparent-0.png"
+            src={logo}
             alt="logo"
             className="logo"
           />
