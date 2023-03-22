@@ -85,11 +85,6 @@ const Register = () => {
                 Login
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/profile" className="link">
-                Welcome
-              </NavLink>
-            </li>
           </ul>
         </nav>
       </header>
