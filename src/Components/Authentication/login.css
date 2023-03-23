@@ -78,12 +78,25 @@
   padding: 10px;
   width: 100%;
   border-radius: 10px;
-  border: 1px solid #ccc;
   outline: none;
+  border: 3px solid #548341;
+
 }
 
 .submit {
   cursor: pointer;
+  border: 3px solid #548341;
+  letter-spacing: 0.07rem;
+  font-size: 15px;
+  height: 40px;
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+}
+
+.submit:hover {
+  background: #548341;
+  color: #fff;
 }
 
 .label {
