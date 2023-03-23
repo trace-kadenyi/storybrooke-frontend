@@ -14,6 +14,7 @@ import Admin from "./Components/Pages/Admin";
 import Editor from "./Components/Pages/Editor";
 import RequireAuth from "./Components/Pages/RequireAuth";
 import UpdateEmployee from "./Components/Pages/UpdateEmployee";
+import About from "./Components/Pages/About/About";
 
 const App = () => {
 
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="register" element={<Registration />} />
         <Route path="login" element={<Login />} />
         <Route path="linkpage" element={<LinkPage />} />
+        <Route path="about" element={<About />} />
         <Route path="unauthorized" element={<Unauthorized />} />
 
         {/* private routes */}
