@@ -3,6 +3,7 @@ import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import useAuth from "../../hooks/useAuth";
+import logo from "../../Assets/Images/logo.png"
 
 import "./login.css";
 
@@ -60,7 +61,7 @@ const Login = () => {
   };
 
   const showToastMessage = () => {
-    toast.success(`Welcome ${name} 😃!`, {
+    toast.success(`Welcome ${name} 😃`, {
       position: toast.POSITION.TOP_RIGHT,
       className: "toast-message",
     });
@@ -71,7 +72,7 @@ const Login = () => {
       <header className="login_header">
         <nav>
           <img
-            src="https://www.freepnglogos.com/uploads/instagram-logo-png-transparent-0.png"
+            src={logo}
             alt="logo"
             className="logo"
           />

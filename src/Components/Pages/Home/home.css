@@ -1,21 +1,49 @@
 .home_sect {
-    min-height: 100vh;
-    background: url("../../../Assets/Images/12.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    overflow-x: auto;
+  min-height: 100vh;
+  background: url("../../../Assets/Images/landing.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow-x: auto;
 }
 
 .home_main_div {
-    padding: 20px;
+  padding: 20px;
 }
 
 .logout_btn {
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    background: #548341;
-    color: #fff;
-    margin: 10px auto;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #548341;
+  color: #fff;
+  margin: 10px auto;
+}
+
+.interests {
+  color: #fff;
+  font-weight: bold;
+  backdrop-filter: blur(10px) saturate(70%);
+  max-width: max-content;
+  margin: 0 auto;
+}
+
+.home_main_div_btns {
+  display: flex;
+  min-height: 30vh;
+  max-width: 60vw;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+  flex-wrap: wrap;
+}
+
+.home_main_div_btns_btn {
+  padding: 10px;
+  border-radius: 10px;
+  min-height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
