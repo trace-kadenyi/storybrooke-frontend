@@ -1,21 +1,23 @@
 import { useNavigate, Link, NavLink, useParams } from "react-router-dom";
 import { toast } from 'react-toastify';
 
-import { useContext } from "react";
-import AuthContext from "../../../Context/AuthProvider";
+// import { useContext } from "react";
+// import AuthContext from "../../../Context/AuthProvider";
+import useLogout from "../../../hooks/useLogout";
 import logo from "../../../Assets/Images/logo.png";
 import "./home.css";
 
 const Home = () => {
-  const { setAuth } = useContext(AuthContext);
+  // const { setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
+  const logout = useLogout();
   const { name } = useParams();
 
-  const logout = async () => {
+  const signOut = async () => {
     // if used in more components, this should be in context
     // axios to /logout endpoint
     showToastMessage();
-    setAuth({});
+    await logout();
   };
 
   const showToastMessage = () => {
@@ -53,7 +55,7 @@ const Home = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/login" className="link" onClick={logout}>
+              <NavLink to="/login" className="link" onClick={signOut}>
                 Logout
               </NavLink>
             </li>
