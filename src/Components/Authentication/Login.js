@@ -109,6 +109,7 @@ const Login = () => {
               id="name"
               placeholder="Enter your name"
               value={name}
+              className="input"
               autoComplete="off"
               onChange={(e) => setName(e.target.value)}
               required
@@ -124,27 +125,30 @@ const Login = () => {
               id="password"
               placeholder="Enter your password"
               value={password}
+              className="input"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          <div>
-            <button className="submit" type="submit">
-              Login
-            </button>
-          </div>
-          <div>
+          <div className="devise_container">
             <input
               type="checkbox"
               name="persist"
               id="persist"
               checked={persist}
               onChange={togglePersist}
+              className="devise-checked"
             />
-            <label htmlFor="persist">
+            <label htmlFor="persist" className="devise">
               Trust this device
             </label>
           </div>
+          <div>
+            <button className="submit" type="submit">
+              Login
+            </button>
+          </div>
+         
         </form>
       </div>
     </section>
