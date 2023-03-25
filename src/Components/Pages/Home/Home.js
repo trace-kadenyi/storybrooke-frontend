@@ -14,8 +14,6 @@ const Home = () => {
   const { name } = useParams();
 
   const signOut = async () => {
-    // if used in more components, this should be in context
-    // axios to /logout endpoint
     showToastMessage();
     await logout();
   };
