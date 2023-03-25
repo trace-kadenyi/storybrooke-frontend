@@ -3,7 +3,7 @@ import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import useAuth from "../../hooks/useAuth";
-import logo from "../../Assets/Images/logo.png"
+import logo from "../../Assets/Images/logo.png";
 
 import "./login.css";
 
@@ -11,7 +11,7 @@ import axios from "../../Api/axios";
 const LOGIN_URL = "/auth";
 
 const Login = () => {
-  const { setAuth } = useAuth();
+  const { setAuth, persist, setPersist } = useAuth();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [response, setResponse] = useState("");
@@ -67,15 +67,19 @@ const Login = () => {
     });
   };
 
+  const togglePersist = () => {
+    setPersist((prev) => !prev);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("persist", persist);
+  }, [persist]);
+
   return (
     <section className="registration">
       <header className="login_header">
         <nav>
-          <img
-            src={logo}
-            alt="logo"
-            className="logo"
-          />
+          <img src={logo} alt="logo" className="logo" />
           <ul>
             <li>
               <NavLink to="/about" className="link">
@@ -128,6 +132,18 @@ const Login = () => {
             <button className="submit" type="submit">
               Login
             </button>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name="persist"
+              id="persist"
+              checked={persist}
+              onChange={togglePersist}
+            />
+            <label htmlFor="persist">
+              Trust this device
+            </label>
           </div>
         </form>
       </div>
