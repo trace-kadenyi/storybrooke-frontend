@@ -111,6 +111,7 @@ const Register = () => {
               autoComplete="off"
               placeholder="Enter your name"
               value={name}
+              className="input"
               onChange={(e) => setName(e.target.value)}
               required
             />
@@ -125,6 +126,7 @@ const Register = () => {
               id="password"
               placeholder="Enter your password"
               value={password}
+              className="input"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
@@ -143,6 +145,7 @@ const Register = () => {
               id="confirmPassword"
               placeholder="Confirm your password"
               value={confirmPassword}
+              className="input"
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
