@@ -16,6 +16,8 @@ const Home = () => {
   const signOut = async () => {
     showToastMessage();
     await logout();
+    // clear local storage
+    localStorage.clear();
   };
 
   const showToastMessage = () => {
