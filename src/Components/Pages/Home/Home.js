@@ -1,14 +1,14 @@
 import { useNavigate, Link, NavLink, useParams } from "react-router-dom";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
-// import { useContext } from "react";
-// import AuthContext from "../../../Context/AuthProvider";
+import { useContext } from "react";
+import AuthContext from "../../../Context/AuthProvider";
 import useLogout from "../../../hooks/useLogout";
 import logo from "../../../Assets/Images/logo.png";
 import "./home.css";
 
 const Home = () => {
-  // const { setAuth } = useContext(AuthContext);
+  const { setPersist } = useContext(AuthContext);
   const navigate = useNavigate();
   const logout = useLogout();
   const { name } = useParams();
@@ -18,26 +18,25 @@ const Home = () => {
     await logout();
     // clear local storage
     localStorage.clear();
+    // uncheck the persist checkbox
+    setPersist(false);
   };
 
   const showToastMessage = () => {
-    toast.success(`See you later ${
-      JSON.parse(localStorage.getItem("user"))
-    } 👋`, {
-      position: toast.POSITION.TOP_RIGHT,
-      className: "toast-message",
-    });
+    toast.success(
+      `See you later ${JSON.parse(localStorage.getItem("user"))} 👋`,
+      {
+        position: toast.POSITION.TOP_RIGHT,
+        className: "toast-message",
+      }
+    );
   };
 
   return (
     <section className="home_sect">
       <header className="login_header">
         <nav>
-          <img
-            src={logo}
-            alt="logo"
-            className="logo"
-          />
+          <img src={logo} alt="logo" className="logo" />
           <ul>
             <li>
               <NavLink to="/about" className="link">
