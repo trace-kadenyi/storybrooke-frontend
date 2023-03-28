@@ -46,4 +46,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #fff;
+}
+
+.active {
+  background-color: #548341;
+  color: #fff;
 }
