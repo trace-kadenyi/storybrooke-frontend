@@ -3,7 +3,7 @@ import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import useAuth from "../../hooks/useAuth";
-import logo from "../../Assets/Images/logo.png"
+import logo from "../../Assets/Images/logo.png";
 
 import "./login.css";
 
@@ -11,7 +11,7 @@ import axios from "../../Api/axios";
 const LOGIN_URL = "/auth";
 
 const Login = () => {
-  const { setAuth } = useAuth();
+  const { setAuth, persist, setPersist } = useAuth();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [response, setResponse] = useState("");
@@ -67,15 +67,19 @@ const Login = () => {
     });
   };
 
+  const togglePersist = () => {
+    setPersist((prev) => !prev);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("persist", persist);
+  }, [persist]);
+
   return (
     <section className="registration">
       <header className="login_header">
         <nav>
-          <img
-            src={logo}
-            alt="logo"
-            className="logo"
-          />
+          <img src={logo} alt="logo" className="logo" />
           <ul>
             <li>
               <NavLink to="/about" className="link">
@@ -105,6 +109,7 @@ const Login = () => {
               id="name"
               placeholder="Enter your name"
               value={name}
+              className="input"
               autoComplete="off"
               onChange={(e) => setName(e.target.value)}
               required
@@ -120,15 +125,30 @@ const Login = () => {
               id="password"
               placeholder="Enter your password"
               value={password}
+              className="input"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+          </div>
+          <div className="devise_container">
+            <input
+              type="checkbox"
+              name="persist"
+              id="persist"
+              checked={persist}
+              onChange={togglePersist}
+              className="devise-checked"
+            />
+            <label htmlFor="persist" className="devise">
+              Trust this device
+            </label>
           </div>
           <div>
             <button className="submit" type="submit">
               Login
             </button>
           </div>
+         
         </form>
       </div>
     </section>
