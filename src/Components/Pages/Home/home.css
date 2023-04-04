@@ -52,4 +52,5 @@
 .active {
   background-color: #548341;
   color: #fff;
+  font-weight: bold;
 }
