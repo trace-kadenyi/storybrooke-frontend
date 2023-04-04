@@ -39,7 +39,8 @@ const Login = () => {
       console.log(JSON.stringify(response?.data));
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
-      setAuth({ name, password, roles, accessToken });
+      const interests = response?.data?.interests;
+      setAuth({ name, password, roles, interests, accessToken });
       setName("");
       setPassword("");
       showToastMessage();
