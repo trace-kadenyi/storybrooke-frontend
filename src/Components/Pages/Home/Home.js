@@ -126,11 +126,10 @@ const Home = () => {
         localStorage.setItem("interests", JSON.stringify(userInterests));
         // set the interests in the state
         setInterests(userInterests);
-
       } catch (err) {
         console.log(err);
       }
-    }
+    };
     getInterests();
   }, []);
 
@@ -164,8 +163,44 @@ const Home = () => {
         </nav>
       </header>
       <div className="home_main_div">
-        <p className="interests">Select your areas of interest below...</p>
+        <p className="interests">
+          Customize your account. Select the topics that interest you below.
+          What do you like reading and/or writing about?
+        </p>
         <div className="home_main_div_btns">
+          <button className="home_main_div_btns_btn" onClick={handleClick}>
+            Fiction
+          </button>
+          <button className="home_main_div_btns_btn" onClick={handleClick}>
+            Non-Fiction
+          </button>
+          <button className="home_main_div_btns_btn" onClick={handleClick}>
+            Romance
+          </button>
+          <button className="home_main_div_btns_btn" onClick={handleClick}>
+            Thriller
+          </button>
+          <button className="home_main_div_btns_btn" onClick={handleClick}>
+            Who-done-it
+          </button>
+          <button className="home_main_div_btns_btn" onClick={handleClick}>
+            Historical
+          </button>
+          <button className="home_main_div_btns_btn" onClick={handleClick}>
+            Western
+          </button>
+          <button className="home_main_div_btns_btn" onClick={handleClick}>
+            Fantasy
+          </button>
+          <button className="home_main_div_btns_btn" onClick={handleClick}>
+            Paranormal
+          </button>
+          <button className="home_main_div_btns_btn" onClick={handleClick}>
+            Folklore
+          </button>
+          <button className="home_main_div_btns_btn" onClick={handleClick}>
+            Poetry
+          </button>
           <button className="home_main_div_btns_btn" onClick={handleClick}>
             Technology
           </button>
@@ -179,10 +214,7 @@ const Home = () => {
             Entertainment
           </button>
           <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Business
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Science
+            Sci-Fi
           </button>
           <button className="home_main_div_btns_btn" onClick={handleClick}>
             Health
@@ -204,15 +236,6 @@ const Home = () => {
           </button>
           <button className="home_main_div_btns_btn" onClick={handleClick}>
             Books
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Movies
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            TV
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Gaming
           </button>
           <button className="home_main_div_btns_btn" onClick={handleClick}>
             Education
