@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, Link, NavLink, useParams } from "react-router-dom";
+import React, { useEffect, useContext, useState, useRef } from "react";
+import { useNavigate, NavLink, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { useContext } from "react";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import AuthContext from "../../../Context/AuthProvider";
 import useLogout from "../../../hooks/useLogout";
 import logo from "../../../Assets/Images/logo.png";
@@ -12,8 +12,46 @@ const Home = () => {
   const { setPersist } = useContext(AuthContext);
   const navigate = useNavigate();
   const logout = useLogout();
-  const { name } = useParams();
   const [interests, setInterests] = useState([]);
+  const [users, setUsers] = useState();
+  const axiosPrivate = useAxiosPrivate();
+  const location = useLocation();
+  const effectRun = useRef(false);
+
+  const name = JSON.parse(localStorage.getItem("user"));
+
+  useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
+
+    const getUsers = async () => {
+      try {
+        const response = await axiosPrivate.get("/users", {
+          signal: controller.signal,
+        });
+        console.log(response.data);
+        isMounted && setUsers(response.data);
+      } catch (err) {
+        console.log(err);
+        navigate("/login", { state: { from: location }, replace: true });
+      }
+    };
+
+    if (effectRun.current) {
+      getUsers();
+    }
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+      effectRun.current = true;
+    };
+    //eslint-disable-next-line
+  }, []);
+
+  // find id of logged in user
+  const foundId = users?.find((user) => user.username === name)?._id;
+  console.log(foundId);
 
   const signOut = async () => {
     showToastMessage();
@@ -59,7 +97,42 @@ const Home = () => {
     }
     console.log(interests);
     localStorage.setItem("interests", JSON.stringify(interests));
+    // push selected interests to the database
+    const updateInterests = async () => {
+      try {
+        const response = await axiosPrivate.put(`/`, {
+          id: foundId,
+          interests: interests,
+        });
+        console.log(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    updateInterests();
   };
+
+  // fetch interests from user
+  useEffect(() => {
+    const getInterests = async () => {
+      try {
+        const response = await axiosPrivate.get(`/users`);
+        // return the interests of the logged in user
+        const userInterests = response.data.find(
+          (user) => user.username === name
+        ).interests;
+        console.log(userInterests);
+        // set the interests in the local storage
+        localStorage.setItem("interests", JSON.stringify(userInterests));
+        // set the interests in the state
+        setInterests(userInterests);
+
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getInterests();
+  }, []);
 
   return (
     <section className="home_sect">
