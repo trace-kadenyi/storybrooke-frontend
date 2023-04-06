@@ -109,7 +109,7 @@ const Login = () => {
               name="name"
               id="name"
               placeholder="Enter your name"
-              value={name}
+              value={name.charAt(0).toUpperCase() + name.slice(1)}
               className="input"
               autoComplete="off"
               onChange={(e) => setName(e.target.value)}

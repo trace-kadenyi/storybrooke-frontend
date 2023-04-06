@@ -110,7 +110,7 @@ const Register = () => {
               id="name"
               autoComplete="off"
               placeholder="Enter your name"
-              value={name}
+              value={name.charAt(0).toUpperCase() + name.slice(1)}
               className="input"
               onChange={(e) => setName(e.target.value)}
               required
