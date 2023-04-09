@@ -3,7 +3,7 @@ import { useNavigate, NavLink, useLocation } from "react-router-dom";
 
 import logo from "../../../Assets/Images/logo.png";
 import Logout from "../../Logout";
-import "./stories.css"
+import "./stories.css";
 
 const StoriesPage = () => {
   const navigate = useNavigate();
@@ -14,18 +14,13 @@ const StoriesPage = () => {
           <img src={logo} alt="logo" className="logo" />
           <ul>
             <li>
+              <NavLink to="/" className="link">
+                Home
+              </NavLink>
+            </li>
+            <li>
               <NavLink to="/about" className="link">
                 About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/editor" className="link">
-                Editor
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/Admin" className="link">
-                Admin
               </NavLink>
             </li>
             <li>
@@ -34,6 +29,25 @@ const StoriesPage = () => {
           </ul>
         </nav>
       </header>
+      <div className="stories_div">
+        <p className="interests stories_title">
+          Welcome!
+          <br /> This is where you can read stories from the community or share
+          your own stories. Click either of the buttons below to get started.
+        </p>
+        <div className="stories_btns">
+          <button>
+            <NavLink to="/explore" className="stories_btn">
+              Read Stories
+            </NavLink>
+          </button>
+          <button>
+            <NavLink to="/share" className="stories_btn">
+              Share Stories
+            </NavLink>
+          </button>
+        </div>
+      </div>
     </section>
   );
 };
