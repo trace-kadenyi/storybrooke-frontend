@@ -16,6 +16,7 @@ import RequireAuth from "./Components/Pages/RequireAuth";
 import UpdateEmployee from "./Components/Pages/UpdateEmployee";
 import About from "./Components/Pages/About/About";
 import PersistLogin from "./Components/PersistLogin";
+import StoriesPage from "./Components/Pages/Stories/StoriesPage";
 
 const App = () => {
   return (
@@ -50,6 +51,10 @@ const App = () => {
 
             <Route element={<RequireAuth allowedRoles={[1984, 5150]} />}>
               <Route path="update" element={<UpdateEmployee />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[2001]} />}>
+              <Route path="stories" element={<StoriesPage />} />
             </Route>
           </Route>
           {/* catch all */}
