@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, NavLink, useLocation } from "react-router-dom";
 
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
@@ -62,6 +62,7 @@ const Home = () => {
     } else {
       setInterests([]);
     }
+    //eslint-disable-next-line
   }, [interests.length]);
 
   const handleClick = (e) => {
@@ -108,6 +109,7 @@ const Home = () => {
       }
     };
     getInterests();
+    //eslint-disable-next-line
   }, []);
 
   return (

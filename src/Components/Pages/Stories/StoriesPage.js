@@ -1,12 +1,11 @@
-import React, { useEffect, useContext, useState, useRef } from "react";
-import { useNavigate, NavLink, useLocation } from "react-router-dom";
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 import logo from "../../../Assets/Images/logo.png";
 import Logout from "../../Logout";
 import "./stories.css";
 
 const StoriesPage = () => {
-  const navigate = useNavigate();
   return (
     <section className="stories_sect">
       <header className="login_header">
