@@ -58,7 +58,7 @@
   font-weight: bold;
 }
 
-.stories_btn_div {
+.next_btn_div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,7 +66,7 @@
   width: 100px;
 }
 
-.stories_btn_div button {
+.next_btn_div button {
   padding: 20px;
   width: 100%;
   border-radius: 10px;
@@ -76,7 +76,7 @@
   cursor: pointer;
 }
 
-.stories_btn {
+.next_btn {
   text-decoration: none;
   color: #fff;
   font-weight: bold;
@@ -86,7 +86,7 @@
   padding: 3px;
 }
 
-.stories_btn:hover {
+.next_btn:hover {
   color: #000;
   background: #fff;
   font-style: italic;
