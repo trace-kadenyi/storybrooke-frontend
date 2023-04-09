@@ -263,6 +263,13 @@ const Home = () => {
           </button>
         </div>
       </div>
+      <div className="stories_btn_div">
+        <button>
+          <NavLink to="/stories" className="stories_btn">
+            Next
+          </NavLink>
+        </button>
+      </div>
     </section>
   );
 };
