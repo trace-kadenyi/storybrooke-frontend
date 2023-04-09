@@ -114,7 +114,9 @@ const Home = () => {
     <section className="home_sect">
       <header className="login_header">
         <nav>
-          <img src={logo} alt="logo" className="logo" />
+          <NavLink to="/" className="link">
+            <img src={logo} alt="logo" className="logo" />
+          </NavLink>
           <ul>
             <li>
               <NavLink to="/about" className="link">
