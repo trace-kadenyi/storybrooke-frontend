@@ -240,9 +240,9 @@ const Home = () => {
           </button>
         </div>
       </div>
-      <div className="stories_btn_div">
+      <div className="next_btn_div">
         <button>
-          <NavLink to="/stories" className="stories_btn">
+          <NavLink to="/stories" className="next_btn">
             Next
           </NavLink>
         </button>
