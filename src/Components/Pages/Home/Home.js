@@ -1,17 +1,13 @@
 import React, { useEffect, useContext, useState, useRef } from "react";
 import { useNavigate, NavLink, useLocation } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-import AuthContext from "../../../Context/AuthProvider";
-import useLogout from "../../../hooks/useLogout";
+import Logout from "../../Logout";
 import logo from "../../../Assets/Images/logo.png";
 import "./home.css";
 
 const Home = () => {
-  const { setPersist } = useContext(AuthContext);
   const navigate = useNavigate();
-  const logout = useLogout();
   const [interests, setInterests] = useState([]);
   const [users, setUsers] = useState();
   const axiosPrivate = useAxiosPrivate();
@@ -52,25 +48,6 @@ const Home = () => {
   // find id of logged in user
   const foundId = users?.find((user) => user.username === name)?._id;
   console.log(foundId);
-
-  const signOut = async () => {
-    showToastMessage();
-    await logout();
-    // clear local storage
-    localStorage.clear();
-    // uncheck the persist checkbox
-    setPersist(false);
-  };
-
-  const showToastMessage = () => {
-    toast.success(
-      `See you later ${JSON.parse(localStorage.getItem("user"))} 👋`,
-      {
-        position: toast.POSITION.TOP_RIGHT,
-        className: "toast-message",
-      }
-    );
-  };
 
   useEffect(() => {
     if (localStorage.getItem("interests")) {
@@ -155,9 +132,7 @@ const Home = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/login" className="link" onClick={signOut}>
-                Logout
-              </NavLink>
+              <Logout />
             </li>
           </ul>
         </nav>
