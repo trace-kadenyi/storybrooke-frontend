@@ -4,6 +4,7 @@ import { useNavigate, NavLink, useLocation } from "react-router-dom";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import Logout from "../../Logout";
 import logo from "../../../Assets/Images/logo.png";
+import { btnOptions } from "../../AppData/Data";
 import "./home.css";
 
 const Home = () => {
@@ -147,99 +148,17 @@ const Home = () => {
           What do you like reading and/or writing about?
         </p>
         <div className="home_main_div_btns">
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Fiction
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Non-Fiction
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Romance
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Thriller
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Who-done-it
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Historical
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Western
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Fantasy
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Paranormal
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Folklore
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Poetry
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Technology
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Politics
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Sports
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Entertainment
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Sci-Fi
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Health
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Travel
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Food
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Fashion
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Art
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Music
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Books
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Education
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            History
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Philosophy
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Psychology
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Religion
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Society
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Environment
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Economics
-          </button>
+          {btnOptions.sort().map((btn, index) => {
+            return (
+              <button
+                key={index}
+                className="home_main_div_btns_btn"
+                onClick={handleClick}
+              >
+                {btn}
+              </button>
+            );
+          })}
         </div>
       </div>
       <div className="next_btn_div">
