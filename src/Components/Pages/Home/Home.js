@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate, NavLink, useLocation } from "react-router-dom";
+import { useNavigate, Link, NavLink, useLocation } from "react-router-dom";
 
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import Logout from "../../Logout";
@@ -15,7 +15,10 @@ const Home = () => {
   const location = useLocation();
   const effectRun = useRef(false);
 
+  // get the name of the logged in user
   const name = JSON.parse(localStorage.getItem("user"));
+  // get the id of logged in user
+  const foundId = users?.find((user) => user.username === name)?._id;
 
   useEffect(() => {
     let isMounted = true;
@@ -26,7 +29,7 @@ const Home = () => {
         const response = await axiosPrivate.get("/users", {
           signal: controller.signal,
         });
-        console.log(response.data);
+        // console.log(response.data);
         isMounted && setUsers(response.data);
       } catch (err) {
         console.log(err);
@@ -46,13 +49,8 @@ const Home = () => {
     //eslint-disable-next-line
   }, []);
 
-  // find id of logged in user
-  const foundId = users?.find((user) => user.username === name)?._id;
-  console.log(foundId);
-
   useEffect(() => {
-    if (localStorage.getItem("interests")) {
-      setInterests(JSON.parse(localStorage.getItem("interests")));
+    if (interests.length) {
       // add active class to the buttons
       const btns = document.querySelectorAll(".home_main_div_btns_btn");
       btns.forEach((btn) => {
@@ -74,8 +72,6 @@ const Home = () => {
     } else {
       interests.push(e.target.innerText);
     }
-    console.log(interests);
-    localStorage.setItem("interests", JSON.stringify(interests));
     // push selected interests to the database
     const updateInterests = async () => {
       try {
@@ -100,9 +96,6 @@ const Home = () => {
         const userInterests = response.data.find(
           (user) => user.username === name
         ).interests;
-        console.log(userInterests);
-        // set the interests in the local storage
-        localStorage.setItem("interests", JSON.stringify(userInterests));
         // set the interests in the state
         setInterests(userInterests);
       } catch (err) {
@@ -117,9 +110,9 @@ const Home = () => {
     <section className="home_sect">
       <header className="login_header">
         <nav>
-          <NavLink to="/" className="link">
+          <Link to="/">
             <img src={logo} alt="logo" className="logo" />
-          </NavLink>
+          </Link>
           <ul>
             <li>
               <NavLink to="/about" className="link">
@@ -147,6 +140,7 @@ const Home = () => {
           Customize your account. Select the topics that interest you below.
           What do you like reading and/or writing about?
         </p>
+        {/* display interests */}
         <div className="home_main_div_btns">
           {btnOptions.sort().map((btn, index) => {
             return (
@@ -161,6 +155,7 @@ const Home = () => {
           })}
         </div>
       </div>
+      {/* next page option */}
       <div className="next_btn_div">
         <button>
           <NavLink to="/stories" className="next_btn">
