@@ -4,7 +4,8 @@ import { useNavigate, Link, NavLink, useLocation } from "react-router-dom";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import Logout from "../../Logout";
 import logo from "../../../Assets/Images/logo.png";
-import { btnOptions } from "../../AppData/Data";
+import { btnOptions } from "../../AppData/data";
+import { getUsers } from "../../AppData/getUsers";
 import "./home.css";
 
 const Home = () => {
@@ -20,35 +21,19 @@ const Home = () => {
   // get the id of logged in user
   const foundId = users?.find((user) => user.username === name)?._id;
 
+  // get users on page load
   useEffect(() => {
-    let isMounted = true;
-    const controller = new AbortController();
-
-    const getUsers = async () => {
-      try {
-        const response = await axiosPrivate.get("/users", {
-          signal: controller.signal,
-        });
-        // console.log(response.data);
-        isMounted && setUsers(response.data);
-      } catch (err) {
-        console.log(err);
-        navigate("/login", { state: { from: location }, replace: true });
-      }
-    };
-
     if (effectRun.current) {
-      getUsers();
+      getUsers(setUsers, axiosPrivate, navigate, location);
     }
 
     return () => {
-      isMounted = false;
-      controller.abort();
       effectRun.current = true;
     };
-    //eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
+  // fetch user interests on page load
   useEffect(() => {
     if (interests.length) {
       // add active class to the buttons
