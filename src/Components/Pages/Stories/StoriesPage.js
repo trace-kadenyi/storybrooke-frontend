@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 import logo from "../../../Assets/Images/logo.png";
 import Logout from "../../Logout";
@@ -10,7 +10,9 @@ const StoriesPage = () => {
     <section className="stories_sect">
       <header className="login_header">
         <nav>
-          <img src={logo} alt="logo" className="logo" />
+          <Link to="/">
+            <img src={logo} alt="logo" className="logo" />
+          </Link>
           <ul>
             <li>
               <NavLink to="/" className="link">
