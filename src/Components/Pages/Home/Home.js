@@ -23,11 +23,16 @@ const Home = () => {
 
   // get users on page load
   useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
+
     if (effectRun.current) {
       getUsers(setUsers, axiosPrivate, navigate, location);
     }
 
     return () => {
+      isMounted = false;
+      controller.abort();
       effectRun.current = true;
     };
     // eslint-disable-next-line

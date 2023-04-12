@@ -12,9 +12,4 @@ export const getUsers = async (setUsers, axiosPrivate, navigate, location) => {
     console.log(err);
     navigate("/login", { state: { from: location }, replace: true });
   }
-
-  return () => {
-    isMounted = false;
-    controller.abort();
-  };
 };
