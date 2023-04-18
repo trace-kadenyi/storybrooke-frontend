@@ -1,0 +1,83 @@
+.share_stories_sect {
+  min-height: 100vh;
+  background: url("../../../../Assets/Images/home.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow-x: auto;
+}
+
+.share_stories_div {
+  /* background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin: 20px;
+  min-width: 80vw;
+  min-height: 60vh; */
+  margin-bottom: 50px;
+  /* border: 2px red solid; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 90vw;
+}
+
+.share_stories_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.story_textarea {
+  padding: 20px;
+  outline: none;
+  margin: 20px auto 50px;
+  letter-spacing: 0.1rem;
+  font-size: 1rem;
+  font-family: sans-serif;
+  line-height: 1.8rem;
+  width: 100%;
+}
+
+.story_textarea::first-letter {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.intro_sect,
+.share_title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #fff;
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 60vw;
+  letter-spacing: 0.05rem;
+  text-align: center;
+  backdrop-filter: blur(10px) saturate(70%);
+}
+
+.intro_sect li {
+  line-height: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.intro_sect h4 {
+  margin-bottom: 10px;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 800px) {
+  .intro_sect,
+  .share_title {
+    max-width: 90vw;
+  }
+}
