@@ -148,7 +148,7 @@ const Home = () => {
       {/* next page option */}
       <div className="next_btn_div">
         <button>
-          <NavLink to="/stories" className="next_btn">
+          <NavLink to="/main" className="next_btn">
             Next
           </NavLink>
         </button>
