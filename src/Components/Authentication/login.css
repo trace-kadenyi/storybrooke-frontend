@@ -106,7 +106,7 @@
   background: #548341;
   color: #fff;
   font-size: 16px;
-  width: 34vw;
+  max-width: 50vw;
   padding: 30px 20px;
 }
 
