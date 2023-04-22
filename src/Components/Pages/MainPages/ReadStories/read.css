@@ -5,7 +5,8 @@
   background-position: center;
   background-repeat: no-repeat;
   overflow-x: auto;
-  background: #092424;
+  /* background: #092424; */
+  background: #548341;
 }
 
 .read_stories_intro {
@@ -14,7 +15,8 @@
   max-width: 60vw;
   margin: 0 auto;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 17px;
+  letter-spacing: 0.06rem;
 }
 
 .read_stories_btns {
@@ -29,16 +31,15 @@
 .read_stories_btn {
   padding: 20px;
   font-size: 1.1rem;
-  border: 2px transparent solid;
-  background: #548341;
-  color: #fff;
+  /* background: #092424; */
+  color: #000;
   min-width: 200px;
   letter-spacing: 0.06rem;
+  border: none;
 }
 
 .read_stories_btn:hover {
-  background: #fff;
+  background: #092424;
   color: #548341;
-  border: 2px #548341 solid;
   font-style: italic;
 }
