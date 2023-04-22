@@ -1,0 +1,9 @@
+.read_stories_sect {
+    min-height: 100vh;
+    /* background: url("../../../../Assets/Images/home.jpg"); */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow-x: auto;
+    background: #092424;
+}
