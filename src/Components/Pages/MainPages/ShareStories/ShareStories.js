@@ -62,6 +62,12 @@ const ShareStories = () => {
       genres.splice(index, 1);
     } else {
       genres.push(e.target.innerText);
+      setGenres(genres);
+    }
+
+    // if genre length is greater than 0
+    if (genres.length > 0) {
+      setGenreResponse("");
     }
     // if genre length is greater than 3, disable the rest of the buttons
     if (genres.length >= 3) {
