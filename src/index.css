@@ -13,3 +13,7 @@ html {
 body {
   overflow: auto;
 }
+
+button {
+  cursor: pointer;
+}

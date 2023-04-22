@@ -1,44 +1,33 @@
-import React, { useEffect, useContext, useState, useRef } from "react";
-import { useNavigate, NavLink, useLocation } from "react-router-dom";
-import { toast } from "react-toastify";
+import React, { useEffect, useState, useRef } from "react";
+import { useNavigate, Link, NavLink, useLocation } from "react-router-dom";
 
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-import AuthContext from "../../../Context/AuthProvider";
-import useLogout from "../../../hooks/useLogout";
+import Logout from "../../Logout";
 import logo from "../../../Assets/Images/logo.png";
+import { btnOptions } from "../../AppData/data";
+import { getUsers } from "../../AppData/getUsers";
 import "./home.css";
 
 const Home = () => {
-  const { setPersist } = useContext(AuthContext);
   const navigate = useNavigate();
-  const logout = useLogout();
   const [interests, setInterests] = useState([]);
   const [users, setUsers] = useState();
   const axiosPrivate = useAxiosPrivate();
   const location = useLocation();
   const effectRun = useRef(false);
 
+  // get the name of the logged in user
   const name = JSON.parse(localStorage.getItem("user"));
+  // get the id of logged in user
+  const foundId = users?.find((user) => user.username === name)?._id;
 
+  // get users on page load
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
 
-    const getUsers = async () => {
-      try {
-        const response = await axiosPrivate.get("/users", {
-          signal: controller.signal,
-        });
-        console.log(response.data);
-        isMounted && setUsers(response.data);
-      } catch (err) {
-        console.log(err);
-        navigate("/login", { state: { from: location }, replace: true });
-      }
-    };
-
     if (effectRun.current) {
-      getUsers();
+      getUsers(setUsers, axiosPrivate, navigate, location);
     }
 
     return () => {
@@ -46,35 +35,12 @@ const Home = () => {
       controller.abort();
       effectRun.current = true;
     };
-    //eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
-  // find id of logged in user
-  const foundId = users?.find((user) => user.username === name)?._id;
-  console.log(foundId);
-
-  const signOut = async () => {
-    showToastMessage();
-    await logout();
-    // clear local storage
-    localStorage.clear();
-    // uncheck the persist checkbox
-    setPersist(false);
-  };
-
-  const showToastMessage = () => {
-    toast.success(
-      `See you later ${JSON.parse(localStorage.getItem("user"))} 👋`,
-      {
-        position: toast.POSITION.TOP_RIGHT,
-        className: "toast-message",
-      }
-    );
-  };
-
+  // fetch user interests on page load
   useEffect(() => {
-    if (localStorage.getItem("interests")) {
-      setInterests(JSON.parse(localStorage.getItem("interests")));
+    if (interests.length) {
       // add active class to the buttons
       const btns = document.querySelectorAll(".home_main_div_btns_btn");
       btns.forEach((btn) => {
@@ -85,6 +51,7 @@ const Home = () => {
     } else {
       setInterests([]);
     }
+    //eslint-disable-next-line
   }, [interests.length]);
 
   const handleClick = (e) => {
@@ -95,8 +62,6 @@ const Home = () => {
     } else {
       interests.push(e.target.innerText);
     }
-    console.log(interests);
-    localStorage.setItem("interests", JSON.stringify(interests));
     // push selected interests to the database
     const updateInterests = async () => {
       try {
@@ -121,9 +86,6 @@ const Home = () => {
         const userInterests = response.data.find(
           (user) => user.username === name
         ).interests;
-        console.log(userInterests);
-        // set the interests in the local storage
-        localStorage.setItem("interests", JSON.stringify(userInterests));
         // set the interests in the state
         setInterests(userInterests);
       } catch (err) {
@@ -131,13 +93,16 @@ const Home = () => {
       }
     };
     getInterests();
+    //eslint-disable-next-line
   }, []);
 
   return (
     <section className="home_sect">
       <header className="login_header">
         <nav>
-          <img src={logo} alt="logo" className="logo" />
+          <Link to="/">
+            <img src={logo} alt="logo" className="logo" />
+          </Link>
           <ul>
             <li>
               <NavLink to="/about" className="link">
@@ -155,9 +120,7 @@ const Home = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/login" className="link" onClick={signOut}>
-                Logout
-              </NavLink>
+              <Logout />
             </li>
           </ul>
         </nav>
@@ -167,101 +130,28 @@ const Home = () => {
           Customize your account. Select the topics that interest you below.
           What do you like reading and/or writing about?
         </p>
+        {/* display interests */}
         <div className="home_main_div_btns">
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Fiction
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Non-Fiction
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Romance
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Thriller
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Who-done-it
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Historical
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Western
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Fantasy
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Paranormal
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Folklore
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Poetry
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Technology
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Politics
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Sports
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Entertainment
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Sci-Fi
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Health
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Travel
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Food
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Fashion
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Art
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Music
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Books
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Education
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            History
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Philosophy
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Psychology
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Religion
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Society
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Environment
-          </button>
-          <button className="home_main_div_btns_btn" onClick={handleClick}>
-            Economics
-          </button>
+          {btnOptions.sort().map((btn, index) => {
+            return (
+              <button
+                key={index}
+                className="home_main_div_btns_btn"
+                onClick={handleClick}
+              >
+                {btn}
+              </button>
+            );
+          })}
         </div>
+      </div>
+      {/* next page option */}
+      <div className="next_btn_div">
+        <button>
+          <NavLink to="/main" className="next_btn">
+            Next
+          </NavLink>
+        </button>
       </div>
     </section>
   );

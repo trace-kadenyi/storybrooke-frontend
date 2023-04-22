@@ -1,0 +1,235 @@
+.share_stories_sect {
+  min-height: 100vh;
+  background: url("../../../../Assets/Images/home.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow-x: auto;
+}
+
+.share_stories_div {
+  margin-bottom: 50px;
+  /* border: 2px red solid; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 90vw;
+}
+
+.share_stories_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  gap: 20px;
+  width: 100%;
+}
+
+.story_textarea_div,
+.story_title_div {
+  width: 100%;
+}
+
+.story_title_div {
+  margin: 0 auto;
+  /* border: 2px red solid; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.title_input {
+  width: 60%;
+  padding: 10px;
+  outline: none;
+  border: none;
+  border-bottom: 6px solid #548341;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.1rem;
+  border-radius: 10px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.story_textarea {
+  padding: 20px 30px;
+  outline: none;
+  margin: 0 auto;
+  letter-spacing: 0.1rem;
+  font-size: 1rem;
+  font-family: sans-serif;
+  line-height: 1.8rem;
+  width: 100%;
+  border-top: 2px dotted #548341;
+  border-left: 2px dotted #548341;
+  border-right: 2px dotted #548341;
+}
+
+.story_textarea::first-letter {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.intro_sect,
+.share_title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #fff;
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 60vw;
+  letter-spacing: 0.05rem;
+  text-align: center;
+  backdrop-filter: blur(10px) saturate(70%);
+}
+
+.intro_sect li {
+  line-height: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.intro_sect h4 {
+  margin-bottom: 10px;
+  text-decoration: underline;
+}
+
+.visible {
+  display: none;
+}
+
+.genre_btns {
+  display: flex;
+  min-height: 30vh;
+  max-width: 60vw;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+  flex-wrap: wrap;
+}
+
+.genre_btn {
+  padding: 10px;
+  border-radius: 10px;
+  min-height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  letter-spacing: 0.07rem;
+}
+
+.selected {
+  background-color: #548341;
+  color: #fff;
+  font-weight: bold;
+}
+
+.hide_label {
+  display: none;
+}
+
+.author_radio {
+  color: #fff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.select_author {
+  letter-spacing: 0.07rem;
+}
+
+.select_genres {
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.07rem;
+}
+
+.genre_selection_btn,
+.share_btn {
+  padding: 10px;
+  border-radius: 10px;
+  min-height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #548341;
+  letter-spacing: 0.07rem;
+  color: #fff;
+  border: 2px transparent solid;
+  font-weight: 900;
+  margin-bottom: 30px;
+}
+
+.genre_selection_btn:hover,
+.share_btn:hover {
+  background-color: #fff;
+  color: #548341;
+  border: 2px solid #548341;
+}
+
+.genre_popup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.publish_opt {
+  text-decoration: underline;
+  font-style: italic;
+  color: #548341;
+}
+
+.radio_inputs {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.individual_author_input {
+  display: flex;
+  gap: 5px;
+  border: 2px solid #548341;
+  padding: 3px;
+  border-radius: 5px;
+  background: #548341;
+}
+
+.individual_author_input label {
+  letter-spacing: 0.08rem;
+}
+
+.individual_author_input input {
+  cursor: pointer;
+}
+
+.publish_response {
+  color: #548341;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 5px;
+  text-align: center;
+  backdrop-filter: blur(10px) saturate(70%);
+}
+
+@media screen and (max-width: 800px) {
+  .intro_sect,
+  .share_title {
+    max-width: 90vw;
+  }
+
+  .title_input {
+    width: 80%;
+  }
+}

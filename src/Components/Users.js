@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
+import { getUsers } from "./AppData/getUsers";
 
 const Users = () => {
   const [users, setUsers] = useState();
@@ -9,34 +10,22 @@ const Users = () => {
   const location = useLocation();
   const effectRun = useRef(false);
 
-  useEffect(() => {
-    let isMounted = true;
-    const controller = new AbortController();
+ // get users on page load
+ useEffect(() => {
+  let isMounted = true;
+  const controller = new AbortController();
 
-    const getUsers = async () => {
-      try {
-        const response = await axiosPrivate.get("/users", {
-          signal: controller.signal,
-        });
-        console.log(response.data);
-        isMounted && setUsers(response.data);
-      } catch (err) {
-        console.log(err);
-        navigate("/login", { state: { from: location }, replace: true });
-      }
-    };
+  if (effectRun.current) {
+    getUsers(setUsers, axiosPrivate, navigate, location);
+  }
 
-    if (effectRun.current) {
-      getUsers();
-    }
-
-    return () => {
-      isMounted = false;
-      controller.abort();
-      effectRun.current = true;
-    };
-        //eslint-disable-next-line
-  }, []);
+  return () => {
+    isMounted = false;
+    controller.abort();
+    effectRun.current = true;
+  };
+  // eslint-disable-next-line
+}, []);
 
   return (
     <article>
