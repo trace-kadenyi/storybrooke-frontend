@@ -39,10 +39,20 @@ const ReadStories = () => {
         </nav>
       </header>
       <div>
-        <h1>Read Stories</h1>
-        <p>
-          Read some of the stories written by the users of this platform. 
+        <>
+        <p className="read_stories_intro">
+          Read some of the stories written by the users of this platform. You can filter the stories by the genre of your choice, your favourite author or the title of the story. You can also explore all the stories by clicking on the "Explore" button. In an effort to customize your account, we have created a page dedicated to stories within the genres/interests you have selected. Click on the "My stories" button to view the stories that are relevant to you.
         </p>
+        </>
+        <div className="read_stories_btns">
+          <button className="read_stories_btn">Explore</button>
+          <button className="read_stories_btn">My stories</button>
+          <button className="read_stories_btn">By genre</button>
+          <button className="read_stories_btn">By author</button>
+          <button className="read_stories_btn">By title</button>
+        </div>
+
+
       </div>
     </section>
   )
