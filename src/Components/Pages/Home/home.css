@@ -30,6 +30,17 @@
   letter-spacing: 0.06rem;
 }
 
+.welcome {
+  color: #fff;
+  font-weight: bold;
+  backdrop-filter: blur(10px) saturate(70%);
+  margin: 20px auto;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  width: max-content;
+  font-size: 2rem;
+}
+
 .home_main_div_btns {
   display: flex;
   min-height: 30vh;
