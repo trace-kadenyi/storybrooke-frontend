@@ -1,9 +1,44 @@
 .read_stories_sect {
-    min-height: 100vh;
-    /* background: url("../../../../Assets/Images/home.jpg"); */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    overflow-x: auto;
-    background: #092424;
+  min-height: 100vh;
+  /* background: url("../../../../Assets/Images/home.jpg"); */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow-x: auto;
+  background: #092424;
+}
+
+.read_stories_intro {
+  color: #fff;
+  text-align: center;
+  max-width: 60vw;
+  margin: 0 auto;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.read_stories_btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 50px;
+  gap: 50px;
+}
+
+.read_stories_btn {
+  padding: 20px;
+  font-size: 1.1rem;
+  border: 2px transparent solid;
+  background: #548341;
+  color: #fff;
+  min-width: 200px;
+  letter-spacing: 0.06rem;
+}
+
+.read_stories_btn:hover {
+  background: #fff;
+  color: #548341;
+  border: 2px #548341 solid;
+  font-style: italic;
 }
