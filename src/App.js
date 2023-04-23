@@ -19,6 +19,7 @@ import PersistLogin from "./Components/PersistLogin";
 import MainPage from "./Components/Pages/MainPages/MainPage/MainPage";
 import ReadStories from "./Components/Pages/MainPages/ReadStories/ReadStories";
 import ShareStories from "./Components/Pages/MainPages/ShareStories/ShareStories";
+import Explore from "./Components/Pages/MainPages/ReadStories/Explore";
 
 const App = () => {
   return (
@@ -60,12 +61,17 @@ const App = () => {
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
-              <Route path="explore" element={<ReadStories />} />
+              <Route path="read" element={<ReadStories />} />
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
               <Route path="share" element={<ShareStories />} />
             </Route>
+
+            <Route element={<RequireAuth allowedRoles={[2001]} />}>
+              <Route path="explore" element={<Explore />} />
+            </Route>
+            
           </Route>
           {/* catch all */}
           <Route path="*" element={<Missing />} />
