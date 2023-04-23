@@ -37,7 +37,7 @@ const MainPage = () => {
         </p>
         <div className="stories_btns">
           <button>
-            <NavLink to="/explore" className="stories_btn">
+            <NavLink to="/read" className="stories_btn">
               Read Stories
             </NavLink>
           </button>
