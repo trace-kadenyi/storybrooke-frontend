@@ -14,8 +14,8 @@
   text-align: center;
   max-width: 60vw;
   margin: 0 auto;
-  font-weight: bold;
-  font-size: 17px;
+  font-weight: 500;
+  /* font-size: 17px; */
   letter-spacing: 0.06rem;
 }
 
@@ -42,4 +42,95 @@
   background: #092424;
   color: #548341;
   font-style: italic;
+}
+
+/* EXPLORE PAGE */
+
+.explore_sect {
+  min-height: 100vh;
+  /* background: url("../../../../Assets/Images/home.jpg"); */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow-x: auto;
+  background: #092424;
+}
+
+.explore_intro {
+  color: #fff;
+  font-weight: bold;
+  margin: 50px auto;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  width: max-content;
+  font-size: 2rem;
+}
+
+.all_stories {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin: 50px;
+  max-width: 80vw;
+  margin: 50px auto;
+  /* border: 2px solid red; */
+}
+
+.individual_story {
+  background: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title_date {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title_author {
+  font-weight: bold;
+  color: #548341;
+  text-decoration: underline;
+}
+
+.story_title {
+  text-transform: uppercase;
+  letter-spacing: 0.07rem;
+}
+
+.story_author {
+  font-style: italic;
+}
+
+.by {
+  font-size: 14px;
+}
+
+.story_date {
+  font-size: 12px;
+}
+
+.story_genres {
+  list-style-type: none;
+  display: flex;
+  gap: 10px;
+}
+
+.story_genre {
+  font-size: 14px;
+}
+
+@media screen and (max-width: 550px) {
+  .title_date {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+  }
+
+  .story_genres {
+    flex-wrap: wrap;
+  }
 }
