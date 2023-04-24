@@ -107,7 +107,7 @@
 .genre_btns {
   display: flex;
   min-height: 30vh;
-  max-width: 60vw;
+  max-width: 100vw;
   gap: 10px;
   justify-content: center;
   align-items: center;
@@ -231,9 +231,5 @@
 
   .title_input {
     width: 80%;
-  }
-
-  .genre_btns {
-    max-width: 100vw;
   }
 }
