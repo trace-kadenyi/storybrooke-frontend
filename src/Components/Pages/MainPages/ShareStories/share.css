@@ -232,4 +232,8 @@
   .title_input {
     width: 80%;
   }
+
+  .genre_btns {
+    max-width: 100vw;
+  }
 }
