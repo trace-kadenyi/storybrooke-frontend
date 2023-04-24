@@ -84,8 +84,8 @@ const Explore = () => {
         <>
           <p className="explore_intro">Explore</p>
           <div className="all_stories">
-            {loading && <p>Loading...</p>}
-            {error && <p>{error.message}</p>}
+            {loading && <p className="loading">Loading...</p>}
+            {error && <p className="error">{error.message}</p>}
             {stories.map((story) => {
               return (
                 <div key={story._id} className="individual_story">
