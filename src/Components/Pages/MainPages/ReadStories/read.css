@@ -123,6 +123,12 @@
   font-size: 14px;
 }
 
+.loading {
+  color: #fff;
+  text-align: center;
+  margin: 100px auto 0;
+}
+
 @media screen and (max-width: 550px) {
   .title_date {
     flex-direction: column;
