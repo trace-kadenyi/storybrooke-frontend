@@ -11,6 +11,7 @@ import "./read.css";
 const FilterByGenre = () => {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedGenre, setSelectedGenre] = useState([]);
   const [missing, setMissing] = useState(false); // for when there are no stories to display
   const [response, setResponse] = useState([]);
   const navigate = useNavigate();
@@ -59,6 +60,43 @@ const FilterByGenre = () => {
     const genre = e.target.innerText;
     console.log(genre);
     handleFetchStories(genre);
+
+    e.target.classList.toggle("selected");
+    if (selectedGenre.includes(e.target.innerText)) {
+      const index = selectedGenre.indexOf(e.target.innerText);
+      selectedGenre.splice(index, 1);
+    } else {
+      selectedGenre.push(e.target.innerText);
+      setSelectedGenre(selectedGenre);
+    }
+
+    // user cannot select more than one genre
+    if (selectedGenre.length === 1) {
+      const genreBtns = document.querySelectorAll(".selected_genre_btn");
+      genreBtns.forEach((btn) => {
+        if (!btn.classList.contains("selected")) {
+          btn.disabled = true;
+        }
+      });
+    } else {
+      const genreBtns = document.querySelectorAll(".selected_genre_btn");
+      genreBtns.forEach((btn) => {
+        btn.disabled = false;
+      });
+    }
+
+    // hide genre div when a genre is selected
+    const genreDiv = document.querySelector(".genre_checkboxes");
+    // add visible at least one button has selected class
+   
+  };
+
+
+  // toggle genre div when the button is clicked
+  const handleBtnClick = (e) => {
+    e.preventDefault();
+    const genreDiv = document.querySelector(".genre_checkboxes");
+    genreDiv.classList.toggle("visible");
   };
 
   return (
@@ -97,19 +135,28 @@ const FilterByGenre = () => {
           </p>
         </>
 
+        {/* toggle genre div when the button is clicked */}
+        <div className="genre_popup">
+          <button className="genre_selection_btn" onClick={handleBtnClick}>
+            Toggle Genre Selection
+          </button>
+        </div>
+
         {/* display interests */}
-        <div className="home_main_div_btns">
-          {btnOptions.sort().map((btn, index) => {
-            return (
-              <button
-                key={index}
-                className="home_main_div_btns_btn"
-                onClick={handleClick}
-              >
-                {btn}
-              </button>
-            );
-          })}
+        <div className="genre_checkboxes">
+          <div className="selected_genre_div_btns">
+            {btnOptions.sort().map((btn, index) => {
+              return (
+                <button
+                  key={index}
+                  className="selected_genre_btn"
+                  onClick={handleClick}
+                >
+                  {btn}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
