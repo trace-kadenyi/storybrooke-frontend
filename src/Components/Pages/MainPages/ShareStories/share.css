@@ -190,6 +190,7 @@
   text-decoration: underline;
   font-style: italic;
   color: #548341;
+  backdrop-filter: blur(10px) saturate(70%);
 }
 
 .radio_inputs {
