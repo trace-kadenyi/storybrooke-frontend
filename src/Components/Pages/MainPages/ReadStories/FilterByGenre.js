@@ -26,7 +26,17 @@ const FilterByGenre = () => {
       setStories(response.data);
       // handle no stories to display
       if (stories.length === 0) {
-        setResponse(`No stories found in this genre. Please select another.`);
+        setResponse(
+          <p>
+            <span>No stories yet in this genre. Follow </span>
+            <span>
+              <Link to="/share" className="write_link">
+                this link
+              </Link>
+            </span>
+            <span> and be the first to share a story in this genre</span>
+          </p>
+        );
       }
       setLoading(false);
     } catch (error) {
@@ -185,7 +195,7 @@ const FilterByGenre = () => {
                 );
               })
             ) : (
-              <p className="response">{response}</p>
+              <div className="by_genre_response">{response}</div>
             )}
           </div>
         </>
