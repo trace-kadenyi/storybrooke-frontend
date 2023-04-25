@@ -134,7 +134,7 @@ const FilterByGenre = () => {
       <div className="home_main_div">
         <>
           <p className="interests">
-            Select the genre of your choice to view stories within that genre.
+            Select the genre of your choice to view stories within that genre
           </p>
         </>
 
