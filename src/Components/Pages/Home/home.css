@@ -61,6 +61,7 @@
   align-items: center;
   background-color: #fff;
   letter-spacing: 0.07rem;
+  cursor: pointer;
 }
 
 .active {
@@ -84,7 +85,6 @@
   border: none;
   font-size: 16px;
   background: #548341;
-  cursor: pointer;
 }
 
 .next_btn {
@@ -95,6 +95,7 @@
   background: #000;
   border-radius: 5px;
   padding: 3px;
+  cursor: pointer;
 }
 
 .next_btn:hover {

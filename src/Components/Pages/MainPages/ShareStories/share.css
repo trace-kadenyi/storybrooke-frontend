@@ -124,6 +124,7 @@
   align-items: center;
   background-color: #fff;
   letter-spacing: 0.07rem;
+  cursor: pointer;
 }
 
 .selected {
@@ -168,6 +169,7 @@
   border: 2px transparent solid;
   font-weight: 900;
   margin-bottom: 30px;
+  cursor: pointer;
 }
 
 .genre_selection_btn:hover,
