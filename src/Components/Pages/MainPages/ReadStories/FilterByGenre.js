@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import Logout from "../../../Logout";
 import logo from "../../../../Assets/Images/logo.png";
@@ -12,11 +11,8 @@ const FilterByGenre = () => {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedGenre, setSelectedGenre] = useState([]);
-  const [missing, setMissing] = useState(false); // for when there are no stories to display
   const [response, setResponse] = useState([]);
   const navigate = useNavigate();
-  const location = useLocation();
-  const effectRun = useRef(false);
   const axiosPrivate = useAxiosPrivate();
 
   const controller = new AbortController();
@@ -27,13 +23,11 @@ const FilterByGenre = () => {
       const response = await axiosPrivate.get(`/story/${genre}`, {
         signal: controller.signal,
       });
-      console.log(response.data);
       setStories(response.data);
       // handle no stories to display
       if (stories.length === 0) {
         setResponse(`No stories found in this genre. Please select another.`);
       }
-      // timeout loading and set message if no stories are found
       setLoading(false);
     } catch (error) {
       if (!error.response) {
@@ -47,7 +41,6 @@ const FilterByGenre = () => {
         }, 3000);
       } else if (error.response.status === 404) {
         setResponse(error.response.data.message);
-        // alert(error.response.data.message);
       } else {
         setResponse("Something went wrong. Please try again");
       }
@@ -58,39 +51,39 @@ const FilterByGenre = () => {
   const handleClick = (e) => {
     e.preventDefault();
     const genre = e.target.innerText;
-    console.log(genre);
     handleFetchStories(genre);
 
     e.target.classList.toggle("selected");
     if (selectedGenre.includes(e.target.innerText)) {
       const index = selectedGenre.indexOf(e.target.innerText);
       selectedGenre.splice(index, 1);
+      setLoading(false);
     } else {
       selectedGenre.push(e.target.innerText);
       setSelectedGenre(selectedGenre);
+      const genreDiv = document.querySelector(".genre_checkboxes");
+      genreDiv.classList.add("visible");
     }
 
     // user cannot select more than one genre
+    const genreBtns = document.querySelectorAll(".selected_genre_btn");
+    const allStories = document.querySelector(".all_stories");
+
     if (selectedGenre.length === 1) {
-      const genreBtns = document.querySelectorAll(".selected_genre_btn");
       genreBtns.forEach((btn) => {
         if (!btn.classList.contains("selected")) {
           btn.disabled = true;
         }
+        allStories.style.display = "flex";
       });
-    } else {
-      const genreBtns = document.querySelectorAll(".selected_genre_btn");
+    } else if (selectedGenre.length === 0) {
       genreBtns.forEach((btn) => {
         btn.disabled = false;
+        // remove the stories on display
+        allStories.style.display = "none";
       });
     }
-
-    // hide genre div when a genre is selected
-    const genreDiv = document.querySelector(".genre_checkboxes");
-    // add visible at least one button has selected class
-   
   };
-
 
   // toggle genre div when the button is clicked
   const handleBtnClick = (e) => {
@@ -164,11 +157,9 @@ const FilterByGenre = () => {
       <div>
         <>
           <div className="all_stories">
-            {loading && <p className="loading">Loading...</p>}
-            {/* {error && <p className="error">No stories to display</p>} */}
-            {/* {missing && <p className="missing">No stories to display</p>} */}
-
-            {stories.length > 0 ? (
+            {loading ? (
+              <p className="load_stories">Loading...</p>
+            ) : stories.length > 0 ? (
               stories.map((story) => {
                 return (
                   <div key={story._id} className="individual_story">
