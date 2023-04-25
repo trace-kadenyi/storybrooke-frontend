@@ -164,6 +164,31 @@
   margin: 0 auto;
 }
 
+.by_genre_response {
+  color: #548341;
+  letter-spacing: 0.07rem;
+  max-width: 60vw;
+  margin: 0 auto;
+  line-height: 1.5rem;
+  font-weight: 900;
+  font-size: 14px;
+  padding: 5px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.write_link {
+  color: #fff;
+  text-decoration: underline;
+  /* font-size: 14px; */
+  /* font-weight: bold; */
+}
+
+.write_link:hover {
+  /* color: #000; */
+  font-style: italic;
+}
+
 @media screen and (max-width: 550px) {
   .title_date {
     flex-direction: column;
