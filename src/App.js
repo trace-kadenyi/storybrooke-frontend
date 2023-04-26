@@ -21,6 +21,7 @@ import ReadStories from "./Components/Pages/MainPages/ReadStories/ReadStories";
 import ShareStories from "./Components/Pages/MainPages/ShareStories/ShareStories";
 import Explore from "./Components/Pages/MainPages/ReadStories/Explore";
 import FilterByGenre from "./Components/Pages/MainPages/ReadStories/FilterByGenre";
+import FilterByTitle from "./Components/Pages/MainPages/ReadStories/FilterByTItle";
 
 const App = () => {
   return (
@@ -75,6 +76,10 @@ const App = () => {
 
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
               <Route path="by_genre" element={<FilterByGenre />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[2001]} />}>
+              <Route path="by_title" element={<FilterByTitle />} />
             </Route>
           </Route>
           {/* catch all */}
