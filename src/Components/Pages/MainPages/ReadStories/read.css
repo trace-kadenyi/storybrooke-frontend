@@ -135,6 +135,8 @@
   display: none;
 }
 
+/* FILTER BY GENRE */
+
 .selected_genre_div_btns {
   display: flex;
   min-height: 30vh;
@@ -189,6 +191,76 @@
   font-style: italic;
 }
 
+/* FILTER BY TITLE */
+
+.title_filter_div {
+  padding: 20px;
+}
+
+.filter_title {
+  color: #fff;
+  font-weight: bold;
+  max-width: 60vw;
+  margin: 20px auto;
+  text-align: center;
+  letter-spacing: 0.06rem;
+}
+
+.title_filter_form_div {
+  /* border: 2px red solid; */
+  min-height: 10vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 80vw;
+  margin: 0 auto;
+}
+
+.title_filter_form {
+  display: flex;
+  /* border: 2px red solid; */
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  /* max-width: 80%; */
+}
+
+.title_filter_input {
+  width: 100%;
+}
+
+.title_filter_input .search_input {
+  padding: 20px;
+  /* border: 2px red solid; */
+  /* width: 600px; */
+  width: 100%;
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  font-size: 1.1rem;
+  letter-spacing: 0.07rem;
+  border-bottom: #548341 6px solid;
+}
+
+.title_filter_submit .search_btn {
+  padding: 20px;
+  border-radius: 50px;
+  font-size: 15px;
+  background: #548341;
+  color: #fff;
+  border: 2px transparent solid;
+  font-weight: bold;
+  letter-spacing: 0.07rem;
+  cursor: pointer;
+}
+
+.title_filter_submit .search_btn:hover {
+  background: #fff;
+  color: #548341;
+  border: 2px #548341 solid;
+}
+
 @media screen and (max-width: 550px) {
   .title_date {
     flex-direction: column;
@@ -198,5 +270,9 @@
 
   .story_genres {
     flex-wrap: wrap;
+  }
+
+  .title_filter_form {
+    flex-direction: column;
   }
 }
