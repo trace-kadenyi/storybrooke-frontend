@@ -133,7 +133,7 @@ const FilterByGenre = () => {
       </header>
       <div className="home_main_div">
         <>
-          <p className="interests">
+          <p className="filter_title">
             Select the genre of your choice to view stories within that genre
           </p>
         </>
