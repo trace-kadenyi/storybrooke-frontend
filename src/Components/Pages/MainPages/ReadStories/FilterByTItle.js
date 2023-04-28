@@ -26,6 +26,7 @@ const FilterByTitle = () => {
       });
       console.log(response.data);
       setStories(response.data);
+      setTitle("");
       // handle no stories to display
       if (stories.length === 0) {
         setResponse(
