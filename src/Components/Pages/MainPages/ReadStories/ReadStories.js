@@ -66,7 +66,12 @@ const ReadStories = () => {
           >
             By genre
           </button>
-          <button className="read_stories_btn">By author</button>
+          <button
+            className="read_stories_btn"
+            onClick={() => navigate("/by_author")}
+          >
+            By author
+          </button>
           <button
             className="read_stories_btn"
             onClick={() => navigate("/by_title")}
