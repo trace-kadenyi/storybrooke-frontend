@@ -261,6 +261,12 @@
   border: 2px #548341 solid;
 }
 
+.title {
+  color: #fff;
+  text-decoration: underline;
+  font-style: italic;
+}
+
 @media screen and (max-width: 550px) {
   .title_date {
     flex-direction: column;
