@@ -102,6 +102,11 @@
   letter-spacing: 0.07rem;
 }
 
+.story_body {
+  max-width: 100%;
+  overflow: hidden;
+}
+
 .story_author {
   font-style: italic;
 }
