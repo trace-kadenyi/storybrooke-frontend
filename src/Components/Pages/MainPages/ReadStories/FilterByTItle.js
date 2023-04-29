@@ -21,7 +21,7 @@ const FilterByTitle = () => {
   const handleFetchStories = async () => {
     try {
       setLoading(true);
-      const response = await axiosPrivate.get(`/story/find/${title}`, {
+      const response = await axiosPrivate.get(`/story/title/${title}`, {
         signal: controller.signal,
       });
       console.log(response.data);
