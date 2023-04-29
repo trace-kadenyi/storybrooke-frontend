@@ -26,7 +26,7 @@ const FilterByAuthor = () => {
   const handleFetchStories = async () => {
     try {
       setLoading(true);
-      const response = await axiosPrivate.get(`/story/${author}`, {
+      const response = await axiosPrivate.get(`/story/author/${author}`, {
         signal: controller.signal,
       });
       console.log(response.data);
