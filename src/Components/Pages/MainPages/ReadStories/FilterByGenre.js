@@ -56,6 +56,10 @@ const FilterByGenre = () => {
       }
       setLoading(false);
     }
+
+    return () => {
+      controller.abort();
+    };
   };
 
   const handleClick = (e) => {

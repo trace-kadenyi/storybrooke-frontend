@@ -17,11 +17,6 @@ const FilterByAuthor = () => {
 
   const controller = new AbortController();
 
-  // capitalize first letter of author name
-  const capitalize = (str) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  };
-
   // handle fetch stories
   const handleFetchStories = async () => {
     try {
@@ -53,6 +48,10 @@ const FilterByAuthor = () => {
       }
       setLoading(false);
     }
+
+    return () => {
+      controller.abort();
+    };
   };
 
   // handle filter by author
