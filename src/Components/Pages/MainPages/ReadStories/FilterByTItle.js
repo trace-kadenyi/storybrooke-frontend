@@ -31,7 +31,7 @@ const FilterByTitle = () => {
       if (stories.length === 0) {
         setResponse(
           <p>
-          No stories found with the title <span className="title">{title}</span>
+            No stories found with this title
           </p>
         );
       }
@@ -52,15 +52,18 @@ const FilterByTitle = () => {
       }
       setLoading(false);
     }
-  };
 
+    return () => {
+      controller.abort();
+    };
+  };
 
   // handle filter by title
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(title)
+    console.log(title);
     handleFetchStories();
-    console.log(stories)
+    console.log(stories);
   };
 
   return (
