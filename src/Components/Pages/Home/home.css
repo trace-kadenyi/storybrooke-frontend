@@ -30,6 +30,10 @@
   letter-spacing: 0.06rem;
 }
 
+.error_toast {
+  background: rgb(122, 9, 9);
+}
+
 .welcome {
   color: #fff;
   font-weight: bold;
