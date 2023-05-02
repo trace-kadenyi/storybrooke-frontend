@@ -67,8 +67,13 @@ const MyStories = () => {
         );
         filteredStories.flat();
         isMounted && setStories(filteredStories.flat());
-        if (filteredStories.length === 0) {
-          setResponse("No stories found");
+        if (stories.length === 0) {
+          setLoading(true);
+          setTimeout(() => {
+            setResponse("No stories found");
+          }, 2000);
+        } else if (stories.length > 0) {
+          setResponse("");
         }
 
         setLoading(false);
@@ -121,7 +126,7 @@ const MyStories = () => {
       </header>
       <>
         <div className="all_stories">
-        <p className="explore_intro">My Stories</p>
+          <p className="explore_intro">My Stories</p>
           {loading && <p className="loading">Loading...</p>}
           {error && <p className="error">{error.message}</p>}
           {stories.map((story) => {
@@ -148,6 +153,13 @@ const MyStories = () => {
               </div>
             );
           })}
+        </div>
+        <div className="by_genre_response">
+          {stories.length === 0 && response === "No stories found" ? (
+            <p className="no_stories">No stories found</p>
+          ) : (
+            ""
+          )}
         </div>
       </>
     </section>
