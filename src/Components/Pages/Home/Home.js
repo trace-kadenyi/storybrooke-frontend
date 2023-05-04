@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, Link, NavLink, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import Logout from "../../Logout";
@@ -96,6 +97,23 @@ const Home = () => {
     //eslint-disable-next-line
   }, []);
 
+  // toast message
+  const showToastMessage = () => {
+    toast.error(`Please select at least one interest to continue.`, {
+      position: toast.POSITION.TOP_RIGHT,
+      className: "toast-message error_toast",
+    });
+  };
+
+  // next page option
+  const nextPageOption = () => {
+    if (interests.length) {
+      navigate("/main");
+    } else {
+      showToastMessage();
+    }
+  };
+
   return (
     <section className="home_sect">
       <header className="login_header">
@@ -126,10 +144,14 @@ const Home = () => {
         </nav>
       </header>
       <div className="home_main_div">
-        <p className="interests">
-          Customize your account. Select the topics that interest you below.
-          What do you like reading and/or writing about?
-        </p>
+        <>
+          <p className="welcome">Welcome! </p> <br />
+          <p className="interests">
+            Customize your account. Select the topics that interest you below.
+            What do you like reading and/or writing about?
+          </p>
+        </>
+
         {/* display interests */}
         <div className="home_main_div_btns">
           {btnOptions.sort().map((btn, index) => {
@@ -148,9 +170,9 @@ const Home = () => {
       {/* next page option */}
       <div className="next_btn_div">
         <button>
-          <NavLink to="/main" className="next_btn">
+          <span className="next_btn" onClick={nextPageOption}>
             Next
-          </NavLink>
+          </span>
         </button>
       </div>
     </section>

@@ -30,6 +30,21 @@
   letter-spacing: 0.06rem;
 }
 
+.error_toast {
+  background: rgb(122, 9, 9);
+}
+
+.welcome {
+  color: #fff;
+  font-weight: bold;
+  backdrop-filter: blur(10px) saturate(70%);
+  margin: 20px auto;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  width: max-content;
+  font-size: 2rem;
+}
+
 .home_main_div_btns {
   display: flex;
   min-height: 30vh;
@@ -50,6 +65,7 @@
   align-items: center;
   background-color: #fff;
   letter-spacing: 0.07rem;
+  cursor: pointer;
 }
 
 .active {
@@ -73,7 +89,6 @@
   border: none;
   font-size: 16px;
   background: #548341;
-  cursor: pointer;
 }
 
 .next_btn {
@@ -84,6 +99,7 @@
   background: #000;
   border-radius: 5px;
   padding: 3px;
+  cursor: pointer;
 }
 
 .next_btn:hover {

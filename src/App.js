@@ -19,6 +19,11 @@ import PersistLogin from "./Components/PersistLogin";
 import MainPage from "./Components/Pages/MainPages/MainPage/MainPage";
 import ReadStories from "./Components/Pages/MainPages/ReadStories/ReadStories";
 import ShareStories from "./Components/Pages/MainPages/ShareStories/ShareStories";
+import Explore from "./Components/Pages/MainPages/ReadStories/Explore";
+import FilterByGenre from "./Components/Pages/MainPages/ReadStories/FilterByGenre";
+import FilterByTitle from "./Components/Pages/MainPages/ReadStories/FilterByTItle";
+import FilterByAuthor from "./Components/Pages/MainPages/ReadStories/FilterByAuthor";
+import MyStories from "./Components/Pages/MainPages/ReadStories/MyStories";
 
 const App = () => {
   return (
@@ -60,11 +65,31 @@ const App = () => {
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
-              <Route path="explore" element={<ReadStories />} />
+              <Route path="read" element={<ReadStories />} />
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
               <Route path="share" element={<ShareStories />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[2001]} />}>
+              <Route path="explore" element={<Explore />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[2001]} />}>
+              <Route path="by_genre" element={<FilterByGenre />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[2001]} />}>
+              <Route path="by_title" element={<FilterByTitle />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[2001]} />}>
+              <Route path="by_author" element={<FilterByAuthor />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[2001]} />}>
+              <Route path="my_stories" element={<MyStories />} />
             </Route>
           </Route>
           {/* catch all */}

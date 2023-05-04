@@ -235,7 +235,7 @@ const ShareStories = () => {
               placeholder="Title"
               required
               value={title}
-              onChange={(e) => setTitle(capitalize(e.target.value))}
+              onChange={(e) => setTitle(e.target.value)}
               className="title_input"
             />
           </div>
@@ -324,10 +324,6 @@ const ShareStories = () => {
               required
               value={story}
               onChange={(e) => setStory(capitalize(e.target.value))}
-              // trigger the capitalize function on every keypress
-              onKeyPress={(e) => {
-                e.target.value = capitalize(e.target.value);
-              }}
             ></textarea>
           </div>
           {/* response message */}

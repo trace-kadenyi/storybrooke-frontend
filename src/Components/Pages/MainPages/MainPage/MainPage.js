@@ -32,13 +32,12 @@ const MainPage = () => {
       </header>
       <div className="stories_div">
         <p className="interests stories_title">
-          Welcome!
-          <br /> This is where you can read stories from the community or share
-          your own stories. Click either of the buttons below to get started.
+          Some people are writers, some are readers. And some are both.<br/> On this platform, you will be accommodated just as you are. You may choose to read stories from the community or share your own stories. Even better, you can do both. <br /> Click either of the buttons below to get started.
+         
         </p>
         <div className="stories_btns">
           <button>
-            <NavLink to="/explore" className="stories_btn">
+            <NavLink to="/read" className="stories_btn">
               Read Stories
             </NavLink>
           </button>
