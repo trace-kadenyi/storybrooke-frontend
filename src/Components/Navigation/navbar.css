@@ -1,0 +1,23 @@
+.main_navbar {
+  background: #092424;
+}
+
+.main_navbar ul {
+  display: flex;
+  justify-content: flex-end;
+  gap: 30px;
+  padding: 10px 15px;
+  list-style-type: none;
+  font-size: 14px;
+}
+
+.main_link {
+  text-decoration: none;
+  color: #fff;
+}
+
+.main_link:hover {
+  text-decoration: overline;
+  font-style: italic;
+  text-decoration-color: #548341;
+}
