@@ -108,6 +108,16 @@
   font-style: italic;
 }
 
+.home_logo_link {
+  cursor: auto;
+}
+.home_logo {
+  width: 100px;
+  height: 100px;
+  margin: 20px auto;
+  border-radius: 50%;
+}
+
 @media screen and (max-width: 768px) {
   .home_main_div_btns {
     max-width: 100vw;

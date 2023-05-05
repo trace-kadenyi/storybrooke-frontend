@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import MainNavbar from "../../../Navigation/MainNavbar";
 import Logout from "../../../Logout";
 import logo from "../../../../Assets/Images/logo.png";
 import { btnOptions } from "../../../AppData/data";
@@ -172,31 +173,12 @@ const ShareStories = () => {
 
   return (
     <section className="share_stories_sect">
+      <MainNavbar />
       <header className="login_header">
         <nav>
           <Link to="/">
             <img src={logo} alt="logo" className="logo" />
           </Link>
-          <ul>
-            <li>
-              <NavLink to="/" className="link">
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/about" className="link">
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/main" className="link">
-                Main
-              </NavLink>
-            </li>
-            <li>
-              <Logout />
-            </li>
-          </ul>
         </nav>
       </header>
       <h2 className="share_title">

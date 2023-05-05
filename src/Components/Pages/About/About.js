@@ -18,13 +18,8 @@ const About = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/login" className="link">
-                Login
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/register" className="link">
-                Register
+              <NavLink to="/main" className="link">
+                Main
               </NavLink>
             </li>
           </ul>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 
+import MainNavbar from "../../../Navigation/MainNavbar";
 import Logout from "../../../Logout";
 import logo from "../../../../Assets/Images/logo.png";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
@@ -29,11 +30,7 @@ const FilterByTitle = () => {
       setTitle("");
       // handle no stories to display
       if (stories.length === 0) {
-        setResponse(
-          <p>
-            No stories found with this title
-          </p>
-        );
+        setResponse(<p>No stories found with this title</p>);
       }
       setLoading(false);
     } catch (error) {
@@ -68,31 +65,12 @@ const FilterByTitle = () => {
 
   return (
     <section className="explore_sect">
+      <MainNavbar />
       <header className="login_header">
         <nav>
           <Link to="/">
             <img src={logo} alt="logo" className="logo" />
           </Link>
-          <ul>
-            <li>
-              <NavLink to="/" className="link">
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/about" className="link">
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/main" className="link">
-                Main
-              </NavLink>
-            </li>
-            <li>
-              <Logout />
-            </li>
-          </ul>
         </nav>
       </header>
       <div className="title_filter_div">
