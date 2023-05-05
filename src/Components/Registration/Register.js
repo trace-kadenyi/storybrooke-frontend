@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import axios from "../../Api/axios";
-import logo from "../../Assets/Images/logo.png"
+import logo from "../../Assets/Images/logo.png";
 import "./register.css";
 
 const Register = () => {
@@ -76,17 +76,8 @@ const Register = () => {
     <section className="registration">
       <header className="login_header">
         <nav>
-          <img
-            src={logo}
-            alt="logo"
-            className="logo"
-          />
+          <img src={logo} alt="logo" className="logo" />
           <ul>
-            <li>
-              <NavLink to="/about" className="link">
-                About
-              </NavLink>
-            </li>
             <li>
               <NavLink to="/login" className="link">
                 Login
