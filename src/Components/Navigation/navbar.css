@@ -5,6 +5,7 @@
 .main_navbar ul {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   gap: 30px;
   padding: 10px 15px;
   list-style-type: none;
@@ -20,4 +21,29 @@
   text-decoration: overline;
   font-style: italic;
   text-decoration-color: #548341;
+}
+
+.logout_icon {
+  color: red;
+  font-size: 1.5rem;
+}
+
+.logout_navlink {
+  text-decoration: none;
+}
+
+.logout_span {
+  color: #fff;
+  visibility: hidden;
+  opacity: 0;
+  font-size: 0.7rem;
+  font-style: italic;
+  color: red;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.logout_navlink:hover .logout_span {
+  visibility: visible;
+  opacity: 1;
 }
