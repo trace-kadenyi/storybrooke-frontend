@@ -79,7 +79,7 @@ const Register = () => {
           <img src={logo} alt="logo" className="logo" />
           <ul>
             <li>
-              <NavLink to="/login" className="link">
+              <NavLink to="/login" className="link register_link">
                 Login
               </NavLink>
             </li>
