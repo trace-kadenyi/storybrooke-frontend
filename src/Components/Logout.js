@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
+import { AiOutlineLogout } from "react-icons/ai";
 
 import useLogout from "../hooks/useLogout";
 import AuthContext from "../Context/AuthProvider";
@@ -28,9 +29,10 @@ const Logout = () => {
     );
   };
   return (
-      <NavLink to="/login" className="link" onClick={signOut}>
-        Logout
-      </NavLink>
+    <NavLink to="/login" onClick={signOut} className="logout_navlink">
+      <AiOutlineLogout className="logout_icon" />
+      <span className="logout_span">Logout</span>
+    </NavLink>
   );
 };
 

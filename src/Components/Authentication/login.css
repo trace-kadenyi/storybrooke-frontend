@@ -41,6 +41,16 @@
   color: white;
 }
 
+.register_link {
+  background: #548341;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.register_link:hover {
+  text-decoration: underline;
+}
+
 .link:hover {
   background: #548341;
   padding: 10px;

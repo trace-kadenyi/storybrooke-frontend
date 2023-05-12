@@ -83,12 +83,7 @@ const Login = () => {
           <img src={logo} alt="logo" className="logo" />
           <ul>
             <li>
-              <NavLink to="/about" className="link">
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/register" className="link">
+              <NavLink to="/register" className="link register_link">
                 Register
               </NavLink>
             </li>
@@ -149,7 +144,6 @@ const Login = () => {
               Login
             </button>
           </div>
-         
         </form>
       </div>
     </section>

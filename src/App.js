@@ -35,13 +35,16 @@ const App = () => {
           <Route path="register" element={<Registration />} />
           <Route path="login" element={<Login />} />
           <Route path="linkpage" element={<LinkPage />} />
-          <Route path="about" element={<About />} />
           <Route path="unauthorized" element={<Unauthorized />} />
 
           {/* private routes */}
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
               <Route path="/" element={<Home />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[2001]} />}>
+              <Route path="/about" element={<About />} />
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[1984]} />}>

@@ -48,7 +48,7 @@
 .home_main_div_btns {
   display: flex;
   min-height: 30vh;
-  max-width: 60vw;
+  max-width: 80vw;
   gap: 10px;
   justify-content: center;
   align-items: center;
@@ -106,6 +106,16 @@
   color: #000;
   background: #fff;
   font-style: italic;
+}
+
+.home_logo_link {
+  cursor: auto;
+}
+.home_logo {
+  width: 100px;
+  height: 100px;
+  margin: 20px auto;
+  border-radius: 50%;
 }
 
 @media screen and (max-width: 768px) {

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, Link, NavLink, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import MainNavbar from "../../Navigation/MainNavbar";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import Logout from "../../Logout";
 import logo from "../../../Assets/Images/logo.png";
@@ -116,31 +117,12 @@ const Home = () => {
 
   return (
     <section className="home_sect">
+      {/* <MainNavbar /> */}
       <header className="login_header">
         <nav>
-          <Link to="/">
-            <img src={logo} alt="logo" className="logo" />
+          <Link to="/" className="home_logo_link">
+            <img src={logo} alt="logo" className="home_logo" />
           </Link>
-          <ul>
-            <li>
-              <NavLink to="/about" className="link">
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/editor" className="link">
-                Editor
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/Admin" className="link">
-                Admin
-              </NavLink>
-            </li>
-            <li>
-              <Logout />
-            </li>
-          </ul>
         </nav>
       </header>
       <div className="home_main_div">
