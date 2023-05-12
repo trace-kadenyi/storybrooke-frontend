@@ -1,0 +1,87 @@
+.profile_sect {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow-x: auto;
+  background: #092424;
+  position: relative;
+}
+
+.cover_div {
+  background: url("../../../Assets/Images/profile/5.jpg");
+  height: 30vh;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.user_card {
+  background: #fff;
+  min-height: 100px;
+  width: 70vw;
+  margin: 0 50px;
+  display: flex;
+  padding: 0 20px;
+  gap: 10px;
+  border-radius: 20px;
+  flex-direction: column;
+}
+
+.user_card_div {
+  display: flex;
+  gap: 20px;
+}
+
+.prof_pic {
+  border-radius: 50%;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  margin: -80px auto 0;
+}
+
+.bio {
+  font-size: 14px;
+  padding: 7px;
+}
+
+.profile_username {
+  font-weight: bold;
+  font-size: 16px;
+  font-style: italic;
+  text-decoration: underline;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+    font-family: cursive;
+  justify-content: flex-end;
+  align-self: flex-end;
+  margin-bottom: 10px;
+  letter-spacing: 0.05rem;
+}
+
+.profile_content_main_div {
+  margin: 20px 50px;
+  color: #fff;
+}
+
+@media screen and (max-width: 700px) {
+  .user_card {
+    flex-direction: column;
+    align-items: center;
+    width: 90vw;
+    margin: 0 auto;
+    gap: 10px;
+  }
+
+  .user_card_div {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .bio {
+    text-align: center;
+  }
+}
