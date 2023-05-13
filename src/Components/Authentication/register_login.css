@@ -1,0 +1,155 @@
+.registration {
+  min-height: 100vh;
+  background: url("../../Assets/Images/landing.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow-x: auto;
+}
+
+.login_header {
+  margin: 20px;
+  height: 70px;
+}
+
+.login_header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.login_header ul {
+  display: flex;
+  list-style-type: none;
+  gap: 20px;
+  padding: 20px;
+}
+
+.login_header li {
+  font-size: 16px;
+  width: 70px;
+  height: 30px;
+  backdrop-filter: blur(10px) saturate(70%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+}
+
+.register_link {
+  background: #548341;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.register_link:hover {
+  text-decoration: underline;
+}
+
+.link:hover {
+  background: #548341;
+  padding: 10px;
+}
+
+.logo {
+  width: auto;
+  height: 50px;
+  /* height: 50px; */
+  border-radius: 50%;
+}
+
+.login_sect {
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px red solid; */
+}
+
+.response {
+  color: red;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 5px;
+  text-align: center;
+  backdrop-filter: blur(10px) saturate(70%);
+}
+
+.register_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px red solid; */
+  min-width: 50%;
+  padding: 20px;
+  margin: 20px;
+}
+
+.register_form .input,
+.submit {
+  margin: 10px auto;
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  outline: none;
+  border: 3px solid #548341;
+}
+
+.submit {
+  cursor: pointer;
+  border: 3px solid #548341;
+  letter-spacing: 0.07rem;
+  font-size: 15px;
+  height: 40px;
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+}
+
+.submit:hover {
+  background: #548341;
+  color: #fff;
+}
+
+.label {
+  display: none;
+}
+
+.toast-message {
+  background: #548341;
+  color: #fff;
+  font-size: 16px;
+  max-width: 50vw;
+  padding: 30px 20px;
+}
+
+[type="checkbox"] {
+  height: 20px;
+  width: 20px;
+  margin: 0 5px 2px 2px;
+  color: #548341;
+}
+
+.devise_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.devise {
+  background: #548341;
+  padding: 4px;
+  border-radius: 10px;
+  letter-spacing: 0.07rem;
+  font-size: 14px;
+}
+
+.devise-checked:checked {
+  background: #548341;
+}
