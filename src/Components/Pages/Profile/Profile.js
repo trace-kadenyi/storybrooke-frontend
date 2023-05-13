@@ -127,13 +127,13 @@ const Profile = () => {
               className={active === 1 ? "tabs active_tabs" : "tabs"}
               onClick={() => handleTabs(1)}
             >
-              My Interests
+              {currentUser}'s Interests
             </button>
             <button
               className={active === 2 ? "tabs active_tabs" : "tabs"}
               onClick={() => handleTabs(2)}
             >
-              My Stories
+              {currentUser}'s Stories
             </button>
           </div>
 
