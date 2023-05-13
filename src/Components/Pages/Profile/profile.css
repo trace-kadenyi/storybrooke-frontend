@@ -54,16 +54,104 @@
   text-decoration: underline;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
-    font-family: cursive;
+  font-family: cursive;
   justify-content: flex-end;
   align-self: flex-end;
   margin-bottom: 10px;
   letter-spacing: 0.05rem;
+  /* color: #548341; */
 }
 
 .profile_content_main_div {
   margin: 20px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 70vw;
+}
+
+.profile_interests_list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile_interests_list p {
+  padding: 10px;
+  background: #548341;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  width: max-content;
+  margin: 5px;
+}
+
+.links_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.content_para {
+  font-family: "Lato", sans-serif;
+  letter-spacing: 0.08rem;
+  line-height: 1.3rem;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  outline: none;
+  cursor: pointer;
+  background: #fff;
+  width: 160px;
+  height: 50px;
+  letter-spacing: 0.05rem;
+  border: 2px #548341 solid;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-radius: 10px;
+}
+
+.tabs:hover {
+  text-decoration: underline;
+  font-style: italic;
+  letter-spacing: 0.07rem;
+}
+
+.active_tabs {
+  background: #548341;
+  border: 2px #fff solid;
+}
+
+.active_tabs::before {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 2px;
+}
+
+.content {
+  position: absolute;
+  clip-path: circle(0% at 50% 50%);
+}
+
+.active_content {
+  padding: 20px;
+  width: 100%;
+  display: none;
   color: #fff;
+  display: block;
+  clip-path: circle(100% at 50% 50%);
+  transition: 2s;
+  transition-property: clip-path;
 }
 
 @media screen and (max-width: 700px) {
@@ -83,5 +171,21 @@
 
   .bio {
     text-align: center;
+  }
+
+  .profile_content_main_div {
+    margin: 20px auto;
+  }
+
+  .profile_content_main_div {
+    min-width: 90vw;
+  }
+
+  .links_container {
+    gap: 10px;
+  }
+
+  .tabs {
+    max-width: 100px;
   }
 }
