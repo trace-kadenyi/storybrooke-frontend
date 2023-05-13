@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
 import logo from "../../Assets/Images/logo.png";
 
-import "./login.css";
+import "./register_login.css";
 
 import axios from "../../Api/axios";
 const LOGIN_URL = "/auth";
@@ -54,7 +54,7 @@ const Login = () => {
       } else if (error.response.status === 400) {
         setResponse("Both username and password are required");
       } else if (error.response.status === 404) {
-        setResponse("User not found");
+        setResponse("Username not found");
       } else {
         setResponse("Something went wrong");
       }
