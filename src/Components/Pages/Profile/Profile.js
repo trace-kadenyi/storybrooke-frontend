@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 
 import MainNavbar from "../../Navigation/MainNavbar";
-import logo from "../../../Assets/Images/logo.png";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import "./profile.css";
 
 const Profile = () => {
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+
   const [profileInterests, setProfileInterests] = useState([]);
+  const [bio, setBio] = useState("");
+  const [profPic, setProfPic] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState(currentUser);
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState("");
@@ -14,8 +20,58 @@ const Profile = () => {
   const axiosPrivate = useAxiosPrivate();
   const [active, setActive] = useState(0);
 
-  const currentUser = JSON.parse(localStorage.getItem("user"));
   const controller = new AbortController();
+
+  // create profile
+ 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const userProfile = {
+     firstName,
+      lastName,
+      username,
+      bio,
+      profPic,
+    };
+    console.log(userProfile);
+   
+    try {
+      const response = await axiosPrivate.post("/story", userProfile);
+      console.log(response.data);
+      setFirstName("");
+      setLastName("");
+      setUsername("");
+      setBio("");
+
+      // shift focus to top of page
+      // window.scrollTo(0, 0);
+
+      // show toast message
+      // showToastMessage(response.data.message);
+    } catch (error) {
+      if (!error.response) {
+        setResponse("No server response");
+      } else if (error.response.status === 401) {
+        setResponse("Unauthorized");
+        alert("Unauthorized. Please log in again.");
+        // redirect to login page in 3 seconds
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 3000);
+      } else if (error.response.status === 400) {
+        setResponse(error.response.data.message);
+        // alert(error.response.data.message);
+      } else if(error.response.status === 404){
+        setResponse(error.response.data.message);
+      }
+      else {
+        setResponse("Something went wrong. Please try again");
+      }
+    }
+  };
+
+
 
   // fetch interests from user
   useEffect(() => {
