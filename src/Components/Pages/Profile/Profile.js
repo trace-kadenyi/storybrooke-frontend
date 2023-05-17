@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { AiFillEdit } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 import MainNavbar from "../../Navigation/MainNavbar";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
@@ -6,6 +8,7 @@ import "./profile.css";
 
 const Profile = () => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
 
   const [profileInterests, setProfileInterests] = useState([]);
   const [bio, setBio] = useState("");
@@ -167,6 +170,11 @@ const Profile = () => {
     };
   };
 
+  // handle edit click
+  const handleEditClick = () => {
+    navigate("/update_profile");
+  };
+
   return (
     <section className="profile_sect">
       <MainNavbar />
@@ -186,6 +194,10 @@ const Profile = () => {
                 className="prof_pic"
                 alt="user_img"
               />
+            </div>
+            <div className="edit_icon_div">
+              {/* edit icon */}
+              <AiFillEdit className="edit_icon" onClick={handleEditClick} />
             </div>
             <div className="bio">
               <p>{bio}</p>
