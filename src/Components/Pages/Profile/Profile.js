@@ -12,7 +12,8 @@ const Profile = () => {
   const [profPic, setProfPic] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState(currentUser);
+  const [username, setUsername] = useState("");
+  const [dateJoined, setDateJoined] = useState("");
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState("");
@@ -23,55 +24,74 @@ const Profile = () => {
   const controller = new AbortController();
 
   // create profile
- 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    const userProfile = {
-     firstName,
-      lastName,
-      username,
-      bio,
-      profPic,
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   const userProfile = {
+  //    firstName,
+  //     lastName,
+  //     username,
+  //     bio,
+  //     profPic,
+  //   };
+  //   console.log(userProfile);
+
+  //   try {
+  //     const response = await axiosPrivate.post("/story", userProfile);
+  //     console.log(response.data);
+  //     setFirstName("");
+  //     setLastName("");
+  //     setUsername("");
+  //     setBio("");
+
+  //     // shift focus to top of page
+  //     // window.scrollTo(0, 0);
+
+  //     // show toast message
+  //     // showToastMessage(response.data.message);
+  //   } catch (error) {
+  //     if (!error.response) {
+  //       setResponse("No server response");
+  //     } else if (error.response.status === 401) {
+  //       setResponse("Unauthorized");
+  //       alert("Unauthorized. Please log in again.");
+  //       // redirect to login page in 3 seconds
+  //       setTimeout(() => {
+  //         window.location.href = "/login";
+  //       }, 3000);
+  //     } else if (error.response.status === 400) {
+  //       setResponse(error.response.data.message);
+  //       // alert(error.response.data.message);
+  //     } else if(error.response.status === 404){
+  //       setResponse(error.response.data.message);
+  //     }
+  //     else {
+  //       setResponse("Something went wrong. Please try again");
+  //     }
+  //   }
+  // };
+
+  // fetch profile details
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await axiosPrivate.get(`/profile/${currentUser}`);
+        console.log(response.data);
+        setFirstName(response.data.firstName);
+        setLastName(response.data.lastName);
+        setUsername(response.data.username);
+        setBio(response.data.bio);
+        setProfPic(response.data.profPic);
+        setDateJoined(response.data.dateJoined);
+      } catch (err) {
+        console.log(err);
+        setError(error);
+      }
     };
-    console.log(userProfile);
-   
-    try {
-      const response = await axiosPrivate.post("/story", userProfile);
-      console.log(response.data);
-      setFirstName("");
-      setLastName("");
-      setUsername("");
-      setBio("");
-
-      // shift focus to top of page
-      // window.scrollTo(0, 0);
-
-      // show toast message
-      // showToastMessage(response.data.message);
-    } catch (error) {
-      if (!error.response) {
-        setResponse("No server response");
-      } else if (error.response.status === 401) {
-        setResponse("Unauthorized");
-        alert("Unauthorized. Please log in again.");
-        // redirect to login page in 3 seconds
-        setTimeout(() => {
-          window.location.href = "/login";
-        }, 3000);
-      } else if (error.response.status === 400) {
-        setResponse(error.response.data.message);
-        // alert(error.response.data.message);
-      } else if(error.response.status === 404){
-        setResponse(error.response.data.message);
-      }
-      else {
-        setResponse("Something went wrong. Please try again");
-      }
-    }
-  };
-
-
+    fetchProfile();
+    //eslint-disable-next-line
+  }, []);
 
   // fetch interests from user
   useEffect(() => {
@@ -158,22 +178,21 @@ const Profile = () => {
           <div className="user_card_div">
             <div className="user_img">
               <img
-                src="https://www.w3schools.com/howto/img_avatar.png"
+                src={
+                  profPic
+                    ? profPic
+                    : "https://www.w3schools.com/howto/img_avatar.png"
+                }
                 className="prof_pic"
                 alt="user_img"
               />
             </div>
             <div className="bio">
-              <p>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-                commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-                penatibus et magnis dis parturient montes, nascetur ridiculus
-                mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.
-              </p>
+              <p>{bio}</p>
             </div>
           </div>
           <div className="profile_username">
-            <h4>{currentUser}</h4>
+            <h4>{username}</h4>
           </div>
         </div>
         {/* profile contents */}
