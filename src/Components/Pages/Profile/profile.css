@@ -56,6 +56,15 @@
   margin: -80px auto 0;
 }
 
+.user_img_default {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  margin: -80px auto 0;
+}
+
 .bio {
   font-size: 14px;
   padding: 7px;
