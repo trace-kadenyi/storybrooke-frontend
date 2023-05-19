@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import MainNavbar from "../../Navigation/MainNavbar";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
@@ -11,65 +12,12 @@ const UpdateProfile = () => {
 
   const [bio, setBio] = useState("");
   const [profPic, setProfPic] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
-  const [dateJoined, setDateJoined] = useState("");
-  const [stories, setStories] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState("");
   const [error, setError] = useState(null);
   const axiosPrivate = useAxiosPrivate();
-  const [active, setActive] = useState(0);
 
   const controller = new AbortController();
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   const userProfile = {
-  //    firstName,
-  //     lastName,
-  //     username,
-  //     bio,
-  //     profPic,
-  //   };
-  //   console.log(userProfile);
-
-  //   try {
-  //     const response = await axiosPrivate.post("/story", userProfile);
-  //     console.log(response.data);
-  //     setFirstName("");
-  //     setLastName("");
-  //     setUsername("");
-  //     setBio("");
-
-  //     // shift focus to top of page
-  //     // window.scrollTo(0, 0);
-
-  //     // show toast message
-  //     // showToastMessage(response.data.message);
-  //   } catch (error) {
-  //     if (!error.response) {
-  //       setResponse("No server response");
-  //     } else if (error.response.status === 401) {
-  //       setResponse("Unauthorized");
-  //       alert("Unauthorized. Please log in again.");
-  //       // redirect to login page in 3 seconds
-  //       setTimeout(() => {
-  //         window.location.href = "/login";
-  //       }, 3000);
-  //     } else if (error.response.status === 400) {
-  //       setResponse(error.response.data.message);
-  //       // alert(error.response.data.message);
-  //     } else if(error.response.status === 404){
-  //       setResponse(error.response.data.message);
-  //     }
-  //     else {
-  //       setResponse("Something went wrong. Please try again");
-  //     }
-  //   }
-  // };
 
   // fetch profile details
   useEffect(() => {
@@ -77,12 +25,9 @@ const UpdateProfile = () => {
       try {
         const response = await axiosPrivate.get(`/profile/${currentUser}`);
         console.log(response.data);
-        setFirstName(response.data.firstName);
-        setLastName(response.data.lastName);
         setUsername(response.data.username);
         setBio(response.data.bio);
         setProfPic(response.data.profilePicture);
-        setDateJoined(response.data.dateJoined);
       } catch (err) {
         console.log(err);
         setError(error);
@@ -92,16 +37,75 @@ const UpdateProfile = () => {
     //eslint-disable-next-line
   }, []);
 
+  const showToastMessage = () => {
+    toast.success(
+      `
+    ${
+      username === currentUser
+        ? "Profile successfully updated"
+        : "Profile successfully updated. Please log in again with your new username"
+    }`,
+      {
+        position: toast.POSITION.TOP_RIGHT,
+        className: "toast-message",
+      }
+    );
+  };
+
+  // update profile
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const userProfile = {
+      username,
+      bio,
+      profPic,
+    };
+    console.log(userProfile);
+
+    try {
+      const response = await axiosPrivate.put(
+        `/profile/${currentUser}`,
+        userProfile
+      );
+      console.log(response.data);
+      showToastMessage();
+      // if username is changed, navigate to login page else navigate to profile page in 3 seconds
+      if (username === currentUser) {
+        setTimeout(() => {
+          navigate("/profile");
+        }, 3000);
+      } else {
+        navigate("/login");
+      }
+    } catch (error) {
+      if (!error.response) {
+        setResponse("No server response");
+      } else if (error.response.status === 401) {
+        setResponse("Unauthorized");
+        alert("Unauthorized. Please log in again.");
+        // redirect to login page in 3 seconds
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 3000);
+      } else if (error.response.status === 400) {
+        setResponse(error.response.data.message);
+      } else {
+        setResponse("Something went wrong. Please try again");
+      }
+    }
+  };
+
   return (
     <section className="profile_sect">
       <MainNavbar />
       <div className="main_div">
-        <form className="update_form">
+        <form className="update_form" onSubmit={handleSubmit}>
           {/* cover image */}
           <div className="cover_div"></div>
           {/* card with profile details */}
           <div className="user_card">
-            <div className="user_card_div">
+            <div className="user_card_div input_card_div">
               {/* update image */}
               <div className="user_img">
                 <img src={profPic} alt="profile" className="prof_pic" />
@@ -114,7 +118,6 @@ const UpdateProfile = () => {
                     name="profilePicture"
                     id="profilePicture"
                     className="inputfile"
-                    // onChange={(e) => setProfPic(e.target.files[0])}
                     onChange={(e) => {
                       const file = e.target.files[0];
                       const reader = new FileReader();
@@ -131,15 +134,48 @@ const UpdateProfile = () => {
               </div>
 
               {/* update bio */}
-              <div className="bio">
-                <p>{bio}</p>
+              <div className="bio_input_div">
+                <label htmlFor="bio" className="label">
+                  bio
+                </label>
+                <textarea
+                  type="text"
+                  minLength={10}
+                  maxLength={250}
+                  name="bio"
+                  id="bio"
+                  className="bio_input"
+                  value={bio}
+                  autoFocus={true}
+                  onChange={(e) => setBio(e.target.value)}
+                />
               </div>
             </div>
+            {/* update username */}
             <div className="profile_username">
-              <h4>{username}</h4>
+              <label htmlFor="username" className="label">
+                {" "}
+                username
+              </label>
+              <input
+                type="text"
+                name="username"
+                id="username"
+                className="username_input"
+                value={username}
+                autoFocus={true}
+                onChange={(e) => setUsername(e.target.value)}
+              />
             </div>
           </div>
+          {/* submit button */}
+          <div className="submit_div">
+            <button type="submit" className="submit update_submit_btn">
+              Update Profile
+            </button>
+          </div>
         </form>
+        <div className="by_genre_response">{response}</div>
       </div>
     </section>
   );
