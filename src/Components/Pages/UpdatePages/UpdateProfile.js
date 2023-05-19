@@ -55,16 +55,6 @@ const UpdateProfile = () => {
     );
   };
 
-  // handle profile photo change
-  // const handleProfilePicture = (e) => {
-  //   const file = e.target.files[0];
-  //   const reader = new FileReader();
-  //   reader.onload = (e) => {
-  //     setProfPic(e.target.result);
-  //   };
-  //   reader.readAsDataURL(file);
-  // }
-
   const handleProfilePicture = (e) => {
     var reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
