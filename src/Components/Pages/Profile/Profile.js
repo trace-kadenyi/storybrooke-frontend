@@ -85,7 +85,7 @@ const Profile = () => {
         setLastName(response.data.lastName);
         setUsername(response.data.username);
         setBio(response.data.bio);
-        setProfPic(response.data.profPic);
+        setProfPic(response.data.profilePicture);
         setDateJoined(response.data.dateJoined);
       } catch (err) {
         console.log(err);
