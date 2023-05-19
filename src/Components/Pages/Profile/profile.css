@@ -50,6 +50,7 @@
 .prof_pic {
   border-radius: 50%;
   width: 150px;
+  height: 150px;
   display: flex;
   justify-content: center;
   margin: -80px auto 0;
