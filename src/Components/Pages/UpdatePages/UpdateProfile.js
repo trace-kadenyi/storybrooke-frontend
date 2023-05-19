@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import MainNavbar from "../../Navigation/MainNavbar";
@@ -9,6 +9,8 @@ import "./update_pages.css";
 const UpdateProfile = () => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: "/profile" } };
 
   const [bio, setBio] = useState("");
   const [profPic, setProfPic] = useState("");
@@ -76,7 +78,8 @@ const UpdateProfile = () => {
           navigate("/profile");
         }, 3000);
       } else {
-        navigate("/login");
+        //  navigate to login and then to the profile page
+        navigate("/login", { state: { from } }, { replace: true });
       }
     } catch (error) {
       if (!error.response) {
