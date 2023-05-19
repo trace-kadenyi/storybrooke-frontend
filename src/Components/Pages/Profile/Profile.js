@@ -191,7 +191,7 @@ const Profile = () => {
                     ? profPic
                     : "https://www.w3schools.com/howto/img_avatar.png"
                 }
-                className="prof_pic"
+                className={profPic ? "prof_pic" : "user_img_default"}
                 alt="user_img"
               />
             </div>
