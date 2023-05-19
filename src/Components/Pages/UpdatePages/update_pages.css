@@ -1,0 +1,55 @@
+.input_card_div {
+    width: 100%;
+}
+
+.bio_input_div {
+  width: 100%;
+min-height: 100px;
+}
+
+.user_img_update input {
+    cursor: pointer;
+}
+
+
+.bio_input {
+  margin: 5px;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  border: 2px #548341 solid;
+}
+
+.username_input {
+  width: 100px;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 5px;
+  border: 3px #548341 solid;
+}
+
+.submit_div {
+  margin: 20px auto;
+  display: flex;
+  margin: 0 50px;
+
+  width: 70vw;
+}
+
+.update_submit_btn {
+  max-width: 200px;
+}
+
+@media screen and (max-width: 700px) {
+  .submit_div {
+    flex-direction: column;
+    align-items: center;
+    width: 90vw;
+    margin: 0 auto;
+  }
+
+  .bio_input {
+    min-height: 70px;
+  }
+
+}
