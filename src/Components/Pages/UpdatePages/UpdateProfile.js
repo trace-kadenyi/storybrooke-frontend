@@ -19,8 +19,6 @@ const UpdateProfile = () => {
   const [error, setError] = useState(null);
   const axiosPrivate = useAxiosPrivate();
 
-  const controller = new AbortController();
-
   // fetch profile details
   useEffect(() => {
     const fetchProfile = async () => {
@@ -35,7 +33,10 @@ const UpdateProfile = () => {
         setError(error);
       }
     };
-    fetchProfile();
+    setTimeout(() => {
+      fetchProfile();
+    }, 2000);
+
     //eslint-disable-next-line
   }, []);
 
@@ -54,6 +55,28 @@ const UpdateProfile = () => {
     );
   };
 
+  // handle profile photo change
+  // const handleProfilePicture = (e) => {
+  //   const file = e.target.files[0];
+  //   const reader = new FileReader();
+  //   reader.onload = (e) => {
+  //     setProfPic(e.target.result);
+  //   };
+  //   reader.readAsDataURL(file);
+  // }
+
+  const handleProfilePicture = (e) => {
+    var reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      setProfPic(reader.result);
+      console.log(reader.result);
+    };
+    reader.onerror = function (error) {
+      console.log("Error: ", error);
+    };
+  };
+
   // update profile
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,7 +84,7 @@ const UpdateProfile = () => {
     const userProfile = {
       username,
       bio,
-      profPic,
+      base64: profPic,
     };
     console.log(userProfile);
 
@@ -111,7 +134,15 @@ const UpdateProfile = () => {
             <div className="user_card_div input_card_div">
               {/* update image */}
               <div className="user_img">
-                <img src={profPic} alt="profile" className="prof_pic" />
+                <img
+                  src={
+                    profPic
+                      ? profPic
+                      : "https://www.w3schools.com/howto/img_avatar.png"
+                  }
+                  alt="profile"
+                  className={profPic ? "prof_pic" : "user_img_default"}
+                />
 
                 {/* update profile image */}
                 <div className="user_img">
@@ -121,14 +152,9 @@ const UpdateProfile = () => {
                     name="profilePicture"
                     id="profilePicture"
                     className="inputfile"
-                    onChange={(e) => {
-                      const file = e.target.files[0];
-                      const reader = new FileReader();
-                      reader.onload = (e) => {
-                        setProfPic(e.target.result);
-                      };
-                      reader.readAsDataURL(file);
-                    }}
+                    // src={profPic}
+                    alt="profile_picture"
+                    onChange={handleProfilePicture}
                   />
                   <label htmlFor="profilePicture" className="label">
                     Update Image
