@@ -1,5 +1,6 @@
 .input_card_div {
     width: 100%;
+    position: relative;
 }
 
 .bio_input_div {
@@ -11,7 +12,12 @@ min-height: 100px;
     cursor: pointer;
 }
 
-
+.username_span_para {
+  position: absolute;
+  right: 130px;
+  bottom: 15px;
+  text-decoration: underline;
+}
 .bio_input {
   margin: 5px;
   padding: 10px;
@@ -22,7 +28,9 @@ min-height: 100px;
 
 .username_input {
   width: 100px;
-  padding: 10px;
+  padding: 6px;
+  /* font-size: 1rem; */
+  letter-spacing: 0.05rem;
   margin-top: 20px;
   border-radius: 5px;
   border: 3px #548341 solid;
