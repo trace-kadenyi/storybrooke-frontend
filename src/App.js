@@ -1,5 +1,5 @@
 import React from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route } from "react-router-dom";
 import Registration from "./Components/Registration/Register";
@@ -25,8 +25,8 @@ import FilterByTitle from "./Components/Pages/MainPages/ReadStories/FilterByTItl
 import FilterByAuthor from "./Components/Pages/MainPages/ReadStories/FilterByAuthor";
 import MyStories from "./Components/Pages/MainPages/ReadStories/MyStories";
 import Profile from "./Components/Pages/Profile/Profile";
-import UpdateStory from "./Components/Pages/UpdatePages/UpdateStory";
-import UpdateProfile from "./Components/Pages/UpdatePages/UpdateProfile";
+import UpdateStory from "./Components/Pages/UpdateStory/UpdateStory";
+import UpdateProfile from "./Components/Pages/Profile/UpdateProfile";
 
 const App = () => {
   return (
