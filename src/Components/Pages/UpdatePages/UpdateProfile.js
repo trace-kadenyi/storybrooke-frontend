@@ -14,6 +14,8 @@ const UpdateProfile = () => {
 
   const [bio, setBio] = useState("");
   const [profPic, setProfPic] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [response, setResponse] = useState("");
   const [error, setError] = useState(null);
@@ -25,6 +27,8 @@ const UpdateProfile = () => {
       try {
         const response = await axiosPrivate.get(`/profile/${currentUser}`);
         console.log(response.data);
+        setFirstName(response.data.firstname);
+        setLastName(response.data.lastname);
         setUsername(response.data.username);
         setBio(response.data.bio);
         setProfPic(response.data.profilePicture);
@@ -33,12 +37,16 @@ const UpdateProfile = () => {
         setError(error);
       }
     };
-    setTimeout(() => {
-      fetchProfile();
-    }, 2000);
+
+    fetchProfile();
 
     //eslint-disable-next-line
   }, []);
+
+  // response changes when input fields are updated
+  useEffect(() => {
+    setResponse("");
+  }, [bio, profPic, username]);
 
   const showToastMessage = () => {
     toast.success(
@@ -171,7 +179,14 @@ const UpdateProfile = () => {
               </div>
             </div>
             {/* update username */}
-            <div className="profile_username">
+            <div className="profile_username profile_username_update">
+              <div>
+                <p className="username_span_para">
+                  <span className="username_span">{firstName}</span>
+                  {/* space */}{" "}
+                  <span className="username_span">{lastName}</span>
+                </p>
+              </div>
               <label htmlFor="username" className="label">
                 {" "}
                 username
