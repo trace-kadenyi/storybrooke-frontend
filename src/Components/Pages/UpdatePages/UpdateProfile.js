@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import MainNavbar from "../../Navigation/MainNavbar";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import "./update_pages.css";
+import profPicPreloader from "../../../Assets/Images/pic_preloader.gif";
 
 const UpdateProfile = () => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -16,6 +17,7 @@ const UpdateProfile = () => {
   const [profPic, setProfPic] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [response, setResponse] = useState("");
   const [error, setError] = useState(null);
@@ -25,6 +27,7 @@ const UpdateProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
+        setLoading(true);
         const response = await axiosPrivate.get(`/profile/${currentUser}`);
         console.log(response.data);
         setFirstName(response.data.firstname);
@@ -32,9 +35,11 @@ const UpdateProfile = () => {
         setUsername(response.data.username);
         setBio(response.data.bio);
         setProfPic(response.data.profilePicture);
+        setLoading(false);
       } catch (err) {
         console.log(err);
         setError(error);
+        setLoading(false);
       }
     };
 
@@ -133,11 +138,7 @@ const UpdateProfile = () => {
               {/* update image */}
               <div className="user_img">
                 <img
-                  src={
-                    profPic
-                      ? profPic
-                      : "https://www.w3schools.com/howto/img_avatar.png"
-                  }
+                  src={profPic ? profPic : profPicPreloader}
                   alt="profile"
                   className={profPic ? "prof_pic" : "user_img_default"}
                 />
@@ -172,8 +173,10 @@ const UpdateProfile = () => {
                   name="bio"
                   id="bio"
                   className="bio_input"
+                  placeholder={loading && "Loading..."}
                   value={bio}
-                  autoFocus={true}
+                  autoFocus={!loading ? true : false}
+                  autoComplete="off"
                   onChange={(e) => setBio(e.target.value)}
                 />
               </div>
@@ -195,9 +198,11 @@ const UpdateProfile = () => {
                 type="text"
                 name="username"
                 id="username"
-                className="username_input"
+                className={
+                  loading ? "loading_input username_input" : "username_input"
+                }
                 value={username}
-                autoFocus={true}
+                autoComplete="off"
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
