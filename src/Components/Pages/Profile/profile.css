@@ -57,18 +57,26 @@
 }
 
 .user_img_default {
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
   display: flex;
   justify-content: center;
   margin: -80px auto 0;
+  padding: 30px;
+  border-radius: 50%;
+}
+
+.preloader_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  min-width: 100%;
 }
 
 .bio {
   font-size: 14px;
   padding: 7px;
   margin: 20px 10px 0;
+  width: 100%;
 }
 
 .profile_username {
