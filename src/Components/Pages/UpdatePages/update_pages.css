@@ -36,6 +36,19 @@ min-height: 100px;
   border: 3px #548341 solid;
 }
 
+.loading_bio_input {
+  background-image: url("../../../Assets/Images/bio_preloader.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.loading_input {
+  background-image: url("../../../Assets/Images/username_preloader.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+
+}
+
 .submit_div {
   margin: 20px auto;
   display: flex;
