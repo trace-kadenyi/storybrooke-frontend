@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import MainNavbar from "../../Navigation/MainNavbar";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import "./profile.css";
+import preloader from "../../../Assets/Images/bio_preloader.gif";
+import profPicPreloader from "../../../Assets/Images/pic_preloader.gif";
 
 const Profile = () => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -19,6 +21,7 @@ const Profile = () => {
   const [dateJoined, setDateJoined] = useState("");
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadProfile, setLoadProfile] = useState(false);
   const [response, setResponse] = useState("");
   const [error, setError] = useState(null);
   const axiosPrivate = useAxiosPrivate();
@@ -30,6 +33,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
+        setLoadProfile(true);
         const response = await axiosPrivate.get(`/profile/${currentUser}`);
         console.log(response.data);
         setFirstName(response.data.firstName);
@@ -38,9 +42,11 @@ const Profile = () => {
         setBio(response.data.bio);
         setProfPic(response.data.profilePicture);
         setDateJoined(response.data.dateJoined);
+        setLoadProfile(false);
       } catch (err) {
         console.log(err);
         setError(error);
+        setLoadProfile(false);
       }
     };
     fetchProfile();
@@ -137,11 +143,7 @@ const Profile = () => {
           <div className="user_card_div">
             <div className="user_img">
               <img
-                src={
-                  profPic
-                    ? profPic
-                    : "https://www.w3schools.com/howto/img_avatar.png"
-                }
+                src={profPic ? profPic : profPicPreloader}
                 className={profPic ? "prof_pic" : "user_img_default"}
                 alt="user_img"
               />
@@ -151,6 +153,12 @@ const Profile = () => {
               <AiFillEdit className="edit_icon" onClick={handleEditClick} />
             </div>
             <div className="bio">
+              {/* preloader */}
+              {loadProfile && (
+                <div className="preloader_div">
+                  {<img src={preloader} alt="preloader" />}
+                </div>
+              )}
               <p>{bio}</p>
             </div>
           </div>
