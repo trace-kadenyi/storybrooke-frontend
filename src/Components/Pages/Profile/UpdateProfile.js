@@ -173,7 +173,7 @@ const UpdateProfile = () => {
                   name="bio"
                   id="bio"
                   className="bio_input"
-                  placeholder={loading && "Loading..."}
+                  placeholder={loading ? "Loading..." : "Add your bio"}
                   value={bio}
                   autoFocus={!loading ? true : false}
                   autoComplete="off"
