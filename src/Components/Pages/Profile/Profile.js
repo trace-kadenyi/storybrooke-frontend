@@ -36,8 +36,8 @@ const Profile = () => {
         setLoadProfile(true);
         const response = await axiosPrivate.get(`/profile/${currentUser}`);
         console.log(response.data);
-        setFirstName(response.data.firstName);
-        setLastName(response.data.lastName);
+        setFirstName(response.data.firstname);
+        setLastName(response.data.lastname);
         setUsername(response.data.username);
         setBio(response.data.bio);
         setProfPic(response.data.profilePicture);
@@ -162,8 +162,14 @@ const Profile = () => {
               <p>{bio}</p>
             </div>
           </div>
-          <div className="profile_username">
-            <h4>{username}</h4>
+          <div className="profile_username_div">
+            <div>
+              <p className="username_span_para">
+                <span className="username_span">{firstName}</span>
+                {/* space */} <span className="username_span">{lastName}</span>
+              </p>
+            </div>
+            <p className="profile_username">({username})</p>
           </div>
         </div>
         {/* profile contents */}
