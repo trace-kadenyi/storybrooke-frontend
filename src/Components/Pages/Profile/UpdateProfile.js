@@ -182,14 +182,14 @@ const UpdateProfile = () => {
               </div>
             </div>
             {/* update username */}
-            <div className="profile_username profile_username_update">
-              <div>
+            <div className="profile_username_div profile_username_update">
+              {/* <div>
                 <p className="username_span_para">
                   <span className="username_span">{firstName}</span>
-                  {/* space */}{" "}
+                 {" "}
                   <span className="username_span">{lastName}</span>
                 </p>
-              </div>
+              </div> */}
               <label htmlFor="username" className="label">
                 {" "}
                 username
