@@ -7,6 +7,7 @@ import Logout from "../../../Logout";
 import logo from "../../../../Assets/Images/logo.png";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import "./read.css";
+import preloader from "../../../../Assets/Images/main.gif";
 
 const Explore = () => {
   const navigate = useNavigate();
@@ -66,7 +67,15 @@ const Explore = () => {
         <>
           <p className="explore_intro">Explore</p>
           <div className="all_stories">
-            {loading && <p className="loading">Loading...</p>}
+            {loading && (
+              <div className="main_preloader">
+                <img
+                  src={preloader}
+                  alt="preloader"
+                  className="main_preloader_img"
+                />
+              </div>
+            )}
             {error && <p className="error">{error.message}</p>}
             {stories.map((story) => {
               return (

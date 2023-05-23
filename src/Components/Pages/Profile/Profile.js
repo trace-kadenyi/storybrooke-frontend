@@ -7,6 +7,7 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import "./profile.css";
 import preloader from "../../../Assets/Images/bio_preloader.gif";
 import profPicPreloader from "../../../Assets/Images/pic_preloader.gif";
+import storiesPreloader from "../../../Assets/Images/main.gif";
 
 const Profile = () => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -206,7 +207,13 @@ const Profile = () => {
               <>
                 <div className="all_stories">
                   {loading ? (
-                    <p className="load_stories">Loading...</p>
+                    <div className="main_preloader">
+                      <img
+                        src={storiesPreloader}
+                        alt="preloader"
+                        className="main_preloader_img"
+                      />
+                    </div>
                   ) : stories.length > 0 ? (
                     stories.map((story) => {
                       return (

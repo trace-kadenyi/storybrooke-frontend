@@ -3,10 +3,10 @@ import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
-import Logout from "../../../Logout";
 import logo from "../../../../Assets/Images/logo.png";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import "./read.css";
+import preloader from "../../../../Assets/Images/main.gif";
 
 const MyStories = () => {
   const [stories, setStories] = useState([]);
@@ -23,6 +23,7 @@ const MyStories = () => {
   useEffect(() => {
     const getInterests = async () => {
       try {
+        setLoading(true);
         const response = await axiosPrivate.get(`/users`);
         // return the interests of the logged in user
         const userInterests = response.data.find(
@@ -51,8 +52,8 @@ const MyStories = () => {
 
     // get the stories from each genre in the interests array
     const getStoriesFromInterests = async () => {
-      setLoading(true);
       try {
+        setLoading(true);
         const storiesFromInterests = await Promise.all(
           interests.map(async (interest) => {
             const response = await axiosPrivate.get(`/story/${interest}`, {
@@ -109,7 +110,15 @@ const MyStories = () => {
       <>
         <div className="all_stories">
           <p className="explore_intro">My Stories</p>
-          {loading && <p className="loading">Loading...</p>}
+          {loading && (
+            <div className="main_preloader">
+              <img
+                src={preloader}
+                alt="preloader"
+                className="main_preloader_img"
+              />
+            </div>
+          )}
           {error && <p className="error">{error.message}</p>}
           {stories.map((story) => {
             return (

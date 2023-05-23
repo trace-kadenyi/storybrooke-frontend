@@ -45,6 +45,14 @@
   font-style: italic;
 }
 
+.main_preloader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
 /* EXPLORE PAGE */
 
 .explore_sect {
@@ -195,6 +203,7 @@
   /* color: #000; */
   font-style: italic;
 }
+
 
 /* FILTER BY TITLE */
 

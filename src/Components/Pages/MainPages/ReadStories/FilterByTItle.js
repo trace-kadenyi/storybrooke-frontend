@@ -7,6 +7,7 @@ import logo from "../../../../Assets/Images/logo.png";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import { btnOptions } from "../../../AppData/data";
 import "./read.css";
+import preloader from "../../../../Assets/Images/main.gif";
 
 const FilterByTitle = () => {
   const [stories, setStories] = useState([]);
@@ -104,7 +105,13 @@ const FilterByTitle = () => {
         <>
           <div className="all_stories">
             {loading ? (
-              <p className="load_stories">Loading...</p>
+              <div className="main_preloader">
+                <img
+                  src={preloader}
+                  alt="preloader"
+                  className="main_preloader_img"
+                />
+              </div>
             ) : stories.length > 0 ? (
               stories.map((story) => {
                 return (
