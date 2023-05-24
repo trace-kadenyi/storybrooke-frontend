@@ -7,7 +7,7 @@ import MainNavbar from "../../Navigation/MainNavbar";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import "./profile.css";
 import profPicPreloader from "../../../Assets/Images/pic_preloader.gif";
-import preloader from "../../../Assets/Images/update.gif";
+import preloader from "../../../Assets/Images/submit.gif";
 
 const UpdateProfile = () => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
