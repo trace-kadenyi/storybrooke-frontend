@@ -7,6 +7,7 @@ import Logout from "../../../Logout";
 import logo from "../../../../Assets/Images/logo.png";
 import { btnOptions } from "../../../AppData/data";
 import "./share.css";
+import preloader from "../../../../Assets/Images/submit.gif";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 
 const ShareStories = () => {
@@ -21,6 +22,8 @@ const ShareStories = () => {
   const [titleResponse, setTitleResponse] = useState("");
   const [storyResponse, setStoryResponse] = useState("");
   const [genreResponse, setGenreResponse] = useState("");
+  const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
+  const [submitted, setSubmitted] = useState(false); // to prevent multiple submissions
 
   // manage error responses
   useEffect(() => {
@@ -137,8 +140,10 @@ const ShareStories = () => {
       document.querySelector(".story_textarea").focus();
       return;
     }
+    setLoadSubmit(true);
     try {
       const response = await axiosPrivate.post("/story", storyData);
+      setSubmitted(true);
       console.log(response.data);
       setTitle("");
       setStory("");
@@ -169,6 +174,7 @@ const ShareStories = () => {
         setResponse("Something went wrong. Please try again");
       }
     }
+    setLoadSubmit(false);
   };
 
   return (
@@ -312,9 +318,21 @@ const ShareStories = () => {
           <p className="publish_response">
             <strong>{response}</strong>
           </p>
-          <div>
+          {/* <div>
             <button type="submit" className="share_btn">
               Publish
+            </button>
+          </div> */}
+
+          <div className="story_submit_div">
+            <button type="submit" className="share_btn">
+              <span>Publish</span>
+              {/* preloader span */}
+              {loadSubmit && (
+                <span className="preloader_span">
+                  <img src={preloader} alt="preloader" />
+                </span>
+              )}
             </button>
           </div>
         </form>
