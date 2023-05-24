@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import { TiTick } from "react-icons/ti";
 
 import MainNavbar from "../../Navigation/MainNavbar";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import "./profile.css";
 import profPicPreloader from "../../../Assets/Images/pic_preloader.gif";
+import preloader from "../../../Assets/Images/update.gif";
 
 const UpdateProfile = () => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -15,9 +17,9 @@ const UpdateProfile = () => {
 
   const [bio, setBio] = useState("");
   const [profPic, setProfPic] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
+  const [submitted, setSubmitted] = useState(false); // to prevent multiple submissions
   const [username, setUsername] = useState("");
   const [response, setResponse] = useState("");
   const [error, setError] = useState(null);
@@ -30,8 +32,6 @@ const UpdateProfile = () => {
         setLoading(true);
         const response = await axiosPrivate.get(`/profile/${currentUser}`);
         console.log(response.data);
-        setFirstName(response.data.firstname);
-        setLastName(response.data.lastname);
         setUsername(response.data.username);
         setBio(response.data.bio);
         setProfPic(response.data.profilePicture);
@@ -90,13 +90,14 @@ const UpdateProfile = () => {
       base64: profPic,
     };
     console.log(userProfile);
-
+    setLoadSubmit(true);
     try {
       const response = await axiosPrivate.put(
         `/profile/${currentUser}`,
         userProfile
       );
-      console.log(response.data);
+      setSubmitted(true);
+      // console.log(response.data);
       showToastMessage();
       // if username is changed, navigate to login page else navigate to profile page in 3 seconds
       if (username === currentUser) {
@@ -123,6 +124,7 @@ const UpdateProfile = () => {
         setResponse("Something went wrong. Please try again");
       }
     }
+    setLoadSubmit(false);
   };
 
   return (
@@ -183,13 +185,6 @@ const UpdateProfile = () => {
             </div>
             {/* update username */}
             <div className="profile_username_div profile_username_update">
-              {/* <div>
-                <p className="username_span_para">
-                  <span className="username_span">{firstName}</span>
-                 {" "}
-                  <span className="username_span">{lastName}</span>
-                </p>
-              </div> */}
               <label htmlFor="username" className="label">
                 {" "}
                 username
@@ -209,8 +204,18 @@ const UpdateProfile = () => {
           </div>
           {/* submit button */}
           <div className="submit_div">
-            <button type="submit" className="submit update_submit_btn">
-              Update Profile
+            <button type="submit" className="update_submit_btn">
+              <span>Update Profile</span>
+              {/* preloader span */}
+              {loadSubmit ? (
+                <span className="preloader_span">
+                  <img src={preloader} alt="preloader" />
+                </span>
+              ) : submitted ? (
+                <span className="preloader_span">
+                  <TiTick className="tick_icon" />
+                </span>
+              ) : null}
             </button>
           </div>
         </form>
