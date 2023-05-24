@@ -275,6 +275,23 @@
   color: #fff;
 }
 
+.update_submit_btn:hover .tick_icon {
+  color: #fff;
+}
+
+.profile_response {
+  color: #548341;
+  letter-spacing: 0.07rem;
+  width: 70vw;
+  margin: 10px 50px 0;
+  line-height: 1.5rem;
+  font-weight: 900;
+  font-size: 14px;
+  padding: 5px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 @media screen and (max-width: 700px) {
   .user_card {
     flex-direction: column;
@@ -288,6 +305,11 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
+  }
+
+  .profile_response {
+    width: 90vw;
+    margin: 10px auto 0;
   }
 
   .bio {
