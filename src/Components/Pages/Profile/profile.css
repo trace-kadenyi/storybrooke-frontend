@@ -188,6 +188,11 @@
   width: 80%;
 }
 
+.tick_icon {
+  font-size: 2rem;
+  color: #548341;
+}
+
 /* UPDATE PROFILE  */
 
 .input_card_div {
@@ -239,12 +244,35 @@
 .submit_div {
   margin: 20px auto;
   display: flex;
-  margin: 0 50px;
+  margin: 10px 50px 0;
   width: 70vw;
+  height: 48px;
 }
 
 .update_submit_btn {
+  margin: 10px auto;
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  outline: none;
   max-width: 200px;
+  cursor: pointer;
+  border: 3px solid #548341;
+  letter-spacing: 0.07rem;
+  font-size: 15px;
+  height: 40px;
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.update_submit_btn:hover {
+  background: #548341;
+  color: #fff;
 }
 
 @media screen and (max-width: 700px) {
