@@ -170,7 +170,7 @@ const Profile = () => {
                 {/* space */} <span className="username_span">{lastName}</span>
               </p>
             </div>
-            <p className="profile_username">({username})</p>
+            {!loadProfile && <p className="profile_username">({username})</p>}
           </div>
         </div>
         {/* profile contents */}
