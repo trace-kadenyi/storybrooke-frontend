@@ -219,7 +219,7 @@ const UpdateProfile = () => {
             </button>
           </div>
         </form>
-        <div className="by_genre_response">{response}</div>
+        <div className="profile_response">{response}</div>
       </div>
     </section>
   );
