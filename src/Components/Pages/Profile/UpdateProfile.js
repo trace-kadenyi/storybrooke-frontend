@@ -147,9 +147,11 @@ const UpdateProfile = () => {
                 />
 
                 {/* update profile image */}
-                <label htmlFor="profilePicture" className="camera_label">
-                  <BsFillCameraFill className="camera_icon" />
-                </label>
+                {!loading && (
+                  <label htmlFor="profilePicture" className="camera_label">
+                    <BsFillCameraFill className="camera_icon" />
+                  </label>
+                )}
 
                 <div className="user_img" style={{ display: "none" }}>
                   <input
