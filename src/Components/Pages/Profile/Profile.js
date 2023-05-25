@@ -163,14 +163,25 @@ const Profile = () => {
               <p>{bio}</p>
             </div>
           </div>
-          <div className="profile_username_div">
-            <div>
+          <div className="profile_username_div main_profile_username_div">
+            {!loadProfile && (
+              <div className="date_joined_div">
+                <p className="date_joined">
+                  Joined:{" "}
+                  <span className="date_span">
+                    {dateJoined && dateJoined.slice(0, 10)}
+                  </span>
+                </p>
+              </div>
+            )}
+            <div className="profile_names_div">
               <p className="username_span_para">
                 <span className="username_span">{firstName}</span>
                 {/* space */} <span className="username_span">{lastName}</span>
               </p>
+
+              {!loadProfile && <p className="profile_username">({username})</p>}
             </div>
-            {!loadProfile && <p className="profile_username">({username})</p>}
           </div>
         </div>
         {/* profile contents */}
