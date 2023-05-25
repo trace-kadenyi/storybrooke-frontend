@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { TiTick } from "react-icons/ti";
+import { BsFillCameraFill } from "react-icons/bs";
 
 import MainNavbar from "../../Navigation/MainNavbar";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
@@ -146,20 +147,20 @@ const UpdateProfile = () => {
                 />
 
                 {/* update profile image */}
-                <div className="user_img">
+                <label htmlFor="profilePicture" className="camera_label">
+                  <BsFillCameraFill className="camera_icon" />
+                </label>
+
+                <div className="user_img" style={{ display: "none" }}>
                   <input
                     type="file"
                     accept="image/*"
                     name="profilePicture"
                     id="profilePicture"
                     className="inputfile"
-                    // src={profPic}
                     alt="profile_picture"
                     onChange={handleProfilePicture}
                   />
-                  <label htmlFor="profilePicture" className="label">
-                    Update Image
-                  </label>
                 </div>
               </div>
 
