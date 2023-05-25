@@ -188,11 +188,6 @@
   width: 80%;
 }
 
-.tick_icon {
-  font-size: 2rem;
-  color: #548341;
-}
-
 /* UPDATE PROFILE  */
 
 .input_card_div {
@@ -289,6 +284,30 @@
   padding: 5px;
   text-align: center;
   text-transform: uppercase;
+}
+
+.tick_icon {
+  font-size: 2rem;
+  color: #548341;
+}
+
+.camera_icon {
+  position: absolute;
+  font-size: 2rem;
+  color: #092424;
+  right: 5px;
+  bottom: 30px;
+  cursor: pointer;
+}
+
+.camera_icon:hover {
+  color: #548341;
+  font-size: 2.2rem;
+}
+
+.user_img {
+  position: relative;
+  /* border: 2px red solid; */
 }
 
 @media screen and (max-width: 700px) {
