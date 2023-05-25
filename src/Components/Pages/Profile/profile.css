@@ -81,16 +81,25 @@
 
 .profile_username_div {
   display: flex;
-  gap: 10px;
-  font-size: 16px;
-  font-style: italic;
+  justify-content: space-between;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
   font-family: cursive;
-  justify-content: flex-end;
-  align-self: flex-end;
   margin-bottom: 10px;
   letter-spacing: 0.05rem;
+  font-style: italic;
+  width: 100%;
+}
+
+.profile_names_div {
+  display: flex;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.date_joined_div {
+  font-size: 12px;
+  text-decoration: underline;
 }
 
 .username_span_para {
@@ -197,7 +206,6 @@
 
 .bio_input_div {
   width: 100%;
-  min-height: 100px;
 }
 
 .user_img_update input {
@@ -222,6 +230,11 @@
   border: 3px #548341 solid;
   text-align: center;
   outline: none;
+}
+
+.profile_username_update {
+  justify-content: flex-end;
+  width: 100%;
 }
 
 .loading_bio_input {
@@ -296,7 +309,7 @@
   font-size: 2rem;
   color: #092424;
   right: 5px;
-  bottom: 30px;
+  bottom: -5px;
   cursor: pointer;
 }
 
@@ -361,6 +374,24 @@
   }
 
   .bio_input {
-    min-height: 70px;
+    min-height: 100px;
+  }
+
+  .camera_label {
+    bottom: 10px;
+    right: -10px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .main_profile_username_div {
+    flex-direction: column-reverse;
+    border-top: 1px #548341 solid;
+    gap: 10px;
+  }
+
+  .date_joined_div,
+  .username_span_para {
+    text-decoration: none;
   }
 }
