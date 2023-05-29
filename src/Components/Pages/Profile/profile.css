@@ -9,12 +9,20 @@
 }
 
 .cover_div {
-  background: url("../../../Assets/Images/profile/5.jpg");
+  /* background: url("../../../Assets/Images/profile/5.jpg"); */
+  /* height: 30vh;
+  width: 100vw; */
+  /* background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
+  margin-bottom: -5px;
+}
+
+.cover_pic {
   height: 30vh;
   width: 100vw;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  object-fit: cover;
+  margin-bottom: 0;
 }
 
 .user_card {
@@ -304,6 +312,11 @@
   color: #548341;
 }
 
+.user_img {
+  position: relative;
+  /* border: 2px red solid; */
+}
+
 .camera_icon {
   position: absolute;
   font-size: 2rem;
@@ -318,9 +331,21 @@
   font-size: 2.2rem;
 }
 
-.user_img {
+.cover_update_div {
   position: relative;
-  /* border: 2px red solid; */
+}
+
+.update_camera_icon {
+  position: absolute;
+  font-size: 6rem;
+  color: #092424;
+  top: 30%;
+  left: 45%;
+}
+
+.update_camera_icon:hover {
+  color: #548341;
+  font-size: 6.2rem;
 }
 
 @media screen and (max-width: 700px) {
@@ -380,6 +405,16 @@
   .camera_label {
     bottom: 10px;
     right: -10px;
+  }
+
+  .update_camera_icon {
+    font-size: 3.5rem;
+    top: 20%;
+    left: 40%;
+  }
+
+  .update_camera_icon:hover {
+    font-size: 3.7rem;
   }
 }
 
