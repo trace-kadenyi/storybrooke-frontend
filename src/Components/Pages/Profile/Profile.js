@@ -8,6 +8,8 @@ import "./profile.css";
 import preloader from "../../../Assets/Images/bio_preloader.gif";
 import profPicPreloader from "../../../Assets/Images/pic_preloader.gif";
 import storiesPreloader from "../../../Assets/Images/main.gif";
+import { coverImgDefault } from "../../AppData/data";
+import defaultCover from "../../../Assets/Images/about.png";
 
 const Profile = () => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -16,6 +18,7 @@ const Profile = () => {
   const [profileInterests, setProfileInterests] = useState([]);
   const [bio, setBio] = useState("");
   const [profPic, setProfPic] = useState("");
+  const [coverPic, setCoverPic] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -42,6 +45,9 @@ const Profile = () => {
         setUsername(response.data.username);
         setBio(response.data.bio);
         setProfPic(response.data.profilePicture);
+        response.data.coverPicture.includes("data:image")
+          ? setCoverPic(response.data.coverPicture)
+          : setCoverPic(defaultCover);
         setDateJoined(response.data.dateJoined);
         setLoadProfile(false);
       } catch (err) {
@@ -138,7 +144,13 @@ const Profile = () => {
       <MainNavbar />
       <div className="main_div">
         {/* cover image */}
-        <div className="cover_div"></div>
+        <div className="cover_div">
+          <img
+            src={coverPic ? coverPic : defaultCover}
+            className="cover_pic"
+            alt="cover_img"
+          />
+        </div>
         {/* card with profile details */}
         <div className="user_card">
           <div className="user_card_div">
