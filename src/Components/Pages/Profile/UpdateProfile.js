@@ -9,6 +9,8 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import "./profile.css";
 import profPicPreloader from "../../../Assets/Images/pic_preloader.gif";
 import preloader from "../../../Assets/Images/submit.gif";
+import { coverImgDefault } from "../../AppData/data";
+import defaultCover from "../../../Assets/Images/about.png";
 
 const UpdateProfile = () => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -18,6 +20,7 @@ const UpdateProfile = () => {
 
   const [bio, setBio] = useState("");
   const [profPic, setProfPic] = useState("");
+  const [coverPic, setCoverPic] = useState("");
   const [loading, setLoading] = useState(false);
   const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
   const [submitted, setSubmitted] = useState(false); // to prevent multiple submissions
@@ -36,6 +39,9 @@ const UpdateProfile = () => {
         setUsername(response.data.username);
         setBio(response.data.bio);
         setProfPic(response.data.profilePicture);
+        response.data.coverPicture.includes("data:image")
+          ? setCoverPic(response.data.coverPicture)
+          : setCoverPic(defaultCover);
         setLoading(false);
       } catch (err) {
         console.log(err);
@@ -52,7 +58,7 @@ const UpdateProfile = () => {
   // response changes when input fields are updated
   useEffect(() => {
     setResponse("");
-  }, [bio, profPic, username]);
+  }, [bio, profPic, username, coverPic]);
 
   const showToastMessage = () => {
     toast.success(
@@ -69,11 +75,24 @@ const UpdateProfile = () => {
     );
   };
 
+  // update profile picture
   const handleProfilePicture = (e) => {
     var reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
     reader.onload = () => {
       setProfPic(reader.result);
+      console.log(reader.result);
+    };
+    reader.onerror = function (error) {
+      console.log("Error: ", error);
+    };
+  };
+
+  const handleCoverPicture = (e) => {
+    var reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      setCoverPic(reader.result);
       console.log(reader.result);
     };
     reader.onerror = function (error) {
@@ -89,6 +108,7 @@ const UpdateProfile = () => {
       username,
       bio,
       base64: profPic,
+      coverPicture: coverPic,
     };
     console.log(userProfile);
     setLoadSubmit(true);
@@ -134,7 +154,31 @@ const UpdateProfile = () => {
       <div className="main_div">
         <form className="update_form" onSubmit={handleSubmit}>
           {/* cover image */}
-          <div className="cover_div"></div>
+          <div className="cover_div cover_update_div">
+            <img
+              src={coverPic ? coverPic : defaultCover}
+              className="cover_pic"
+              alt="cover_img"
+            />
+
+            {/* update cover image */}
+            {!loading && (
+              <label htmlFor="coverPicture" className="camera_cover_label">
+                <BsFillCameraFill className="update_camera_icon" />
+              </label>
+            )}
+            <div className="cover_user_img" style={{ display: "none" }}>
+              <input
+                type="file"
+                accept="image/*"
+                name="coverPicture"
+                id="coverPicture"
+                className="inputfile"
+                alt="cover_picture"
+                onChange={handleCoverPicture}
+              />
+            </div>
+          </div>
           {/* card with profile details */}
           <div className="user_card">
             <div className="user_card_div input_card_div">
