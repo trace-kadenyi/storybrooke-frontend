@@ -161,10 +161,12 @@ const Profile = () => {
                 alt="user_img"
               />
             </div>
-            <div className="edit_icon_div">
-              {/* edit icon */}
-              <AiFillEdit className="edit_icon" onClick={handleEditClick} />
-            </div>
+            {!loadProfile && (
+              <div className="edit_icon_div">
+                {/* edit icon */}
+                <AiFillEdit className="edit_icon" onClick={handleEditClick} />
+              </div>
+            )}
             <div className="bio">
               {/* preloader */}
               {loadProfile && (
