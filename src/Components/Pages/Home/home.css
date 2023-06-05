@@ -32,6 +32,10 @@
 
 .error_toast {
   background: rgb(122, 9, 9);
+  color: #fff;
+  font-size: 16px;
+  max-width: 50vw;
+  padding: 30px 20px;
 }
 
 .welcome {

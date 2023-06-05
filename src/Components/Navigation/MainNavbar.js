@@ -39,7 +39,8 @@ const MainNavbar = () => {
               <NavLink to="/share" className="main_link">
                 Share
               </NavLink>
-            ) : location.pathname == "/share" ? (
+            ) : location.pathname == "/share" ||
+              location.pathname == "/profile" ? (
               <NavLink to="/read" className="main_link">
                 Explore
               </NavLink>
@@ -62,9 +63,15 @@ const MainNavbar = () => {
           </li>
           {/* profile page */}
           <li className="main_navbar_list">
-            <NavLink to="/profile" className="main_link">
-              Profile
-            </NavLink>
+            {location.pathname !== "/profile" ? (
+              <NavLink to="/profile" className="main_link">
+                Profile
+              </NavLink>
+            ) : (
+              <NavLink to="/share" className="main_link">
+                Share
+              </NavLink>
+            )}
           </li>
           {/* editor page */}
           <li className="main_navbar_list">

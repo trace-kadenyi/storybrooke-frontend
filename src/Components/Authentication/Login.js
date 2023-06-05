@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
 import logo from "../../Assets/Images/logo.png";
 
-import "./login.css";
+import "./register_login.css";
 
 import axios from "../../Api/axios";
 const LOGIN_URL = "/auth";
@@ -15,6 +15,8 @@ const Login = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [response, setResponse] = useState("");
+
+  const newName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,7 +31,10 @@ const Login = () => {
     try {
       const response = await axios.post(
         LOGIN_URL,
-        JSON.stringify({ user: name, pwd: password }),
+        JSON.stringify({
+          user: newName,
+          pwd: password,
+        }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -44,7 +49,7 @@ const Login = () => {
       setName("");
       setPassword("");
       showToastMessage();
-      localStorage.setItem("user", JSON.stringify(name));
+      localStorage.setItem("user", JSON.stringify(newName));
       navigate(from, { replace: true });
     } catch (error) {
       if (!error.response) {
@@ -54,7 +59,7 @@ const Login = () => {
       } else if (error.response.status === 400) {
         setResponse("Both username and password are required");
       } else if (error.response.status === 404) {
-        setResponse("User not found");
+        setResponse("Username not found");
       } else {
         setResponse("Something went wrong");
       }
@@ -62,7 +67,7 @@ const Login = () => {
   };
 
   const showToastMessage = () => {
-    toast.success(`Welcome ${name} 😃`, {
+    toast.success(`Welcome ${newName} 😃`, {
       position: toast.POSITION.TOP_RIGHT,
       className: "toast-message",
     });
@@ -104,7 +109,7 @@ const Login = () => {
               name="name"
               id="name"
               placeholder="Enter your name"
-              value={name.charAt(0).toUpperCase() + name.slice(1)}
+              value={name}
               className="input"
               autoComplete="off"
               onChange={(e) => setName(e.target.value)}

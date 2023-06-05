@@ -1,5 +1,5 @@
 import React from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route } from "react-router-dom";
 import Registration from "./Components/Registration/Register";
@@ -24,6 +24,9 @@ import FilterByGenre from "./Components/Pages/MainPages/ReadStories/FilterByGenr
 import FilterByTitle from "./Components/Pages/MainPages/ReadStories/FilterByTItle";
 import FilterByAuthor from "./Components/Pages/MainPages/ReadStories/FilterByAuthor";
 import MyStories from "./Components/Pages/MainPages/ReadStories/MyStories";
+import Profile from "./Components/Pages/Profile/Profile";
+import UpdateStory from "./Components/Pages/UpdateStory/UpdateStory";
+import UpdateProfile from "./Components/Pages/Profile/UpdateProfile";
 
 const App = () => {
   return (
@@ -93,6 +96,18 @@ const App = () => {
 
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
               <Route path="my_stories" element={<MyStories />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[2001]} />}>
+              <Route path="profile" element={<Profile />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[2001]} />}>
+              <Route path="update_story" element={<UpdateStory />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[2001]} />}>
+              <Route path="update_profile" element={<UpdateProfile />} />
             </Route>
           </Route>
           {/* catch all */}

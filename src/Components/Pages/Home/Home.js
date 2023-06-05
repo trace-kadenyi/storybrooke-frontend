@@ -102,7 +102,7 @@ const Home = () => {
   const showToastMessage = () => {
     toast.error(`Please select at least one interest to continue.`, {
       position: toast.POSITION.TOP_RIGHT,
-      className: "toast-message error_toast",
+      className: "error_toast",
     });
   };
 

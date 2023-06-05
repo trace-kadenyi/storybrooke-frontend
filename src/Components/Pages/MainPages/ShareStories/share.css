@@ -154,8 +154,7 @@
   letter-spacing: 0.07rem;
 }
 
-.genre_selection_btn,
-.share_btn {
+.genre_selection_btn {
   padding: 10px;
   border-radius: 10px;
   min-height: 30px;
@@ -169,6 +168,26 @@
   font-weight: 900;
   margin-bottom: 30px;
   cursor: pointer;
+}
+
+.share_btn {
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 3px solid #548341;
+  letter-spacing: 0.07rem;
+  font-size: 15px;
+  height: 40px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  min-width: 100px;
+  margin-bottom: 30px;
+  background: #548341;
+  letter-spacing: 0.07rem;
+  color: #fff;
 }
 
 .genre_selection_btn:hover,

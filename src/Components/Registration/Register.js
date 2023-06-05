@@ -5,14 +5,16 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import axios from "../../Api/axios";
 import logo from "../../Assets/Images/logo.png";
-import "./register.css";
+import "../Authentication/register_login.css";
 
 const Register = () => {
   // const dispatch = useDispatch();
   // const { user, status } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [response, setResponse] = useState("");
@@ -23,12 +25,17 @@ const Register = () => {
 
   useEffect(() => {
     setResponse("");
-  }, [name, password, confirmPassword]);
+  }, [firstName, lastName, userName, password, confirmPassword]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!PWD_REGEX.test(password)) {
+    if (firstName.length < 3 || lastName.length < 3 || userName.length < 3) {
+      setResponse(
+        "First name, last name, and username must be at least 3 characters long"
+      );
+      return;
+    } else if (!PWD_REGEX.test(password)) {
       setResponse(
         "Password must be 8-24 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character"
       );
@@ -41,7 +48,12 @@ const Register = () => {
     try {
       const response = await axios.post(
         REGISTER_URL,
-        JSON.stringify({ user: name, pwd: password }),
+        JSON.stringify({
+          firstname: firstName,
+          lastname: lastName,
+          user: userName,
+          pwd: password,
+        }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -49,7 +61,9 @@ const Register = () => {
       );
       console.log(JSON.stringify(response?.data));
       setSuccess(true);
-      setName("");
+      setFirstName("");
+      setLastName("");
+      setUserName("");
       setPassword("");
       setConfirmPassword("");
       showToastMessage();
@@ -91,22 +105,58 @@ const Register = () => {
           <div>
             <h2 className="response">{response}</h2>
           </div>
+          {/* first name */}
           <div>
-            <label htmlFor="name" aria-hidden="false" className="label">
-              Name
+            <label htmlFor="firstname" aria-hidden="false" className="label">
+              First Name
             </label>
             <input
               type="text"
-              name="name"
-              id="name"
+              name="firstname"
+              id="firstname"
               autoComplete="off"
-              placeholder="Enter your name"
-              value={name.charAt(0).toUpperCase() + name.slice(1)}
+              placeholder="Enter your first name"
+              value={firstName}
               className="input"
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setFirstName(e.target.value)}
               required
             />
           </div>
+          {/* last name */}
+          <div>
+            <label htmlFor="lastname" aria-hidden="false" className="label">
+              Last Name
+            </label>
+            <input
+              type="text"
+              name="lastname"
+              id="lastname"
+              autoComplete="off"
+              placeholder="Enter your last name"
+              value={lastName}
+              className="input"
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+          </div>
+          {/* user name */}
+          <div>
+            <label htmlFor="username" aria-hidden="false" className="label">
+              User Name
+            </label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              autoComplete="off"
+              placeholder="Select your username"
+              value={userName}
+              className="input"
+              onChange={(e) => setUserName(e.target.value)}
+              required
+            />
+          </div>
+          {/* password */}
           <div>
             <label htmlFor="password" aria-hidden="false" className="label">
               Password
@@ -122,6 +172,7 @@ const Register = () => {
               required
             />
           </div>
+          {/* confirm password */}
           <div>
             <label
               htmlFor="confirmPassword"
@@ -141,6 +192,7 @@ const Register = () => {
               required
             />
           </div>
+          {/* submit button */}
           <div>
             <button className="submit" type="submit">
               Register

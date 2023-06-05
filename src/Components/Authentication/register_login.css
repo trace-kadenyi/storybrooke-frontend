@@ -71,20 +71,29 @@
   /* border: 2px red solid; */
 }
 
+.response {
+  color: red;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 5px;
+  text-align: center;
+  backdrop-filter: blur(10px) saturate(70%);
+}
+
 .register_form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   /* border: 2px red solid; */
-  width: 50%;
+  min-width: 50%;
   padding: 20px;
   margin: 20px;
 }
 
 .register_form .input,
 .submit {
-  margin: 10px;
+  margin: 10px auto;
   padding: 10px;
   width: 100%;
   border-radius: 10px;
