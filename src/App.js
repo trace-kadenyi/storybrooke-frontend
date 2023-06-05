@@ -25,7 +25,7 @@ import FilterByTitle from "./Components/Pages/MainPages/ReadStories/FilterByTItl
 import FilterByAuthor from "./Components/Pages/MainPages/ReadStories/FilterByAuthor";
 import MyStories from "./Components/Pages/MainPages/ReadStories/MyStories";
 import Profile from "./Components/Pages/Profile/Profile";
-import UpdateStory from "./Components/Pages/UpdateStory/UpdateStory";
+import UpdateStory from "./Components/Pages/MainPages/ShareStories/UpdateStory";
 import UpdateProfile from "./Components/Pages/Profile/UpdateProfile";
 
 const App = () => {
