@@ -103,7 +103,7 @@ const App = () => {
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
-              <Route path="update_story" element={<UpdateStory />} />
+              <Route path="update_story/:storyId" element={<UpdateStory />} />
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
