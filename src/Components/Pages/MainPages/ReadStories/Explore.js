@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import { AiFillEdit } from "react-icons/ai";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import Logout from "../../../Logout";
@@ -53,6 +54,14 @@ const Explore = () => {
     // eslint-disable-next-line
   }, []);
 
+
+  // handle edit story
+  const handleEditStory = (e) => {
+    const storyId = e.currentTarget.id;
+    console.log(storyId)
+    navigate(`/update_story/${storyId}`);
+  }
+
   return (
     <section className="explore_sect">
       <MainNavbar />
@@ -81,13 +90,25 @@ const Explore = () => {
               return (
                 <div key={story._id} className="individual_story">
                   <div className="title_date">
-                    <p className="title_author">
-                      <span className="story_title">{story.title} </span>
-                      <span className="by">by </span>
-                      <span className="story_author">{story.author}</span>
-                    </p>
+                    <div className="title_author">
+                      <div>
+                        <span className="story_title">{story.title} </span>
+                        <span className="by">by </span>
+                        <span className="story_author">{story.author}</span>
+                      </div>
+                      <div>
+                        <AiFillEdit
+                          className="story_edit_icon"
+                          id={story._id}
+                          onClick={handleEditStory}
+                        />
+                      </div>
+                    </div>
                     <span className="story_date">{story.date}</span>
                   </div>
+                  {/* <div className="story_edit_div">
+                    <AiFillEdit className="story" />
+                  </div> */}
                   <ul className="story_genres">
                     {story.genres.map((genre) => {
                       return (
