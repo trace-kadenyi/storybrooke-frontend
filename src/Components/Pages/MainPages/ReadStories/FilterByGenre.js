@@ -22,7 +22,7 @@ const FilterByGenre = () => {
   const handleFetchStories = async (genre) => {
     try {
       setLoading(true);
-      const response = await axiosPrivate.get(`/story/${genre}`, {
+      const response = await axiosPrivate.get(`/story/find/${genre}`, {
         signal: controller.signal,
       });
       setStories(response.data);
