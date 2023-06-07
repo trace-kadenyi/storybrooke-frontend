@@ -3,7 +3,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  overflow-x: auto;
+  overflow-x: hidden;
   background: #092424;
   position: relative;
 }
