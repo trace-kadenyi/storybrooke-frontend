@@ -82,7 +82,6 @@
   margin: 50px;
   max-width: 80vw;
   margin: 50px auto;
-  /* border: 2px solid red; */
 }
 
 .individual_story {
@@ -91,6 +90,29 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.delete_story_div {
+  align-self: flex-end;
+  height: 30px;
+}
+
+.delete_story_btn {
+  padding: 5px;
+  border-radius: 10px;
+  background: #092424;
+  color: #fff;
+  border: none;
+  letter-spacing: 0.07rem;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+.delete_story_btn:hover {
+  background: red;
+  color: #092424;
+  font-weight: bold;
+  border: 2px #092424 solid;
 }
 
 .title_date {
