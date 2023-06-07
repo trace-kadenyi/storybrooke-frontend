@@ -28,7 +28,6 @@ const UpdateStory = () => {
 
   // get storyid from params
   const storyId = window.location.pathname.split("/")[2];
-  console.log(storyId);
 
   // manage error responses
   useEffect(() => {
@@ -43,16 +42,11 @@ const UpdateStory = () => {
     const fetchStory = async () => {
       try {
         const response = await axiosPrivate.get(`/story/${storyId}`);
-        console.log(response.data);
         setTitle(response.data.title);
         setStory(response.data.body);
         setAuthor(response.data.author);
         setGenres(response.data.genres);
-        console.log(response.data.genres);
-        console.log(genres);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     };
 
     fetchStory();
@@ -172,7 +166,6 @@ const UpdateStory = () => {
       author: author,
       genres: genres,
     };
-    console.log(storyData);
     if (title.length < 2) {
       setTitleResponse("Your title is too short. Please try again");
       // shift focus to title input
@@ -201,9 +194,7 @@ const UpdateStory = () => {
       // reset genres
       resetGenres();
 
-      // shift focus to top of page
-      // window.scrollTo(0, 0);
-      navigate("/explore");
+      navigate(`/story/${storyId}`);
 
       // show toast message
       showToastMessage(response.data.message);
