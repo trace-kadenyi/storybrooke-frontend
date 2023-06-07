@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AiFillEdit, AiOutlineDelete } from "react-icons/ai";
-import {BsTrash} from "react-icons/bs";
-import {FcEmptyTrash} from "react-icons/fc";
+import { BsTrash } from "react-icons/bs";
+import { FcEmptyTrash } from "react-icons/fc";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import Logout from "../../../Logout";
@@ -56,18 +56,17 @@ const Explore = () => {
     // eslint-disable-next-line
   }, []);
 
-
   // handle edit story
   const handleEditStory = (e) => {
     const storyId = e.currentTarget.id;
-    console.log(storyId)
+    console.log(storyId);
     navigate(`/update_story/${storyId}`);
-  }
+  };
 
   // handle delete story
   const handleDeleteStory = async (e) => {
     const storyId = e.currentTarget.id;
-    console.log(storyId)
+    console.log(storyId);
     try {
       const response = await axiosPrivate.delete(`/story/${storyId}`);
       console.log(response.data);
@@ -79,7 +78,14 @@ const Explore = () => {
       console.log(error);
       toast.error(error.message);
     }
-  }
+  };
+
+  // handle view story
+  const handleViewStory = (e) => {
+    const storyId = e.currentTarget.id;
+    console.log(storyId);
+    navigate(`/story/${storyId}`);
+  };
 
   return (
     <section className="explore_sect">
@@ -110,25 +116,15 @@ const Explore = () => {
                 <div key={story._id} className="individual_story">
                   <div className="title_date">
                     <div className="title_author">
-                      <div>
+                      <p
+                        onClick={handleViewStory}
+                        id={story._id}
+                        className="individual_story_link"
+                      >
                         <span className="story_title">{story.title} </span>
                         <span className="by">by </span>
                         <span className="story_author">{story.author}</span>
-                      </div>
-                      <div>
-                        <AiFillEdit
-                          className="story_edit_icon"
-                          id={story._id}
-                          onClick={handleEditStory}
-                        />
-                      </div>
-                      <div>
-                        <BsTrash
-                          className="story_edit_icon"
-                          id={story._id}
-                          onClick={handleDeleteStory}
-                        />
-                      </div>
+                      </p>
                     </div>
                     <span className="story_date">{story.date}</span>
                   </div>
@@ -144,7 +140,9 @@ const Explore = () => {
                       );
                     })}
                   </ul>
-                  <p className="story_body">{story.body}</p>
+                  <p className="story_body">
+                    {story.body.substring(0, 200)}...
+                  </p>
                 </div>
               );
             })}
