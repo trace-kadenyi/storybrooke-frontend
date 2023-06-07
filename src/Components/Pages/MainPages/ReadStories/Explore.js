@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AiFillEdit } from "react-icons/ai";
+import { AiFillEdit, AiOutlineDelete } from "react-icons/ai";
+import {BsTrash} from "react-icons/bs";
+import {FcEmptyTrash} from "react-icons/fc";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import Logout from "../../../Logout";
@@ -62,6 +64,23 @@ const Explore = () => {
     navigate(`/update_story/${storyId}`);
   }
 
+  // handle delete story
+  const handleDeleteStory = async (e) => {
+    const storyId = e.currentTarget.id;
+    console.log(storyId)
+    try {
+      const response = await axiosPrivate.delete(`/story/${storyId}`);
+      console.log(response.data);
+      toast.success(response.data.message);
+      // remove story from state
+      const newStories = stories.filter((story) => story._id !== storyId);
+      setStories(newStories);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  }
+
   return (
     <section className="explore_sect">
       <MainNavbar />
@@ -101,6 +120,13 @@ const Explore = () => {
                           className="story_edit_icon"
                           id={story._id}
                           onClick={handleEditStory}
+                        />
+                      </div>
+                      <div>
+                        <BsTrash
+                          className="story_edit_icon"
+                          id={story._id}
+                          onClick={handleDeleteStory}
                         />
                       </div>
                     </div>
