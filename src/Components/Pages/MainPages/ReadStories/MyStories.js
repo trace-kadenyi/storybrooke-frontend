@@ -56,7 +56,7 @@ const MyStories = () => {
         setLoading(true);
         const storiesFromInterests = await Promise.all(
           interests.map(async (interest) => {
-            const response = await axiosPrivate.get(`/story/${interest}`, {
+            const response = await axiosPrivate.get(`/story/find/${interest}`, {
               signal: controller.signal,
             });
             return response.data;
@@ -68,7 +68,15 @@ const MyStories = () => {
           (story) => story.length > 0
         );
         filteredStories.flat();
-        isMounted && setStories(filteredStories.flat());
+        // remove duplicates
+        const uniqueStories = filteredStories.flat().filter((story, index) => {
+          return (
+            filteredStories.flat().findIndex((story2) => {
+              return story2._id === story._id;
+            }) === index
+          );
+        });
+        isMounted && setStories(uniqueStories);
         if (stories.length === 0) {
           setLoading(true);
           setTimeout(() => {
