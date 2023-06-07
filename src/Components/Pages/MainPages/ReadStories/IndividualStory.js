@@ -32,6 +32,9 @@ const IndividualStory = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // current user
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+
   // get story id from url
   const id = window.location.pathname.split("/")[2];
   // fetch story from db
@@ -103,6 +106,16 @@ const IndividualStory = () => {
         {error && <p className="error">{error.message}</p>}
         {!loading && (
           <div key={id} className="individual_story">
+             {/* delete story */}
+             {author === currentUser && (
+                  <div className="delete_story_div">
+                    <button
+                      className="delete_story_btn"
+                      id={id}
+                      onClick={handleDeleteStory}
+                    >Delete Story</button>
+                  </div>
+                )}
             <div className="title_date">
               <div className="title_author">
                 <div id={id}>
@@ -110,20 +123,26 @@ const IndividualStory = () => {
                   <span className="by">by </span>
                   <span className="story_author">{author}</span>
                 </div>
-                <div>
-                  <AiFillEdit
-                    className="story_edit_icon"
-                    id={id}
-                    onClick={handleEditStory}
-                  />
-                </div>
-                <div>
-                  <BsTrash
-                    className="story_edit_icon"
-                    id={id}
-                    onClick={handleDeleteStory}
-                  />
-                </div>
+                {/* edit story */}
+                {author === currentUser && (
+                  <div>
+                    <AiFillEdit
+                      className="story_edit_icon"
+                      id={id}
+                      onClick={handleEditStory}
+                    />
+                  </div>
+                )}
+                {/* delete story
+                {author === currentUser && (
+                  <div>
+                    <BsTrash
+                      className="story_edit_icon"
+                      id={id}
+                      onClick={handleDeleteStory}
+                    />
+                  </div>
+                )} */}
               </div>
               <span className="story_date">{date}</span>
             </div>
