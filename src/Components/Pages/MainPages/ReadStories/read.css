@@ -110,6 +110,10 @@
   height: 50px;
 }
 
+.individual_story_link {
+  cursor: pointer;
+}
+
 .story_edit_icon {
   font-size: 1.5rem;
   cursor: pointer;
