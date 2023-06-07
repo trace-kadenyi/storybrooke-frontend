@@ -9,6 +9,7 @@ import "./read.css";
 import preloader from "../../../../Assets/Images/main.gif";
 
 const MyStories = () => {
+  const navigate = useNavigate();
   const [stories, setStories] = useState([]);
   const [interests, setInterests] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -76,6 +77,11 @@ const MyStories = () => {
             }) === index
           );
         });
+        // sort stories by date
+        uniqueStories.sort((a, b) => {
+          return new Date(b.date) - new Date(a.date);
+        });
+
         isMounted && setStories(uniqueStories);
         if (stories.length === 0) {
           setLoading(true);
@@ -105,6 +111,13 @@ const MyStories = () => {
     };
   }, [interests.length]);
 
+  // handle view story
+  const handleViewStory = (e) => {
+    const storyId = e.currentTarget.id;
+    console.log(storyId);
+    navigate(`/story/${storyId}`);
+  };
+
   return (
     <section className="explore_sect">
       <MainNavbar />
@@ -132,11 +145,17 @@ const MyStories = () => {
             return (
               <div key={story._id} className="individual_story">
                 <div className="title_date">
-                  <p className="title_author">
-                    <span className="story_title">{story.title} </span>
-                    <span className="by">by </span>
-                    <span className="story_author">{story.author}</span>
-                  </p>
+                  <div className="title_author">
+                    <p
+                      onClick={handleViewStory}
+                      id={story._id}
+                      className="individual_story_link"
+                    >
+                      <span className="story_title">{story.title} </span>
+                      <span className="by">by </span>
+                      <span className="story_author">{story.author}</span>
+                    </p>
+                  </div>
                   <span className="story_date">{story.date}</span>
                 </div>
                 <ul className="story_genres">
@@ -148,7 +167,7 @@ const MyStories = () => {
                     );
                   })}
                 </ul>
-                <p className="story_body">{story.body}</p>
+                <p className="story_body">{story.body.substring(0, 200)}...</p>{" "}
               </div>
             );
           })}
