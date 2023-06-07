@@ -1,14 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-import MainNavbar from "../../../Navigation/MainNavbar";
-import logo from "../../../../Assets/Images/logo.png";
-import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
-import "./read.css";
-import preloader from "../../../../Assets/Images/main.gif";
+import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Blueprint = ({ story }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // handle view story
   const handleViewStory = (e) => {
@@ -42,7 +37,12 @@ const Blueprint = ({ story }) => {
           );
         })}
       </ul>
-      <p className="story_body">{story.body.substring(0, 200)}...</p>
+      <p className="story_body">
+        {/* if story isn't on profile page, show only 200 characters */}
+        {location.pathname.includes("profile")
+          ? story.body.substring(0, 100) + "..."
+          : story.body.substring(0, 200) + "..."}
+      </p>
     </div>
   );
 };
