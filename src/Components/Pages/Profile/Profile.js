@@ -3,6 +3,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 import MainNavbar from "../../Navigation/MainNavbar";
+import Blueprint from "../MainPages/ReadStories/Blueprint";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import "./profile.css";
 import preloader from "../../../Assets/Images/bio_preloader.gif";
@@ -241,36 +242,7 @@ const Profile = () => {
                     </div>
                   ) : stories.length > 0 ? (
                     stories.map((story) => {
-                      return (
-                        <div key={story._id} className="individual_story">
-                          <div className="title_date">
-                          <div className="title_author">
-                      <p
-                        // onClick={handleViewStory}
-                        id={story._id}
-                        // className="individual_story_link"
-                      >
-                        <span className="story_title">{story.title} </span>
-                        <span className="by">by </span>
-                        <span className="story_author">{story.author}</span>
-                      </p>
-                    </div>
-                            <span className="story_date">{story.date}</span>
-                          </div>
-                          <ul className="story_genres">
-                            {story.genres.map((genre) => {
-                              return (
-                                <li key={genre} className="story_genre">
-                                  {genre} |
-                                </li>
-                              );
-                            })}
-                          </ul>
-                          <p className="story_body">
-                            {story.body.substring(0, 100)}...
-                          </p>
-                        </div>
-                      );
+                      return <Blueprint key={story._id} story={story} />;
                     })
                   ) : (
                     <div className="by_genre_response">{response}</div>
