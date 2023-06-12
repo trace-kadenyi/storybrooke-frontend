@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
-import Logout from "../../../Logout";
 import logo from "../../../../Assets/Images/logo.png";
 import { btnOptions } from "../../../AppData/data";
-// import "./share.css";
 import preloader from "../../../../Assets/Images/submit.gif";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 
@@ -24,7 +22,6 @@ const UpdateStory = () => {
   const [storyResponse, setStoryResponse] = useState("");
   const [genreResponse, setGenreResponse] = useState("");
   const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
-  const [submitted, setSubmitted] = useState(false); // to prevent multiple submissions
 
   // get storyid from params
   const storyId = window.location.pathname.split("/")[2];
@@ -185,7 +182,6 @@ const UpdateStory = () => {
     setLoadSubmit(true);
     try {
       const response = await axiosPrivate.put(`/story/${storyId}`, storyData);
-      setSubmitted(true);
       console.log(response.data);
       setTitle("");
       setStory("");
@@ -336,7 +332,7 @@ const UpdateStory = () => {
               </div>
             </div>
           </div>
-
+          {/* response */}
           <p className="response">
             <strong>{storyResponse}</strong>
           </p>
@@ -362,12 +358,7 @@ const UpdateStory = () => {
           <p className="publish_response">
             <strong>{response}</strong>
           </p>
-          {/* <div>
-            <button type="submit" className="share_btn">
-              Publish
-            </button>
-          </div> */}
-
+          {/* submit button */}
           <div className="story_submit_div">
             <button type="submit" className="share_btn">
               <span>Publish Update</span>

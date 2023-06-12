@@ -1,15 +1,14 @@
 import React from "react";
-import { useNavigate, Link, NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
-import logo from "../../Assets/Images/logo.png";
 import Logout from "../Logout";
 import "./navbar.css";
 
 const MainNavbar = () => {
   const location = useLocation();
-  const currentUser = JSON.parse(localStorage.getItem("user"));
-  const from = location.state?.from?.pathname || "/";
-  const navigate = useNavigate();
+  // const currentUser = JSON.parse(localStorage.getItem("user"));
+  // const from = location.state?.from?.pathname || "/";
+  // const navigate = useNavigate();
 
   // display none for missing links
   const missingLinks = document.querySelector(".main_read_share");
@@ -35,21 +34,21 @@ const MainNavbar = () => {
           </li>
           {/* navigate between read and share pages */}
           <li className="main_navbar_list main_read_share">
-            {location.pathname == "/read" ? (
+            {location.pathname === "/read" ? (
               <NavLink to="/share" className="main_link">
                 Share
               </NavLink>
-            ) : location.pathname == "/share" ||
-              location.pathname == "/profile" ? (
+            ) : location.pathname === "/share" ||
+              location.pathname === "/profile" ? (
               <NavLink to="/read" className="main_link">
                 Explore
               </NavLink>
-            ) : location.pathname == "/explore" ||
-              location.pathname == "/my_stories" ||
-              location.pathname == "/by_genre" ||
-              location.pathname == "by_title" ||
-              location.pathname == "/by_author" ||
-              location.pathname == "/by_title" ? (
+            ) : location.pathname === "/explore" ||
+              location.pathname === "/my_stories" ||
+              location.pathname === "/by_genre" ||
+              location.pathname === "by_title" ||
+              location.pathname === "/by_author" ||
+              location.pathname === "/by_title" ? (
               <NavLink to="/main" className="main_link">
                 Main
               </NavLink>

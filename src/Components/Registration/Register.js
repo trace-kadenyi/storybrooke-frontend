@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import axios from "../../Api/axios";
 import logo from "../../Assets/Images/logo.png";
@@ -9,9 +8,6 @@ import preloader from "../../Assets/Images/submit.gif";
 import "../Authentication/register_login.css";
 
 const Register = () => {
-  // const dispatch = useDispatch();
-  // const { user, status } = useSelector((state) => state.user);
-
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -19,7 +15,6 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [response, setResponse] = useState("");
-  const [success, setSuccess] = useState(false);
   const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
   const REGISTER_URL = "/register";
 
@@ -63,7 +58,6 @@ const Register = () => {
         }
       );
       console.log(JSON.stringify(response?.data));
-      setSuccess(true);
       setFirstName("");
       setLastName("");
       setUserName("");

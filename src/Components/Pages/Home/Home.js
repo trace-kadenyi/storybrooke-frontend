@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate, Link, NavLink, useLocation } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
@@ -153,7 +153,11 @@ const Home = () => {
       {/* next page option */}
       {loadInterests ? (
         <div className="preloader_div">
-          <img src={preloader} alt="preloader" className="preloader home_preloader" />
+          <img
+            src={preloader}
+            alt="preloader"
+            className="preloader home_preloader"
+          />
         </div>
       ) : (
         <div className="next_btn_div">

@@ -9,7 +9,7 @@ import "./profile.css";
 import preloader from "../../../Assets/Images/bio_preloader.gif";
 import profPicPreloader from "../../../Assets/Images/pic_preloader.gif";
 import storiesPreloader from "../../../Assets/Images/main.gif";
-import { coverImgDefault } from "../../AppData/data";
+// import { coverImgDefault } from "../../AppData/data";
 import defaultCover from "../../../Assets/Images/about.png";
 
 const Profile = () => {

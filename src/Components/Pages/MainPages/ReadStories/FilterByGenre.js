@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
-import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import Blueprint from "./Blueprint";
-import Logout from "../../../Logout";
 import logo from "../../../../Assets/Images/logo.png";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import { btnOptions } from "../../../AppData/data";
@@ -15,7 +14,6 @@ const FilterByGenre = () => {
   const [loading, setLoading] = useState(false);
   const [selectedGenre, setSelectedGenre] = useState([]);
   const [response, setResponse] = useState([]);
-  const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
 
   const controller = new AbortController();
@@ -165,9 +163,7 @@ const FilterByGenre = () => {
               </div>
             ) : stories.length > 0 ? (
               stories.map((story) => {
-                return (
-                  <Blueprint key={story._id} story={story} />
-                );
+                return <Blueprint key={story._id} story={story} />;
               })
             ) : (
               <div className="by_genre_response">{response}</div>
