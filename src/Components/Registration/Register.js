@@ -5,6 +5,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import axios from "../../Api/axios";
 import logo from "../../Assets/Images/logo.png";
+import preloader from "../../Assets/Images/submit.gif";
 import "../Authentication/register_login.css";
 
 const Register = () => {
@@ -19,6 +20,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [response, setResponse] = useState("");
   const [success, setSuccess] = useState(false);
+  const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
   const REGISTER_URL = "/register";
 
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -44,6 +46,7 @@ const Register = () => {
       setResponse("Passwords do not match");
       return;
     }
+    setLoadSubmit(true);
 
     try {
       const response = await axios.post(
@@ -77,6 +80,7 @@ const Register = () => {
         setResponse("Something went wrong. Please try again later.");
       }
     }
+    setLoadSubmit(false);
   };
 
   const showToastMessage = () => {
@@ -193,9 +197,15 @@ const Register = () => {
             />
           </div>
           {/* submit button */}
-          <div>
-            <button className="submit" type="submit">
-              Register
+          <div className="story_submit_div">
+            <button type="submit" className="submit">
+              <span>Register</span>
+              {/* preloader span */}
+              {loadSubmit && (
+                <span className="preloader_span">
+                  <img src={preloader} alt="preloader" />
+                </span>
+              )}
             </button>
           </div>
         </form>
