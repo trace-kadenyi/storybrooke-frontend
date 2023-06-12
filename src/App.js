@@ -25,8 +25,9 @@ import FilterByTitle from "./Components/Pages/MainPages/ReadStories/FilterByTItl
 import FilterByAuthor from "./Components/Pages/MainPages/ReadStories/FilterByAuthor";
 import MyStories from "./Components/Pages/MainPages/ReadStories/MyStories";
 import Profile from "./Components/Pages/Profile/Profile";
-import UpdateStory from "./Components/Pages/UpdateStory/UpdateStory";
+import UpdateStory from "./Components/Pages/MainPages/ShareStories/UpdateStory";
 import UpdateProfile from "./Components/Pages/Profile/UpdateProfile";
+import IndividualStory from "./Components/Pages/MainPages/ReadStories/IndividualStory";
 
 const App = () => {
   return (
@@ -103,11 +104,15 @@ const App = () => {
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
-              <Route path="update_story" element={<UpdateStory />} />
+              <Route path="update_story/:storyId" element={<UpdateStory />} />
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
               <Route path="update_profile" element={<UpdateProfile />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[2001]} />}>
+              <Route path="story/:storyId" element={<IndividualStory />} />
             </Route>
           </Route>
           {/* catch all */}

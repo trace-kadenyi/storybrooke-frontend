@@ -3,12 +3,14 @@ import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
+import Blueprint from "./Blueprint";
 import logo from "../../../../Assets/Images/logo.png";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import "./read.css";
 import preloader from "../../../../Assets/Images/main.gif";
 
 const MyStories = () => {
+  const navigate = useNavigate();
   const [stories, setStories] = useState([]);
   const [interests, setInterests] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -56,7 +58,7 @@ const MyStories = () => {
         setLoading(true);
         const storiesFromInterests = await Promise.all(
           interests.map(async (interest) => {
-            const response = await axiosPrivate.get(`/story/${interest}`, {
+            const response = await axiosPrivate.get(`/story/find/${interest}`, {
               signal: controller.signal,
             });
             return response.data;
@@ -68,7 +70,20 @@ const MyStories = () => {
           (story) => story.length > 0
         );
         filteredStories.flat();
-        isMounted && setStories(filteredStories.flat());
+        // remove duplicates
+        const uniqueStories = filteredStories.flat().filter((story, index) => {
+          return (
+            filteredStories.flat().findIndex((story2) => {
+              return story2._id === story._id;
+            }) === index
+          );
+        });
+        // sort stories by date
+        uniqueStories.sort((a, b) => {
+          return new Date(b.date) - new Date(a.date);
+        });
+
+        isMounted && setStories(uniqueStories);
         if (stories.length === 0) {
           setLoading(true);
           setTimeout(() => {
@@ -97,6 +112,13 @@ const MyStories = () => {
     };
   }, [interests.length]);
 
+  // handle view story
+  const handleViewStory = (e) => {
+    const storyId = e.currentTarget.id;
+    console.log(storyId);
+    navigate(`/story/${storyId}`);
+  };
+
   return (
     <section className="explore_sect">
       <MainNavbar />
@@ -121,28 +143,7 @@ const MyStories = () => {
           )}
           {error && <p className="error">{error.message}</p>}
           {stories.map((story) => {
-            return (
-              <div key={story._id} className="individual_story">
-                <div className="title_date">
-                  <p className="title_author">
-                    <span className="story_title">{story.title} </span>
-                    <span className="by">by </span>
-                    <span className="story_author">{story.author}</span>
-                  </p>
-                  <span className="story_date">{story.date}</span>
-                </div>
-                <ul className="story_genres">
-                  {story.genres.map((genre) => {
-                    return (
-                      <li key={genre} className="story_genre">
-                        {genre} |
-                      </li>
-                    );
-                  })}
-                </ul>
-                <p className="story_body">{story.body}</p>
-              </div>
-            );
+            return <Blueprint key={story._id} story={story} />;
           })}
         </div>
         <div className="by_genre_response">

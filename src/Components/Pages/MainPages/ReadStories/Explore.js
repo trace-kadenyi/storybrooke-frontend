@@ -1,19 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
-import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
-import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
-import Logout from "../../../Logout";
+import Blueprint from "./Blueprint";
 import logo from "../../../../Assets/Images/logo.png";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import "./read.css";
 import preloader from "../../../../Assets/Images/main.gif";
 
 const Explore = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  // handle fetch stories
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -21,6 +16,7 @@ const Explore = () => {
 
   const axiosPrivate = useAxiosPrivate();
 
+  // handle fetch stories
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
@@ -78,28 +74,7 @@ const Explore = () => {
             )}
             {error && <p className="error">{error.message}</p>}
             {stories.map((story) => {
-              return (
-                <div key={story._id} className="individual_story">
-                  <div className="title_date">
-                    <p className="title_author">
-                      <span className="story_title">{story.title} </span>
-                      <span className="by">by </span>
-                      <span className="story_author">{story.author}</span>
-                    </p>
-                    <span className="story_date">{story.date}</span>
-                  </div>
-                  <ul className="story_genres">
-                    {story.genres.map((genre) => {
-                      return (
-                        <li key={genre} className="story_genre">
-                          {genre} |
-                        </li>
-                      );
-                    })}
-                  </ul>
-                  <p className="story_body">{story.body}</p>
-                </div>
-              );
+              return <Blueprint key={story._id} story={story} />;
             })}
           </div>
         </>
