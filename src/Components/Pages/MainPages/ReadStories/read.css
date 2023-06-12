@@ -167,6 +167,7 @@
 
 .story_date {
   font-size: 12px;
+  text-decoration: underline;
 }
 
 .story_genres {
