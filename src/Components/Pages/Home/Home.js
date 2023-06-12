@@ -2,18 +2,18 @@ import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, Link, NavLink, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import MainNavbar from "../../Navigation/MainNavbar";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-import Logout from "../../Logout";
 import logo from "../../../Assets/Images/logo.png";
 import { btnOptions } from "../../AppData/data";
 import { getUsers } from "../../AppData/getUsers";
+import preloader from "../../../Assets/Images/base_preloader.gif";
 import "./home.css";
 
 const Home = () => {
   const navigate = useNavigate();
   const [interests, setInterests] = useState([]);
   const [users, setUsers] = useState();
+  const [loadInterests, setLoadInterests] = useState(true);
   const axiosPrivate = useAxiosPrivate();
   const location = useLocation();
   const effectRun = useRef(false);
@@ -90,6 +90,7 @@ const Home = () => {
         ).interests;
         // set the interests in the state
         setInterests(userInterests);
+        setLoadInterests(false);
       } catch (err) {
         console.log(err);
       }
@@ -150,13 +151,19 @@ const Home = () => {
         </div>
       </div>
       {/* next page option */}
-      <div className="next_btn_div">
-        <button>
-          <span className="next_btn" onClick={nextPageOption}>
-            Next
-          </span>
-        </button>
-      </div>
+      {loadInterests ? (
+        <div className="preloader_div">
+          <img src={preloader} alt="preloader" className="preloader home_preloader" />
+        </div>
+      ) : (
+        <div className="next_btn_div">
+          <button>
+            <span className="next_btn" onClick={nextPageOption}>
+              Next
+            </span>
+          </button>
+        </div>
+      )}
     </section>
   );
 };
