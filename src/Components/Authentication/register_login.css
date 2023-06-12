@@ -110,6 +110,10 @@
   background: #fff;
   color: #000;
   font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 .submit:hover {
