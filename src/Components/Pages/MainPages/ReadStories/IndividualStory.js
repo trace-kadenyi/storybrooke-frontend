@@ -1,12 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
-import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AiFillEdit, AiOutlineDelete } from "react-icons/ai";
-import { BsTrash } from "react-icons/bs";
-import { FcEmptyTrash } from "react-icons/fc";
+import { AiFillEdit } from "react-icons/ai";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
-import Logout from "../../../Logout";
 import logo from "../../../../Assets/Images/logo.png";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import "./read.css";
@@ -17,18 +14,11 @@ const IndividualStory = () => {
   const [genres, setGenres] = useState([]);
   const axiosPrivate = useAxiosPrivate();
   const [title, setTitle] = useState("");
-  const [story, setStory] = useState("");
   const [author, setAuthor] = useState(
     JSON.parse(localStorage.getItem("user"))
   );
   const [date, setDate] = useState("");
   const [body, setBody] = useState("");
-  const [response, setResponse] = useState("");
-  const [titleResponse, setTitleResponse] = useState("");
-  const [storyResponse, setStoryResponse] = useState("");
-  const [genreResponse, setGenreResponse] = useState("");
-  const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
-  const [submitted, setSubmitted] = useState(false); // to prevent multiple submissions
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -74,9 +64,6 @@ const IndividualStory = () => {
       console.log(response.data);
       toast.success(response.data.message);
       navigate("/explore");
-      // remove story from state
-      // const newStories = stories.filter((story) => story._id !== storyId);
-      // setStories(newStories);
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -106,16 +93,18 @@ const IndividualStory = () => {
         {error && <p className="error">{error.message}</p>}
         {!loading && (
           <div key={id} className="individual_story">
-             {/* delete story */}
-             {author === currentUser && (
-                  <div className="delete_story_div">
-                    <button
-                      className="delete_story_btn"
-                      id={id}
-                      onClick={handleDeleteStory}
-                    >Delete Story</button>
-                  </div>
-                )}
+            {/* delete story */}
+            {author === currentUser && (
+              <div className="delete_story_div">
+                <button
+                  className="delete_story_btn"
+                  id={id}
+                  onClick={handleDeleteStory}
+                >
+                  Delete Story
+                </button>
+              </div>
+            )}
             <div className="title_date">
               <div className="title_author">
                 <div id={id}>
@@ -133,22 +122,9 @@ const IndividualStory = () => {
                     />
                   </div>
                 )}
-                {/* delete story
-                {author === currentUser && (
-                  <div>
-                    <BsTrash
-                      className="story_edit_icon"
-                      id={id}
-                      onClick={handleDeleteStory}
-                    />
-                  </div>
-                )} */}
               </div>
-              <span className="story_date">{date}</span>
+              <span className="story_date">{date.slice(0, 10)}</span>
             </div>
-            {/* <div className="story_edit_div">
-                    <AiFillEdit className="story" />
-                  </div> */}
             <ul className="story_genres">
               {genres.map((genre) => {
                 return (
