@@ -341,6 +341,7 @@
   color: #092424;
   top: 30%;
   left: 45%;
+  cursor: pointer;
 }
 
 .update_camera_icon:hover {
