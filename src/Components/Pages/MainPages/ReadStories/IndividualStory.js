@@ -123,7 +123,7 @@ const IndividualStory = () => {
                   </div>
                 )}
               </div>
-              <span className="story_date">{date.slice(0, 10)}</span>
+              <span className="story_date">Created: {date.slice(0, 10)}</span>
             </div>
             <ul className="story_genres">
               {genres.map((genre) => {

@@ -26,7 +26,7 @@ const Blueprint = ({ story }) => {
             <span className="story_author">{story.author}</span>
           </p>
         </div>
-        <span className="story_date">{story.date.slice(0, 10)}</span>
+        <span className="story_date">Created: {story.date.slice(0, 10)}</span>
       </div>
       <ul className="story_genres">
         {story.genres.map((genre) => {
