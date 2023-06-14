@@ -85,7 +85,7 @@ const MyStories = () => {
         if (stories.length === 0) {
           setLoading(true);
           setTimeout(() => {
-            setResponse("No stories found");
+            setResponse("No stories found yet...");
           }, 2000);
         } else if (stories.length > 0) {
           setResponse("");
@@ -139,8 +139,8 @@ const MyStories = () => {
           })}
         </div>
         <div className="by_genre_response">
-          {stories.length === 0 && response === "No stories found" ? (
-            <p className="no_stories">No stories found</p>
+          {stories.length === 0 && response === "No stories found yet..." ? (
+            <p className="no_stories">No stories found yet...</p>
           ) : (
             ""
           )}
