@@ -44,6 +44,7 @@ const Register = () => {
     setLoadSubmit(true);
 
     try {
+      //eslint-disable-next-line
       const response = await axios.post(
         REGISTER_URL,
         JSON.stringify({
@@ -57,7 +58,6 @@ const Register = () => {
           withCredentials: true,
         }
       );
-      console.log(JSON.stringify(response?.data));
       setFirstName("");
       setLastName("");
       setUserName("");

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
-import Logout from "../../../Logout";
 import logo from "../../../../Assets/Images/logo.png";
 import { btnOptions } from "../../../AppData/data";
 import "./share.css";
@@ -23,7 +22,6 @@ const ShareStories = () => {
   const [storyResponse, setStoryResponse] = useState("");
   const [genreResponse, setGenreResponse] = useState("");
   const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
-  const [submitted, setSubmitted] = useState(false); // to prevent multiple submissions
 
   // manage error responses
   useEffect(() => {
@@ -142,7 +140,6 @@ const ShareStories = () => {
     setLoadSubmit(true);
     try {
       const response = await axiosPrivate.post("/story", storyData);
-      setSubmitted(true);
       setTitle("");
       setStory("");
       setAuthor(JSON.parse(localStorage.getItem("user")));

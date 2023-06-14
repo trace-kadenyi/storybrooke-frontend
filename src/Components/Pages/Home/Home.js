@@ -25,6 +25,7 @@ const Home = () => {
 
   // get users on page load
   useEffect(() => {
+    //eslint-disable-next-line
     let isMounted = true;
     const controller = new AbortController();
 
@@ -67,11 +68,11 @@ const Home = () => {
     // push selected interests to the database
     const updateInterests = async () => {
       try {
+        //eslint-disable-next-line
         const response = await axiosPrivate.put(`/`, {
           id: foundId,
           interests: interests,
         });
-        console.log(response.data);
       } catch (err) {
         console.log(err);
       }

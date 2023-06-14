@@ -9,7 +9,7 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import "./profile.css";
 import profPicPreloader from "../../../Assets/Images/pic_preloader.gif";
 import preloader from "../../../Assets/Images/submit.gif";
-import { coverImgDefault } from "../../AppData/data";
+// import { coverImgDefault } from "../../AppData/data";
 import defaultCover from "../../../Assets/Images/about.png";
 
 const UpdateProfile = () => {
@@ -109,6 +109,7 @@ const UpdateProfile = () => {
     };
     setLoadSubmit(true);
     try {
+      //eslint-disable-next-line
       const response = await axiosPrivate.put(
         `/profile/${currentUser}`,
         userProfile
