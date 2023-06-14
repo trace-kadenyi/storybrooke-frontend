@@ -51,17 +51,14 @@ const IndividualStory = () => {
   // handle edit story
   const handleEditStory = (e) => {
     const storyId = e.currentTarget.id;
-    console.log(storyId);
     navigate(`/update_story/${storyId}`);
   };
 
   // handle delete story
   const handleDeleteStory = async (e) => {
     const storyId = e.currentTarget.id;
-    console.log(storyId);
     try {
       const response = await axiosPrivate.delete(`/story/${storyId}`);
-      console.log(response.data);
       toast.success(response.data.message);
       navigate("/explore");
     } catch (error) {

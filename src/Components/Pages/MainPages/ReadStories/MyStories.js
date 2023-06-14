@@ -35,7 +35,6 @@ const MyStories = () => {
             a.toLowerCase().localeCompare(b.toLowerCase())
           )
         );
-        console.log(interests);
       } catch (err) {
         console.log(err);
         setError(error);

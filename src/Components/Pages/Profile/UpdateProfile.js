@@ -35,7 +35,6 @@ const UpdateProfile = () => {
       try {
         setLoading(true);
         const response = await axiosPrivate.get(`/profile/${currentUser}`);
-        console.log(response.data);
         setUsername(response.data.username);
         setBio(response.data.bio);
         setProfPic(response.data.profilePicture);
@@ -81,7 +80,6 @@ const UpdateProfile = () => {
     reader.readAsDataURL(e.target.files[0]);
     reader.onload = () => {
       setProfPic(reader.result);
-      console.log(reader.result);
     };
     reader.onerror = function (error) {
       console.log("Error: ", error);
@@ -93,7 +91,6 @@ const UpdateProfile = () => {
     reader.readAsDataURL(e.target.files[0]);
     reader.onload = () => {
       setCoverPic(reader.result);
-      console.log(reader.result);
     };
     reader.onerror = function (error) {
       console.log("Error: ", error);
@@ -110,7 +107,6 @@ const UpdateProfile = () => {
       base64: profPic,
       coverPicture: coverPic,
     };
-    console.log(userProfile);
     setLoadSubmit(true);
     try {
       const response = await axiosPrivate.put(
@@ -118,7 +114,6 @@ const UpdateProfile = () => {
         userProfile
       );
       setSubmitted(true);
-      // console.log(response.data);
       showToastMessage();
       // if username is changed, navigate to login page else navigate to profile page in 3 seconds
       if (username === currentUser) {

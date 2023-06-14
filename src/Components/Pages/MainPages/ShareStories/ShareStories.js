@@ -123,7 +123,6 @@ const ShareStories = () => {
       author: author,
       genres: genres,
     };
-    console.log(storyData);
     if (title.length < 2) {
       setTitleResponse("Your title is too short. Please try again");
       // shift focus to title input
@@ -144,7 +143,6 @@ const ShareStories = () => {
     try {
       const response = await axiosPrivate.post("/story", storyData);
       setSubmitted(true);
-      console.log(response.data);
       setTitle("");
       setStory("");
       setAuthor(JSON.parse(localStorage.getItem("user")));

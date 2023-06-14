@@ -182,7 +182,6 @@ const UpdateStory = () => {
     setLoadSubmit(true);
     try {
       const response = await axiosPrivate.put(`/story/${storyId}`, storyData);
-      console.log(response.data);
       setTitle("");
       setStory("");
       setAuthor(JSON.parse(localStorage.getItem("user")));

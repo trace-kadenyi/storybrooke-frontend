@@ -40,7 +40,6 @@ const Profile = () => {
       try {
         setLoadProfile(true);
         const response = await axiosPrivate.get(`/profile/${currentUser}`);
-        console.log(response.data);
         setFirstName(response.data.firstname);
         setLastName(response.data.lastname);
         setUsername(response.data.username);
@@ -77,7 +76,6 @@ const Profile = () => {
             a.toLowerCase().localeCompare(b.toLowerCase())
           )
         );
-        console.log(profileInterests);
       } catch (err) {
         console.log(err);
         setError(error);
@@ -106,7 +104,6 @@ const Profile = () => {
       const response = await axiosPrivate.get(`/story/author/${currentUser}`, {
         signal: controller.signal,
       });
-      console.log(response.data);
       setStories(response.data);
       // handle no stories to display
       if (stories.length === 0) {

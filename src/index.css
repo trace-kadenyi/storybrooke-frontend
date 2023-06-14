@@ -12,4 +12,9 @@ html {
 
 body {
   overflow: auto;
+  background: #092424;
+}
+
+.initial_loading {
+  color: #fff;
 }

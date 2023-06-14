@@ -8,7 +8,6 @@ const Blueprint = ({ story }) => {
   // handle view story
   const handleViewStory = (e) => {
     const storyId = e.currentTarget.id;
-    console.log(storyId);
     navigate(`/story/${storyId}`);
   };
 
