@@ -155,5 +155,5 @@
 }
 
 .devise-checked:checked {
-  background: #548341;
+  accent-color: #548341;
 }
