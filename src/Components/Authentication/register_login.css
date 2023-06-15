@@ -151,10 +151,6 @@
   font-size: 14px;
 }
 
-.devise-checked:checked {
-  /* accent-color: #548341; */
-}
-
 input[type="checkbox"],
 input[type="radio"] {
   filter: hue-rotate(290deg);
