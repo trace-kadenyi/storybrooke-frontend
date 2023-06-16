@@ -155,3 +155,9 @@ input[type="checkbox"],
 input[type="radio"] {
   filter: hue-rotate(290deg);
 }
+
+@media screen and (max-width: 600px) {
+  .toast-message {
+    max-width: 80vw;
+  }
+}
