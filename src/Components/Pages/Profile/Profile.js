@@ -185,13 +185,18 @@ const Profile = () => {
           </div>
           <div className="profile_username_div main_profile_username_div">
             {!loadProfile && (
-              <div className="date_joined_div">
-                <p className="date_joined">
-                  Joined:{" "}
-                  <span className="date_span">
-                    {dateJoined && dateJoined.slice(0, 10)}
-                  </span>
-                </p>
+              <div className="acc_details">
+                <div className="date_joined_div">
+                  <p className="date_joined">
+                    Joined:{" "}
+                    <span className="date_span">
+                      {dateJoined && dateJoined.slice(0, 10)}
+                    </span>
+                  </p>
+                </div>
+                <div>
+                  <button className="delete_story_btn">Delete account</button>
+                </div>
               </div>
             )}
             <div className="profile_names_div">
