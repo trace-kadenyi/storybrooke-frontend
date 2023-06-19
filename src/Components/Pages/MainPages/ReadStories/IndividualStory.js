@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AiFillEdit } from "react-icons/ai";
+import { TiTick } from "react-icons/ti";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import logo from "../../../../Assets/Images/logo.png";
@@ -21,6 +22,7 @@ const IndividualStory = () => {
   const [body, setBody] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
 
   // current user
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -58,6 +60,7 @@ const IndividualStory = () => {
   const handleDeleteStory = async (e) => {
     const storyId = e.currentTarget.id;
     try {
+      setLoadSubmit(true);
       const response = await axiosPrivate.delete(`/story/${storyId}`);
       toast.success(response.data.message);
       navigate("/explore");
@@ -65,6 +68,7 @@ const IndividualStory = () => {
       console.log(error);
       toast.error(error.message);
     }
+    setLoadSubmit(false);
   };
 
   return (
@@ -98,7 +102,13 @@ const IndividualStory = () => {
                   id={id}
                   onClick={handleDeleteStory}
                 >
-                  Delete Story
+                  <span>Delete Story</span>
+                  {/* preloader span */}
+                  {loadSubmit && (
+                    <span className="story_preloader_span">
+                      <TiTick className="story_tick_icon" />
+                    </span>
+                  )}
                 </button>
               </div>
             )}

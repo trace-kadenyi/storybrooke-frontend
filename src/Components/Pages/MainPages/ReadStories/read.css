@@ -88,6 +88,11 @@
   gap: 10px;
 }
 
+.story_tick_icon {
+  color: #fff;
+  font-size: 1rem;
+}
+
 .delete_story_div {
   align-self: flex-end;
   height: 30px;
@@ -102,6 +107,10 @@
   letter-spacing: 0.07rem;
   cursor: pointer;
   font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
 
 .delete_story_btn:hover {
