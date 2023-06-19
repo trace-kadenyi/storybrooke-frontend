@@ -27,13 +27,11 @@ const Explore = () => {
         const response = await axiosPrivate.get("/story", {
           signal: controller.signal,
         });
-        console.log(response.data.stories);
         isMounted && setStories(response.data.stories);
         setLoading(false);
       } catch (error) {
         setError(error);
         console.log(error);
-        // navigate("/login", { state: { from: location }, replace: true });
         setLoading(false);
       }
     };

@@ -24,7 +24,6 @@ const FilterByAuthor = () => {
       const response = await axiosPrivate.get(`/story/author/${author}`, {
         signal: controller.signal,
       });
-      console.log(response.data);
       setStories(response.data);
       setAuthor("");
       // handle no stories to display
@@ -57,10 +56,8 @@ const FilterByAuthor = () => {
   // handle filter by author
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(author);
     handleFetchStories();
     setStories([]);
-    console.log(stories);
   };
 
   return (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import Blueprint from "./Blueprint";
@@ -24,7 +24,6 @@ const FilterByTitle = () => {
       const response = await axiosPrivate.get(`/story/title/${title}`, {
         signal: controller.signal,
       });
-      console.log(response.data);
       setStories(response.data);
       setTitle("");
       // handle no stories to display
@@ -57,9 +56,7 @@ const FilterByTitle = () => {
   // handle filter by title
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(title);
     handleFetchStories();
-    console.log(stories);
   };
 
   return (

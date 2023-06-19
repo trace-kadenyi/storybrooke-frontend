@@ -9,12 +9,6 @@
 }
 
 .cover_div {
-  /* background: url("../../../Assets/Images/profile/5.jpg"); */
-  /* height: 30vh;
-  width: 100vw; */
-  /* background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat; */
   margin-bottom: -5px;
 }
 
@@ -314,7 +308,6 @@
 
 .user_img {
   position: relative;
-  /* border: 2px red solid; */
 }
 
 .camera_icon {
@@ -341,6 +334,7 @@
   color: #092424;
   top: 30%;
   left: 45%;
+  cursor: pointer;
 }
 
 .update_camera_icon:hover {

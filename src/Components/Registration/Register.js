@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import axios from "../../Api/axios";
 import logo from "../../Assets/Images/logo.png";
+import preloader from "../../Assets/Images/submit.gif";
 import "../Authentication/register_login.css";
 
 const Register = () => {
-  // const dispatch = useDispatch();
-  // const { user, status } = useSelector((state) => state.user);
-
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -18,7 +15,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [response, setResponse] = useState("");
-  const [success, setSuccess] = useState(false);
+  const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
   const REGISTER_URL = "/register";
 
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -44,8 +41,10 @@ const Register = () => {
       setResponse("Passwords do not match");
       return;
     }
+    setLoadSubmit(true);
 
     try {
+      //eslint-disable-next-line
       const response = await axios.post(
         REGISTER_URL,
         JSON.stringify({
@@ -59,8 +58,6 @@ const Register = () => {
           withCredentials: true,
         }
       );
-      console.log(JSON.stringify(response?.data));
-      setSuccess(true);
       setFirstName("");
       setLastName("");
       setUserName("");
@@ -77,6 +74,7 @@ const Register = () => {
         setResponse("Something went wrong. Please try again later.");
       }
     }
+    setLoadSubmit(false);
   };
 
   const showToastMessage = () => {
@@ -193,9 +191,15 @@ const Register = () => {
             />
           </div>
           {/* submit button */}
-          <div>
-            <button className="submit" type="submit">
-              Register
+          <div className="story_submit_div">
+            <button type="submit" className="submit">
+              <span>Register</span>
+              {/* preloader span */}
+              {loadSubmit && (
+                <span className="preloader_span">
+                  <img src={preloader} alt="preloader" />
+                </span>
+              )}
             </button>
           </div>
         </form>

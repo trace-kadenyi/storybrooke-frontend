@@ -8,7 +8,6 @@ const Blueprint = ({ story }) => {
   // handle view story
   const handleViewStory = (e) => {
     const storyId = e.currentTarget.id;
-    console.log(storyId);
     navigate(`/story/${storyId}`);
   };
 
@@ -26,7 +25,7 @@ const Blueprint = ({ story }) => {
             <span className="story_author">{story.author}</span>
           </p>
         </div>
-        <span className="story_date">{story.date}</span>
+        <span className="story_date">Created: {story.date.slice(0, 10)}</span>
       </div>
       <ul className="story_genres">
         {story.genres.map((genre) => {

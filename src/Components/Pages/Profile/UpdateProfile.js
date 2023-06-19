@@ -9,7 +9,7 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import "./profile.css";
 import profPicPreloader from "../../../Assets/Images/pic_preloader.gif";
 import preloader from "../../../Assets/Images/submit.gif";
-import { coverImgDefault } from "../../AppData/data";
+// import { coverImgDefault } from "../../AppData/data";
 import defaultCover from "../../../Assets/Images/about.png";
 
 const UpdateProfile = () => {
@@ -35,7 +35,6 @@ const UpdateProfile = () => {
       try {
         setLoading(true);
         const response = await axiosPrivate.get(`/profile/${currentUser}`);
-        console.log(response.data);
         setUsername(response.data.username);
         setBio(response.data.bio);
         setProfPic(response.data.profilePicture);
@@ -81,7 +80,6 @@ const UpdateProfile = () => {
     reader.readAsDataURL(e.target.files[0]);
     reader.onload = () => {
       setProfPic(reader.result);
-      console.log(reader.result);
     };
     reader.onerror = function (error) {
       console.log("Error: ", error);
@@ -93,7 +91,6 @@ const UpdateProfile = () => {
     reader.readAsDataURL(e.target.files[0]);
     reader.onload = () => {
       setCoverPic(reader.result);
-      console.log(reader.result);
     };
     reader.onerror = function (error) {
       console.log("Error: ", error);
@@ -110,15 +107,14 @@ const UpdateProfile = () => {
       base64: profPic,
       coverPicture: coverPic,
     };
-    console.log(userProfile);
     setLoadSubmit(true);
     try {
+      //eslint-disable-next-line
       const response = await axiosPrivate.put(
         `/profile/${currentUser}`,
         userProfile
       );
       setSubmitted(true);
-      // console.log(response.data);
       showToastMessage();
       // if username is changed, navigate to login page else navigate to profile page in 3 seconds
       if (username === currentUser) {

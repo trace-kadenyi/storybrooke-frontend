@@ -9,7 +9,6 @@ import "./profile.css";
 import preloader from "../../../Assets/Images/bio_preloader.gif";
 import profPicPreloader from "../../../Assets/Images/pic_preloader.gif";
 import storiesPreloader from "../../../Assets/Images/main.gif";
-import { coverImgDefault } from "../../AppData/data";
 import defaultCover from "../../../Assets/Images/about.png";
 
 const Profile = () => {
@@ -40,7 +39,6 @@ const Profile = () => {
       try {
         setLoadProfile(true);
         const response = await axiosPrivate.get(`/profile/${currentUser}`);
-        console.log(response.data);
         setFirstName(response.data.firstname);
         setLastName(response.data.lastname);
         setUsername(response.data.username);
@@ -62,40 +60,25 @@ const Profile = () => {
   }, []);
 
   // fetch interests from user
-  useEffect(() => {
-    const getInterests = async () => {
-      try {
-        const response = await axiosPrivate.get(`/users`);
-        // return the interests of the logged in user
-        const userInterests = response.data.find(
-          (user) => user.username === currentUser
-        ).interests;
+  const getInterests = async () => {
+    try {
+      setLoading(true);
+      const response = await axiosPrivate.get(`/users`);
+      // return the interests of the logged in user
+      const userInterests = response.data.find(
+        (user) => user.username === currentUser
+      ).interests;
 
-        // set the interests in the state in alphabetical order
-        setProfileInterests(
-          userInterests.sort((a, b) =>
-            a.toLowerCase().localeCompare(b.toLowerCase())
-          )
-        );
-        console.log(profileInterests);
-      } catch (err) {
-        console.log(err);
-        setError(error);
-      }
-    };
-    getInterests();
-    //eslint-disable-next-line
-  }, []);
-
-  // handle tabs
-  const handleTabs = (index) => {
-    setActive(index);
-    // if index is 2, fetch stories
-    if (index === 2) {
-      handleFetchStories();
-    } else {
-      setStories([]);
-      setResponse("");
+      // set the interests in the state in alphabetical order
+      setProfileInterests(
+        userInterests.sort((a, b) =>
+          a.toLowerCase().localeCompare(b.toLowerCase())
+        )
+      );
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setError(error);
     }
   };
 
@@ -106,7 +89,6 @@ const Profile = () => {
       const response = await axiosPrivate.get(`/story/author/${currentUser}`, {
         signal: controller.signal,
       });
-      console.log(response.data);
       setStories(response.data);
       // handle no stories to display
       if (stories.length === 0) {
@@ -133,6 +115,29 @@ const Profile = () => {
     return () => {
       controller.abort();
     };
+  };
+
+  // handle tabs
+  const handleTabs = (index) => {
+    setActive(index);
+    // if index is 1, fetch interests
+    if (index === 1) {
+      getInterests();
+      // hide profile_stories_div
+      const profileStoriesDiv = document.querySelector(".profile_stories_div");
+      profileStoriesDiv.style.display = "none";
+    }
+    // if index is 2, fetch stories
+    if (index === 2) {
+      handleFetchStories();
+      // display profile_stories_div
+      const profileStoriesDiv = document.querySelector(".profile_stories_div");
+      profileStoriesDiv.style.display = "block";
+    } else {
+      setStories([]);
+      setProfileInterests([]);
+      setResponse("");
+    }
   };
 
   // handle edit click
@@ -219,11 +224,21 @@ const Profile = () => {
           {/* interests */}
           <div className={active === 1 ? "active_content" : "content"}>
             <div className="profile_interests_list">
-              {profileInterests.map((interest) => (
-                <div className="profile_interests_item" key={interest}>
-                  <p>{interest}</p>
+              {loading ? (
+                <div className="main_preloader">
+                  <img
+                    src={storiesPreloader}
+                    alt="preloader"
+                    // className="main_preloader_img"
+                  />
                 </div>
-              ))}
+              ) : (
+                profileInterests.map((interest) => (
+                  <div className="profile_interests_item" key={interest}>
+                    <p>{interest}</p>
+                  </div>
+                ))
+              )}
             </div>
           </div>
           {/* stories */}

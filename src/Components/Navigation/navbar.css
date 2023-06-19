@@ -23,6 +23,13 @@
   text-decoration-color: #548341;
 }
 
+.activated {
+  background: #548341;
+  padding: 5px;
+  font-style: normal;
+  border-radius: 5px;
+}
+
 .logout_icon {
   color: red;
   font-size: 1.5rem;

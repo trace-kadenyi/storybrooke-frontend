@@ -4,10 +4,10 @@ import { toast } from "react-toastify";
 
 import useAuth from "../../hooks/useAuth";
 import logo from "../../Assets/Images/logo.png";
-
 import "./register_login.css";
-
 import axios from "../../Api/axios";
+import preloader from "../../Assets/Images/submit.gif";
+
 const LOGIN_URL = "/auth";
 
 const Login = () => {
@@ -15,6 +15,7 @@ const Login = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [response, setResponse] = useState("");
+  const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
 
   const newName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
 
@@ -28,6 +29,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoadSubmit(true);
     try {
       const response = await axios.post(
         LOGIN_URL,
@@ -41,7 +43,7 @@ const Login = () => {
         }
       );
       setResponse(response.data.message);
-      console.log(JSON.stringify(response?.data));
+      // console.log(JSON.stringify(response?.data));
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
       const interests = response?.data?.interests;
@@ -64,6 +66,7 @@ const Login = () => {
         setResponse("Something went wrong");
       }
     }
+    setLoadSubmit(false);
   };
 
   const showToastMessage = () => {
@@ -144,9 +147,16 @@ const Login = () => {
               Trust this device
             </label>
           </div>
-          <div>
-            <button className="submit" type="submit">
-              Login
+          {/* submit */}
+          <div className="story_submit_div">
+            <button type="submit" className="submit">
+              <span>Login</span>
+              {/* preloader span */}
+              {loadSubmit && (
+                <span className="preloader_span">
+                  <img src={preloader} alt="preloader" />
+                </span>
+              )}
             </button>
           </div>
         </form>

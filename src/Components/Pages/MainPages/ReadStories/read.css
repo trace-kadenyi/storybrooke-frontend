@@ -1,6 +1,5 @@
 .read_stories_sect {
   min-height: 100vh;
-  /* background: url("../../../../Assets/Images/home.jpg"); */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -15,7 +14,6 @@
   max-width: 60vw;
   margin: 0 auto;
   font-weight: 500;
-  /* font-size: 17px; */
   letter-spacing: 0.06rem;
 }
 
@@ -31,7 +29,6 @@
 .read_stories_btn {
   padding: 20px;
   font-size: 1.1rem;
-  /* background: #092424; */
   color: #000;
   min-width: 200px;
   letter-spacing: 0.06rem;
@@ -57,7 +54,6 @@
 
 .explore_sect {
   min-height: 100vh;
-  /* background: url("../../../../Assets/Images/home.jpg"); */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -117,8 +113,10 @@
 
 .title_date {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
 }
 
 .title_author {
@@ -129,7 +127,7 @@
   gap: 10px;
   justify-content: center;
   align-items: center;
-  height: 50px;
+  min-height: 50px;
 }
 
 .individual_story_link {
@@ -167,6 +165,8 @@
 
 .story_date {
   font-size: 12px;
+  text-decoration: underline;
+  font-style: italic;
 }
 
 .story_genres {
@@ -237,12 +237,9 @@
 .write_link {
   color: #fff;
   text-decoration: underline;
-  /* font-size: 14px; */
-  /* font-weight: bold; */
 }
 
 .write_link:hover {
-  /* color: #000; */
   font-style: italic;
 }
 
@@ -262,7 +259,6 @@
 }
 
 .title_filter_form_div {
-  /* border: 2px red solid; */
   min-height: 10vw;
   display: flex;
   justify-content: center;
@@ -273,12 +269,10 @@
 
 .title_filter_form {
   display: flex;
-  /* border: 2px red solid; */
   width: 100%;
   justify-content: center;
   align-items: center;
   gap: 20px;
-  /* max-width: 80%; */
 }
 
 .title_filter_input {
@@ -287,8 +281,6 @@
 
 .title_filter_input .search_input {
   padding: 20px;
-  /* border: 2px red solid; */
-  /* width: 600px; */
   width: 100%;
   border-radius: 20px;
   outline: none;
