@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
-import Logout from "../../../Logout";
 import logo from "../../../../Assets/Images/logo.png";
-import { btnOptions } from "../../../AppData/data";
-import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import "./read.css";
 
 const ReadStories = () => {
