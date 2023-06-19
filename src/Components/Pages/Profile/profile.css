@@ -9,12 +9,6 @@
 }
 
 .cover_div {
-  /* background: url("../../../Assets/Images/profile/5.jpg"); */
-  /* height: 30vh;
-  width: 100vw; */
-  /* background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat; */
   margin-bottom: -5px;
 }
 
@@ -314,7 +308,6 @@
 
 .user_img {
   position: relative;
-  /* border: 2px red solid; */
 }
 
 .camera_icon {
