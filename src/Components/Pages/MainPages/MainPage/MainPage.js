@@ -3,7 +3,6 @@ import { NavLink, Link } from "react-router-dom";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import logo from "../../../../Assets/Images/logo.png";
-import Logout from "../../../Logout";
 import "./mainpage.css";
 
 const MainPage = () => {
