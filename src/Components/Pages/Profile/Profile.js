@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import MainNavbar from "../../Navigation/MainNavbar";
 import Blueprint from "../MainPages/ReadStories/Blueprint";
@@ -145,6 +146,61 @@ const Profile = () => {
     navigate("/update_profile");
   };
 
+  // handle delete account
+  const handleDeleteAccount = () => {
+    // hide the main div behind a black background
+    const mainDiv = document.querySelector(".main_div");
+    mainDiv.style.opacity = "0.2";
+    mainDiv.style.pointerEvents = "none";
+
+    // Create a custom component for the toast content
+    const DeleteAccountConfirmation = () => (
+      <div className="del_acc_div">
+        <p>Are you sure you want to delete your account permanently? This action cannot be undone.</p>
+        <div className="delete_acc_toast_div">
+          <button onClick={confirmDeleteAccount} className="yes">
+            Yes
+          </button>
+          <button onClick={cancelDeleteAccount} className="no">
+            No
+          </button>
+        </div>
+      </div>
+    );
+
+    // Display the confirmation toast
+    toast.info(<DeleteAccountConfirmation />, {
+      position: toast.POSITION.TOP_RIGHT,
+      className: "custom-toast",
+      bodyClassName: "custom-toast-body",
+      progressClassName: "custom-toast-progress",
+      closeButton: false,
+      autoClose: false,
+      closeOnClick: false,
+      draggable: false,
+      hideProgressBar: true,
+    });
+  };
+
+  // Function to confirm deleting the account
+  const confirmDeleteAccount = () => {
+    navigate("/delete_account");
+    toast.dismiss(); // Close the toast after navigation
+    // fix main div
+    const mainDiv = document.querySelector(".main_div");
+    mainDiv.style.opacity = "1";
+    mainDiv.style.pointerEvents = "auto";
+  };
+
+  // Function to cancel deleting the account
+  const cancelDeleteAccount = () => {
+    toast.dismiss(); // Close the toast
+    // fix main div
+    const mainDiv = document.querySelector(".main_div");
+    mainDiv.style.opacity = "1";
+    mainDiv.style.pointerEvents = "auto";
+  };
+
   return (
     <section className="profile_sect">
       <MainNavbar />
@@ -195,7 +251,12 @@ const Profile = () => {
                   </p>
                 </div>
                 <div>
-                  <button className="delete_story_btn">Delete account</button>
+                  <button
+                    className="delete_story_btn"
+                    onClick={handleDeleteAccount}
+                  >
+                    Delete account
+                  </button>
                 </div>
               </div>
             )}

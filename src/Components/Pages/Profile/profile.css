@@ -348,6 +348,53 @@
   font-size: 6.2rem;
 }
 
+.custom-toast {
+  background: #092424;
+  color: #fff;
+}
+
+.custom-toast .Toastify__toast-body .Toastify__toast-icon {
+  display: none;
+}
+
+.del_acc_div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.del_acc_div p {
+  text-align: center;
+  letter-spacing: 0.06rem;
+}
+
+.delete_acc_toast_div {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.delete_acc_toast_div button {
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: #fff;
+}
+
+.yes {
+  background: #548341;
+}
+
+.no {
+  background: rgb(122, 9, 9);
+}
+
 @media screen and (max-width: 700px) {
   .user_card {
     flex-direction: column;
