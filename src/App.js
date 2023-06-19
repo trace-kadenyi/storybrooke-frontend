@@ -28,6 +28,7 @@ import Profile from "./Components/Pages/Profile/Profile";
 import UpdateStory from "./Components/Pages/MainPages/ShareStories/UpdateStory";
 import UpdateProfile from "./Components/Pages/Profile/UpdateProfile";
 import IndividualStory from "./Components/Pages/MainPages/ReadStories/IndividualStory";
+import DeleteAccount from "./Components/Pages/Profile/DeleteAccount";
 
 const App = () => {
   return (
@@ -113,6 +114,10 @@ const App = () => {
 
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
               <Route path="story/:storyId" element={<IndividualStory />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[2001]} />}>
+              <Route path="delete_account" element={<DeleteAccount />} />
             </Route>
           </Route>
           {/* catch all */}
