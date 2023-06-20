@@ -252,10 +252,10 @@ const Profile = () => {
                 </div>
                 <div>
                   <button
-                    className="delete_story_btn"
+                    className="delete_story_btn delete_acc_btn"
                     onClick={handleDeleteAccount}
                   >
-                    Delete account
+                    Delete Account
                   </button>
                 </div>
               </div>
