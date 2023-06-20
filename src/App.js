@@ -117,7 +117,7 @@ const App = () => {
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
-              <Route path="delete_account" element={<DeleteAccount />} />
+              <Route path="delete_account/:username" element={<DeleteAccount />} />
             </Route>
           </Route>
           {/* catch all */}

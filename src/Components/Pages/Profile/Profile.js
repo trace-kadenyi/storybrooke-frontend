@@ -33,7 +33,6 @@ const Profile = () => {
   const [active, setActive] = useState(0);
 
   const controller = new AbortController();
-
   // fetch profile details
   useEffect(() => {
     const fetchProfile = async () => {
@@ -184,7 +183,7 @@ const Profile = () => {
 
   // Function to confirm deleting the account
   const confirmDeleteAccount = () => {
-    navigate("/delete_account");
+    navigate(`/delete_account/${currentUser}`);
     toast.dismiss(); // Close the toast after navigation
     // fix main div
     const mainDiv = document.querySelector(".main_div");
