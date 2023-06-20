@@ -396,6 +396,73 @@
   background: rgb(122, 9, 9);
 }
 
+.delete_acc_sect {
+  min-height: 100vh;
+  background: url("../../../Assets/Images/home.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow-x: auto;
+}
+
+.delete_acc_main {
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.goodbye {
+  color: #fff;
+  font-weight: bold;
+  backdrop-filter: blur(10px) saturate(70%);
+  margin: 20px;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.goodbye_text {
+  color: #fff;
+  font-weight: bold;
+  backdrop-filter: blur(10px) saturate(70%);
+  max-width: 60vw;
+  margin: 20px auto;
+  text-align: center;
+  letter-spacing: 0.06rem;
+}
+
+.sad_emoji {
+  font-size: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete_account_permanently {
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: bold;
+  background: red;
+  letter-spacing: 0.07rem;
+  cursor: pointer;
+  min-height: 48px;
+  margin: 10px;
+}
+
+.delete_account_permanently:hover {
+  color: #fff;
+  font-style: italic;
+  text-decoration: underline;
+}
+
 @media screen and (max-width: 700px) {
   .user_card {
     flex-direction: column;
@@ -464,6 +531,10 @@
   .update_camera_icon:hover {
     font-size: 3.7rem;
   }
+
+  .goodbye_text {
+    max-width: 70vw;
+  }
 }
 
 @media screen and (max-width: 450px) {
@@ -476,5 +547,17 @@
   .date_joined_div,
   .username_span_para {
     text-decoration: none;
+  }
+
+  .goodbye {
+    font-size: 1.5rem;
+  }
+
+  .goodbye_text {
+    max-width: 90vw;
+  }
+
+  .sad_emoji {
+    font-size: 4rem;
   }
 }
