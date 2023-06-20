@@ -1,36 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import MainNavbar from "../../Navigation/MainNavbar";
 import { toast } from "react-toastify";
-import { TiTick } from "react-icons/ti";
 
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import AuthContext from "../../../Context/AuthProvider";
 import "./profile.css";
 import preloader from "../../../Assets/Images/submit.gif";
 
 const DeleteAccount = () => {
-  // obtain username from url
+  const { setPersist } = useContext(AuthContext);
   const { username } = useParams();
   const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
-
   const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
-  const [submitted, setSubmitted] = useState(false); // to prevent multiple submissions
-  const [response, setResponse] = useState("");
-  const [error, setError] = useState(null);
 
   // delete account
   const deleteAccount = async () => {
     setLoadSubmit(true);
     try {
       const response = await axiosPrivate.delete(`/users/${username}`);
-      setResponse(response.data.message);
       toast.success(response.data.message);
-      localStorage.removeItem("user");
+      localStorage.clear();
       navigate("/login");
+      setPersist(false);
     } catch (err) {
       console.log(err);
-      setError(err.response.data.message);
       setLoadSubmit(false);
       toast.error(err.response.data.message);
     }
@@ -56,15 +51,11 @@ const DeleteAccount = () => {
             onClick={deleteAccount}
           >
             <span>Delete Account Permanently</span>
-            {loadSubmit ? (
+            {loadSubmit && (
               <span className="preloader_span">
                 <img src={preloader} alt="preloader" />
               </span>
-            ) : submitted ? (
-              <span className="preloader_span">
-                <TiTick className="tick_icon" />
-              </span>
-            ) : null}
+            )}
           </button>
         </div>
       </div>
