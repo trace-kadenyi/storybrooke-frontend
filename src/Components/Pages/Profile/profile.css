@@ -455,6 +455,10 @@
   cursor: pointer;
   min-height: 48px;
   margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .delete_account_permanently:hover {
