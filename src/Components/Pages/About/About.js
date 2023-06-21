@@ -1,11 +1,10 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import logo from "../../../Assets/Images/logo.png";
 import "./about.css";
 
 const About = () => {
-  const navigate = useNavigate();
   return (
     <section className="about_sect">
       <header className="login_header">
