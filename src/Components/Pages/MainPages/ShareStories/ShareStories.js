@@ -31,23 +31,6 @@ const ShareStories = () => {
     setGenreResponse("");
   }, [title, story, genres]);
 
-  // capitalize sentences
-  // const capitalize = (str) => {
-  //   if (str.length === 0) {
-  //     return str;
-  //   } else if (str.length >= 1) {
-  //     // if there has been no punctuation, capitalize the first letter of the first word of the story
-  //     if (!str.includes(".") && !str.includes("?") && !str.includes("!")) {
-  //       return str.charAt(0).toUpperCase() + str.slice(1);
-  //     } else {
-  //       // capitalize the first letter of the first word after a punctuation
-  //       return str.replace(/([.?!])\s*(\w)/g, (match, p1, p2) => {
-  //         return p1 + " " + p2.toUpperCase();
-  //       });
-  //     }
-  //   }
-  // };
-
   // capitalize sentences and acknowledge paragraphs
   const capitalize = (str) => {
     if (str.length === 0) {
