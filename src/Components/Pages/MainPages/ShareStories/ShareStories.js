@@ -115,9 +115,12 @@ const ShareStories = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Split the story into paragraphs
+    const paragraphs = story.split("\n").map((paragraph) => paragraph.trim());
+
     const storyData = {
       title: title,
-      body: story,
+      body: paragraphs,
       author: author,
       genres: genres,
     };
