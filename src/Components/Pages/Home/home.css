@@ -132,4 +132,8 @@
   .error_toast {
     max-width: 80vw;
   }
+
+  .home_interests {
+    max-width: 80vw;
+  }
 }
