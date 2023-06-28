@@ -130,7 +130,7 @@ const Home = () => {
       <div className="home_main_div">
         <>
           <p className="welcome">Welcome! </p> <br />
-          <p className="interests">
+          <p className="interests home_interests">
             Customize your account. Select the topics that interest you below.
             What do you like reading and/or writing about?
           </p>
