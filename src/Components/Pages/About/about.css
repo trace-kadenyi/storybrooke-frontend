@@ -13,6 +13,7 @@
 .about_header_logo {
   visibility: hidden;
 }
+
 .about_logo {
   border-radius: 50%;
   max-width: 100%;
@@ -58,5 +59,18 @@
   .about_main_content p {
     padding: 10px;
     font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .about_login_header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .about_header_logo {
+    display: none;
   }
 }
