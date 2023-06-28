@@ -45,3 +45,18 @@
     max-width: 100%;
   }
 }
+
+@media screen and (max-width: 550px) {
+  .about_sect {
+    padding: 0;
+  }
+
+  .about_logo {
+    padding: 20px;
+  }
+
+  .about_main_content p {
+    padding: 10px;
+    font-size: 15px;
+  }
+}
