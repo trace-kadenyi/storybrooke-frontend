@@ -8,6 +8,10 @@
   background: #548341;
 }
 
+.read_stories_main_div {
+  margin: 0 auto;
+}
+
 .read_stories_intro {
   color: #fff;
   text-align: center;
@@ -337,5 +341,13 @@
 
   .title_filter_form {
     flex-direction: column;
+  }
+
+  .read_stories_main_div {
+    width: 90vw;
+  }
+
+  .read_stories_intro {
+    max-width: 90%;
   }
 }
