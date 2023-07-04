@@ -12,6 +12,10 @@
   font-size: 14px;
 }
 
+.nav_logo_link {
+  display: none;
+}
+
 .logo {
   width: auto;
   height: 50px;
@@ -189,5 +193,15 @@
 
   .logo {
     visibility: hidden;
+  }
+
+  .nav_logo_link {
+    display: flex;
+  }
+
+  .nav_logo {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
   }
 }

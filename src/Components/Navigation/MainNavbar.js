@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 
 import Logout from "../Logout";
 import "./navbar.css";
+import logo from "../../Assets/Images/logo.png";
 
 const MainNavbar = () => {
   const location = useLocation();
@@ -33,6 +34,9 @@ const MainNavbar = () => {
   return (
     <header className="main_navbar">
       <nav id="main_nav">
+        <Link to="/" className="nav_logo_link">
+          <img src={logo} alt="logo" className="nav_logo" />
+        </Link>
         <ul>
           {/* home page */}
           <li className="main_navbar_list">
