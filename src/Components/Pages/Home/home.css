@@ -137,3 +137,16 @@
     max-width: 80vw;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .home_logo {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .home_logo_link {
+    min-width: 100%;
+  }
+}
