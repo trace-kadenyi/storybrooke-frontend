@@ -23,9 +23,16 @@ const MainNavbar = () => {
     // eslint-disable-next-line
   }, [location.pathname]);
 
+  const handleToggle = () => {
+    const toggle = document.getElementById("toggle");
+    const toggler = document.getElementById("main_nav");
+    toggle.classList.toggle("nav_active");
+    toggler.classList.toggle("nav_active");
+  };
+
   return (
     <header className="main_navbar">
-      <nav>
+      <nav id="main_nav">
         <ul>
           {/* home page */}
           <li className="main_navbar_list">
@@ -61,11 +68,12 @@ const MainNavbar = () => {
           </li>
 
           {/* logout page */}
-          <li className="main_navbar_list">
+          <li className="main_navbar_list logout_nav_btn">
             <Logout />
           </li>
         </ul>
       </nav>
+      <div id="toggle" onClick={handleToggle}></div>
     </header>
   );
 };
