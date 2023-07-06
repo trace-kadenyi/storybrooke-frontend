@@ -19,16 +19,15 @@ const Explore = () => {
   // handle fetch stories
   useEffect(() => {
     let isMounted = true;
-    const controller = new AbortController();
+    // const controller = new AbortController();
 
     const fetchStories = async () => {
       try {
         setLoading(true);
-        const response = await axiosPrivate.get("/story/stories", {
-          signal: controller.signal,
-          data: {},
-        });
-        // const response = await axiosPrivate.get("/story/all");
+        // const response = await axiosPrivate.get("/story/stories", {
+        //   signal: controller.signal,
+        // });
+        const response = await axiosPrivate.get("/story/stories");
         isMounted && setStories(response.data.stories);
         // setStories(response.data.stories);
         setLoading(false);
@@ -45,7 +44,7 @@ const Explore = () => {
 
     return () => {
       isMounted = false;
-      controller.abort();
+      // controller.abort();
       effectRun.current = true;
     };
     // eslint-disable-next-line
