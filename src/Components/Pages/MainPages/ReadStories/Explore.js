@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
@@ -12,24 +12,24 @@ const Explore = () => {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  // const effectRun = useRef(false);
+  const effectRun = useRef(false);
 
   const axiosPrivate = useAxiosPrivate();
 
   // handle fetch stories
   useEffect(() => {
-    // let isMounted = true;
-    // const controller = new AbortController();
+    let isMounted = true;
+    const controller = new AbortController();
 
     const fetchStories = async () => {
       try {
         setLoading(true);
-        // const response = await axiosPrivate.get("/story", {
-        //   signal: controller.signal,
-        // });
-        const response = await axiosPrivate.get("/story/all");
-        // isMounted && setStories(response.data.stories);
-        setStories(response.data.stories);
+        const response = await axiosPrivate.get("/story/stories", {
+          signal: controller.signal,
+        });
+        // const response = await axiosPrivate.get("/story/all");
+        isMounted && setStories(response.data.stories);
+        // setStories(response.data.stories);
         setLoading(false);
       } catch (error) {
         setError(error);
@@ -37,16 +37,16 @@ const Explore = () => {
         setLoading(false);
       }
     };
-    fetchStories();
-    // if (effectRun.current) {
-    //   fetchStories();
-    // }
+    // fetchStories();
+    if (effectRun.current) {
+      fetchStories();
+    }
 
-    // return () => {
-    //   isMounted = false;
-    //   // controller.abort();
-    //   // effectRun.current = true;
-    // };
+    return () => {
+      isMounted = false;
+      controller.abort();
+      effectRun.current = true;
+    };
     // eslint-disable-next-line
   }, []);
 
