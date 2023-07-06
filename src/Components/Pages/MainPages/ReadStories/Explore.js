@@ -27,7 +27,7 @@ const Explore = () => {
         // const response = await axiosPrivate.get("/story", {
         //   signal: controller.signal,
         // });
-        const response = await axiosPrivate.get("/story");
+        const response = await axiosPrivate.get("/story/all");
         // isMounted && setStories(response.data.stories);
         setStories(response.data.stories);
         setLoading(false);
