@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
@@ -14,7 +14,7 @@ const MyStories = () => {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState("");
   const [error, setError] = useState(null);
-  const effectRun = useRef(false);
+  // const effectRun = useRef(false);
   const axiosPrivate = useAxiosPrivate();
 
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -46,8 +46,8 @@ const MyStories = () => {
 
   // get stories based on interests/genres
   useEffect(() => {
-    let isMounted = true;
-    const controller = new AbortController();
+    // let isMounted = true;
+    // const controller = new AbortController();
 
     // get the stories from each genre in the interests array
     const getStoriesFromInterests = async () => {
@@ -55,9 +55,10 @@ const MyStories = () => {
         setLoading(true);
         const storiesFromInterests = await Promise.all(
           interests.map(async (interest) => {
-            const response = await axiosPrivate.get(`/story/find/${interest}`, {
-              signal: controller.signal,
-            });
+            // const response = await axiosPrivate.get(`/story/find/${interest}`, {
+            //   signal: controller.signal,
+            // });
+            const response = await axiosPrivate.get(`/story/find/${interest}`);
             return response.data;
           })
         );
@@ -80,7 +81,8 @@ const MyStories = () => {
           return new Date(b.date) - new Date(a.date);
         });
 
-        isMounted && setStories(uniqueStories);
+        // isMounted && setStories(uniqueStories);
+        setStories(uniqueStories);
         if (stories.length === 0) {
           setLoading(true);
           setTimeout(() => {
@@ -98,15 +100,17 @@ const MyStories = () => {
       }
     };
 
-    if (effectRun.current) {
-      getStoriesFromInterests();
-    }
+    getStoriesFromInterests();
 
-    return () => {
-      isMounted = false;
-      controller.abort();
-      effectRun.current = true;
-    };
+    // if (effectRun.current) {
+    //   getStoriesFromInterests();
+    // }
+
+    // return () => {
+    //   isMounted = false;
+    //   controller.abort();
+    //   effectRun.current = true;
+    // };
     //eslint-disable-next-line
   }, [interests.length]);
 
