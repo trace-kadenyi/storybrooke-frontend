@@ -7,7 +7,7 @@ import "./about.css";
 const About = () => {
   return (
     <section className="about_sect">
-      <header className="login_header">
+      <header className="login_header about_login_header">
         <nav>
           <img src={logo} alt="logo" className="logo about_header_logo" />
           <ul>

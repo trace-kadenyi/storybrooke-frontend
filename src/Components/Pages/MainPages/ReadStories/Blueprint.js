@@ -39,8 +39,8 @@ const Blueprint = ({ story }) => {
       <p className="story_body">
         {/* if story isn't on profile page, show only 200 characters */}
         {location.pathname.includes("profile")
-          ? story.body.substring(0, 100) + "..."
-          : story.body.substring(0, 200) + "..."}
+          ? story.body[0].substring(0, 100) + "..."
+          : story.body[0].substring(0, 200) + "..."}
       </p>
     </div>
   );

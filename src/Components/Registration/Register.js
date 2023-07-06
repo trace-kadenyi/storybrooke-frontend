@@ -88,7 +88,7 @@ const Register = () => {
     <section className="registration">
       <header className="login_header">
         <nav>
-          <img src={logo} alt="logo" className="logo" />
+          <img src={logo} alt="logo" className="register_login_logo" />
           <ul>
             <li>
               <NavLink to="/login" className="link register_link">

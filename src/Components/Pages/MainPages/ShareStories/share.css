@@ -254,3 +254,10 @@
     width: 80%;
   }
 }
+
+@media screen and (max-width: 550px) {
+  .story_textarea {
+    padding: 20px;
+    font-size: 15px;
+  }
+}

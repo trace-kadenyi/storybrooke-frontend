@@ -70,7 +70,7 @@ const IndividualStory = () => {
     }
     setLoadSubmit(false);
   };
-
+ 
   return (
     <section className="explore_sect">
       <MainNavbar />
@@ -141,7 +141,12 @@ const IndividualStory = () => {
                 );
               })}
             </ul>
-            <p className="story_body">{body}</p>
+            {/* <p className="story_body">{body}</p> */}
+            {body.map((paragraph, index) => (
+              <p key={index} className="story_body">
+                {paragraph}
+              </p>
+            ))}
           </div>
         )}
       </div>

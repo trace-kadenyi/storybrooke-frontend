@@ -31,7 +31,7 @@ const ShareStories = () => {
     setGenreResponse("");
   }, [title, story, genres]);
 
-  // capitalize sentences
+  // capitalize sentences and acknowledge paragraphs
   const capitalize = (str) => {
     if (str.length === 0) {
       return str;
@@ -40,9 +40,9 @@ const ShareStories = () => {
       if (!str.includes(".") && !str.includes("?") && !str.includes("!")) {
         return str.charAt(0).toUpperCase() + str.slice(1);
       } else {
-        // capitalize the first letter of the first word after a punctuation
-        return str.replace(/([.?!])\s*(\w)/g, (match, p1, p2) => {
-          return p1 + " " + p2.toUpperCase();
+        // capitalize the first letter of each sentence and acknowledge paragraphs
+        return str.replace(/(.+?)([.?!]\s|$)/g, (match, p1, p2) => {
+          return p1.charAt(0).toUpperCase() + p1.slice(1) + p2;
         });
       }
     }
@@ -115,9 +115,12 @@ const ShareStories = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Split the story into paragraphs
+    const paragraphs = story.split("\n").map((paragraph) => paragraph.trim());
+
     const storyData = {
       title: title,
-      body: story,
+      body: paragraphs,
       author: author,
       genres: genres,
     };

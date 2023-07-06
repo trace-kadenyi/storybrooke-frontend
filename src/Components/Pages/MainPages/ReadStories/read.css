@@ -8,6 +8,10 @@
   background: #548341;
 }
 
+.read_stories_main_div {
+  margin: 0 auto;
+}
+
 .read_stories_intro {
   color: #fff;
   text-align: center;
@@ -162,6 +166,7 @@
 .story_body {
   max-width: 100%;
   overflow: hidden;
+  line-height: 1.5rem;
 }
 
 .story_author {
@@ -336,5 +341,13 @@
 
   .title_filter_form {
     flex-direction: column;
+  }
+
+  .read_stories_main_div {
+    width: 90vw;
+  }
+
+  .read_stories_intro {
+    max-width: 90%;
   }
 }

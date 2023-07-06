@@ -13,7 +13,7 @@
   justify-content: center;
   align-items: center;
   padding: 0 20px;
-  margin: 0 20px;
+  margin: 0 auto;
   min-height: 60vh;
 }
 
@@ -60,4 +60,14 @@
   background: #fff;
   font-style: italic;
   text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+  .stories_div {
+    min-width: 90vw;
+  }
+
+  .stories_title {
+    min-width: 100%;
+  }
 }

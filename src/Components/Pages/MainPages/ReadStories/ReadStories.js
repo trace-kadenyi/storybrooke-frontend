@@ -18,7 +18,7 @@ const ReadStories = () => {
           </Link>
         </nav>
       </header>
-      <div>
+      <div className="read_stories_main_div">
         <>
           <p className="read_stories_intro">
             Read some of the stories written by the users of this platform. You
