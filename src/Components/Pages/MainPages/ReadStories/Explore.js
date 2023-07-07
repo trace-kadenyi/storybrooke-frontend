@@ -17,36 +17,59 @@ const Explore = () => {
   const axiosPrivate = useAxiosPrivate();
 
   // handle fetch stories
-  useEffect(() => {
-    let isMounted = true;
-    // const controller = new AbortController();
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   const controller = new AbortController();
 
-    const fetchStories = async () => {
-      try {
-        setLoading(true);
-        // const response = await axiosPrivate.get("/story/stories", {
-        //   signal: controller.signal,
-        // });
-        const response = await axiosPrivate.get("/story/stories");
-        isMounted && setStories(response.data.stories);
-        // setStories(response.data.stories);
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        console.log(error);
-        setLoading(false);
-      }
-    };
-    // fetchStories();
-    if (effectRun.current) {
-      fetchStories();
+  //   const fetchStories = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const response = await axiosPrivate.get("/story/stories", {
+  //         signal: controller.signal,
+  //       });
+  //       // const response = await axiosPrivate.get("/story/stories");
+  //       isMounted && setStories(response.data.stories);
+  //       // setStories(response.data.stories);
+  //       console.log(response.data.stories);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       setError(error);
+  //       console.log(error);
+  //       setLoading(false);
+  //     }
+  //   };
+  //   // fetchStories();
+  //   if (effectRun.current) {
+  //     fetchStories();
+  //   }
+
+  //   return () => {
+  //     isMounted = false;
+  //     controller.abort();
+  //     effectRun.current = true;
+  //   };
+  //   // eslint-disable-next-line
+  // }, []);
+
+  // write a custom hook for fetching stories
+
+  const fetchStories = async () => {
+    try {
+      setLoading(true);
+      const response = await axiosPrivate.get("/story/stories");
+      setStories(response.data);
+      // console.log(response.data)
+      console.log(stories);
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      console.log(error);
+      setLoading(false);
     }
+  };
 
-    return () => {
-      isMounted = false;
-      // controller.abort();
-      effectRun.current = true;
-    };
+  useEffect(() => {
+    fetchStories();
     // eslint-disable-next-line
   }, []);
 
