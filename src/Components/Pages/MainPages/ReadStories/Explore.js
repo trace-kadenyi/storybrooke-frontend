@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
@@ -12,49 +12,16 @@ const Explore = () => {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const effectRun = useRef(false);
 
   const axiosPrivate = useAxiosPrivate();
 
   // handle fetch stories
-  // useEffect(() => {
-  //   let isMounted = true;
-  //   const controller = new AbortController();
-
-  //   const fetchStories = async () => {
-  //     try {
-  //       setLoading(true);
-  //       const response = await axiosPrivate.get("/story/stories", {
-  //         signal: controller.signal,
-  //       });
-  //       isMounted && setStories(response.data.stories);
-  //       console.log(response.data.stories);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       setError(error);
-  //       console.log(error);
-  //       setLoading(false);
-  //     }
-  //   };
-  //   if (effectRun.current) {
-  //     fetchStories();
-  //   }
-
-  //   return () => {
-  //     isMounted = false;
-  //     controller.abort();
-  //     effectRun.current = true;
-  //   };
-  //   // eslint-disable-next-line
-  // }, []);
-
   useEffect(() => {
     const fetchStories = async () => {
       try {
         setLoading(true);
         const response = await axiosPrivate.get("/story/stories");
         setStories(response.data.stories);
-        console.log(response.data.stories);
         setLoading(false);
       } catch (error) {
         setError(error);
