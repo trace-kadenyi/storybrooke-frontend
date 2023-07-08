@@ -24,20 +24,25 @@ const Home = () => {
   const foundId = users?.find((user) => user.username === name)?._id;
 
   // get users on page load
+  // useEffect(() => {
+  //   //eslint-disable-next-line
+  //   let isMounted = true;
+  //   const controller = new AbortController();
+
+  //   if (effectRun.current) {
+  //     getUsers(setUsers, axiosPrivate, navigate, location);
+  //   }
+
+  //   return () => {
+  //     isMounted = false;
+  //     controller.abort();
+  //     effectRun.current = true;
+  //   };
+  //   // eslint-disable-next-line
+  // }, []);
+
   useEffect(() => {
-    //eslint-disable-next-line
-    let isMounted = true;
-    const controller = new AbortController();
-
-    if (effectRun.current) {
-      getUsers(setUsers, axiosPrivate, navigate, location);
-    }
-
-    return () => {
-      isMounted = false;
-      controller.abort();
-      effectRun.current = true;
-    };
+    getUsers(setUsers, axiosPrivate, navigate, location);
     // eslint-disable-next-line
   }, []);
 
@@ -73,6 +78,7 @@ const Home = () => {
           id: foundId,
           interests: interests,
         });
+        console.log(foundId)
       } catch (err) {
         console.log(err);
       }
