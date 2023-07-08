@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -16,7 +16,6 @@ const Home = () => {
   const [loadInterests, setLoadInterests] = useState(true);
   const axiosPrivate = useAxiosPrivate();
   const location = useLocation();
-  const effectRun = useRef(false);
 
   // get the name of the logged in user
   const name = JSON.parse(localStorage.getItem("user"));
@@ -24,23 +23,6 @@ const Home = () => {
   const foundId = users?.find((user) => user.username === name)?._id;
 
   // get users on page load
-  // useEffect(() => {
-  //   //eslint-disable-next-line
-  //   let isMounted = true;
-  //   const controller = new AbortController();
-
-  //   if (effectRun.current) {
-  //     getUsers(setUsers, axiosPrivate, navigate, location);
-  //   }
-
-  //   return () => {
-  //     isMounted = false;
-  //     controller.abort();
-  //     effectRun.current = true;
-  //   };
-  //   // eslint-disable-next-line
-  // }, []);
-
   useEffect(() => {
     getUsers(setUsers, axiosPrivate, navigate, location);
     // eslint-disable-next-line
@@ -78,7 +60,6 @@ const Home = () => {
           id: foundId,
           interests: interests,
         });
-        console.log(foundId)
       } catch (err) {
         console.log(err);
       }
