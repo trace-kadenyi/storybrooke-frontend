@@ -30,6 +30,7 @@ const Explore = () => {
       }
     };
     fetchStories();
+    // eslint-disable-next-line
   }, []);
 
   return (
