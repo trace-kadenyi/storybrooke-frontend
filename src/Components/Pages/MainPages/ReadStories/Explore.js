@@ -17,17 +17,43 @@ const Explore = () => {
   const axiosPrivate = useAxiosPrivate();
 
   // handle fetch stories
-  useEffect(() => {
-    let isMounted = true;
-    const controller = new AbortController();
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   const controller = new AbortController();
 
+  //   const fetchStories = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const response = await axiosPrivate.get("/story/stories", {
+  //         signal: controller.signal,
+  //       });
+  //       isMounted && setStories(response.data.stories);
+  //       console.log(response.data.stories);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       setError(error);
+  //       console.log(error);
+  //       setLoading(false);
+  //     }
+  //   };
+  //   if (effectRun.current) {
+  //     fetchStories();
+  //   }
+
+  //   return () => {
+  //     isMounted = false;
+  //     controller.abort();
+  //     effectRun.current = true;
+  //   };
+  //   // eslint-disable-next-line
+  // }, []);
+
+  useEffect(() => {
     const fetchStories = async () => {
       try {
         setLoading(true);
-        const response = await axiosPrivate.get("/story/stories", {
-          signal: controller.signal,
-        });
-        isMounted && setStories(response.data.stories);
+        const response = await axiosPrivate.get("/story/stories");
+        setStories(response.data.stories);
         console.log(response.data.stories);
         setLoading(false);
       } catch (error) {
@@ -36,16 +62,7 @@ const Explore = () => {
         setLoading(false);
       }
     };
-    if (effectRun.current) {
-      fetchStories();
-    }
-
-    return () => {
-      isMounted = false;
-      controller.abort();
-      effectRun.current = true;
-    };
-    // eslint-disable-next-line
+    fetchStories();
   }, []);
 
   return (
