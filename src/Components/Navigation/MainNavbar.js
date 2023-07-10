@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
+import { BsSearch } from "react-icons/bs";
 
 import Logout from "../Logout";
 import "./navbar.css";
@@ -38,6 +39,23 @@ const MainNavbar = () => {
           <img src={logo} alt="logo" className="nav_logo" />
         </Link>
         <ul>
+          {/* search bar */}
+          <div>
+          <li className="main_navbar_search">
+            <form className="search_form">
+              <input
+                type="text"
+                placeholder="Search for users"
+                className="search_input"
+                autoFocus
+              />
+              <button type="submit" className="nav_search_btn">
+                <BsSearch className="nav_search_icon" />
+              </button>
+            </form>
+          </li>
+          </div>
+          <div className="main_nav_li">
           {/* home page */}
           <li className="main_navbar_list">
             <NavLink to="/" className="main_link">
@@ -75,6 +93,7 @@ const MainNavbar = () => {
           <li className="main_navbar_list logout_nav_btn">
             <Logout />
           </li>
+          </div>
         </ul>
       </nav>
       <div id="toggle" onClick={handleToggle}></div>
