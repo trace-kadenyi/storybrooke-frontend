@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import MainNavbar from "../../Navigation/MainNavbar";
 import Blueprint from "../MainPages/ReadStories/Blueprint";
@@ -32,13 +31,14 @@ const UsersProfiles = () => {
   const [error, setError] = useState(null);
   const axiosPrivate = useAxiosPrivate();
   const [active, setActive] = useState(0);
-  const [userProfile, setUserProfile] = useState({});
+  const [loadResults, setLoadResults] = useState(false);
 
   const controller = new AbortController();
   // fetch profile details
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
+        setLoadResults(true);
         setLoadProfile(true);
         const response = await axiosPrivate.get(`/profile/${searchUser}`);
         setFirstName(response.data.firstname);
@@ -51,11 +51,16 @@ const UsersProfiles = () => {
           : setCoverPic(defaultCover);
         setDateJoined(response.data.dateJoined);
         setLoadProfile(false);
+
+        // set the search input field to blank
+        const searchInput = document.querySelector(".nav_search_input");
+        searchInput.value = "";
       } catch (err) {
         console.log(err);
         setError(error);
         setLoadProfile(false);
       }
+      setLoadResults(false);
     };
     fetchUserProfile();
     //eslint-disable-next-line
@@ -142,9 +147,18 @@ const UsersProfiles = () => {
     }
   };
 
+  // load profile on key press
+  useEffect(() => {
+    setLoadProfile(true);
+
+    //eslint-disable-next-line
+  }, [searchUser]);
+
   return (
     <section className="profile_sect">
-      <MainNavbar />
+      <MainNavbar 
+      loadResults={loadResults}
+      />
       <div className="main_div">
         {/* cover image */}
         <div className="cover_div">
@@ -200,68 +214,70 @@ const UsersProfiles = () => {
         </div>
 
         {/* profile contents */}
-        <div className="profile_content_main_div">
-          <div className="links_container">
-            <button
-              className={active === 1 ? "tabs active_tabs" : "tabs"}
-              onClick={() => handleTabs(1)}
-            >
-              {searchUser}'s Interests
-            </button>
-            <button
-              className={active === 2 ? "tabs active_tabs" : "tabs"}
-              onClick={() => handleTabs(2)}
-            >
-              {searchUser}'s Stories
-            </button>
-          </div>
+        {!loadProfile && (
+          <div className="profile_content_main_div">
+            <div className="links_container">
+              <button
+                className={active === 1 ? "tabs active_tabs" : "tabs"}
+                onClick={() => handleTabs(1)}
+              >
+                {searchUser}'s Interests
+              </button>
+              <button
+                className={active === 2 ? "tabs active_tabs" : "tabs"}
+                onClick={() => handleTabs(2)}
+              >
+                {searchUser}'s Stories
+              </button>
+            </div>
 
-          {/* interests */}
-          <div className={active === 1 ? "active_content" : "content"}>
-            <div className="profile_interests_list">
-              {loading ? (
-                <div className="main_preloader">
-                  <img
-                    src={storiesPreloader}
-                    alt="preloader"
-                    // className="main_preloader_img"
-                  />
-                </div>
-              ) : (
-                profileInterests.map((interest) => (
-                  <div className="profile_interests_item" key={interest}>
-                    <p>{interest}</p>
+            {/* interests */}
+            <div className={active === 1 ? "active_content" : "content"}>
+              <div className="profile_interests_list">
+                {loading ? (
+                  <div className="main_preloader">
+                    <img
+                      src={storiesPreloader}
+                      alt="preloader"
+                      // className="main_preloader_img"
+                    />
                   </div>
-                ))
-              )}
-            </div>
-          </div>
-          {/* stories */}
-          <div className="profile_stories_div">
-            {/* display found stories by the author */}
-            <div>
-              <>
-                <div className="all_stories">
-                  {loading ? (
-                    <div className="main_preloader">
-                      <img
-                        src={storiesPreloader}
-                        alt="preloader"
-                        className="main_preloader_img"
-                      />
+                ) : (
+                  profileInterests.map((interest) => (
+                    <div className="profile_interests_item" key={interest}>
+                      <p>{interest}</p>
                     </div>
-                  ) : stories.length > 0 ? (
-                    stories.map((story) => {
-                      return <Blueprint key={story._id} story={story} />;
-                    })
-                  ) : (
-                    <div className="by_genre_response">{response}</div>
-                  )}
-                </div>
-              </>
+                  ))
+                )}
+              </div>
+            </div>
+            {/* stories */}
+            <div className="profile_stories_div">
+              {/* display found stories by the author */}
+              <div>
+                <>
+                  <div className="all_stories">
+                    {loading ? (
+                      <div className="main_preloader">
+                        <img
+                          src={storiesPreloader}
+                          alt="preloader"
+                          className="main_preloader_img"
+                        />
+                      </div>
+                    ) : stories.length > 0 ? (
+                      stories.map((story) => {
+                        return <Blueprint key={story._id} story={story} />;
+                      })
+                    ) : (
+                      <div className="by_genre_response">{response}</div>
+                    )}
+                  </div>
+                </>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
