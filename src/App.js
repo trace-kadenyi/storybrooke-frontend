@@ -28,6 +28,7 @@ import UpdateStory from "./Components/Pages/MainPages/ShareStories/UpdateStory";
 import UpdateProfile from "./Components/Pages/Profile/UpdateProfile";
 import IndividualStory from "./Components/Pages/MainPages/ReadStories/IndividualStory";
 import DeleteAccount from "./Components/Pages/Profile/DeleteAccount";
+import UsersProfiles from "./Components/Pages/Profile/UsersProfiles";
 
 const App = () => {
   return (
@@ -105,6 +106,10 @@ const App = () => {
 
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
               <Route path="update_profile" element={<UpdateProfile />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[2001]} />}>
+              <Route path="search/:username" element={<UsersProfiles />} />
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
