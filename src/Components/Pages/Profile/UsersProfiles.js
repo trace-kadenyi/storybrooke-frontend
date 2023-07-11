@@ -12,9 +12,9 @@ import storiesPreloader from "../../../Assets/Images/main.gif";
 import defaultCover from "../../../Assets/Images/about.png";
 
 const UsersProfiles = () => {
-  // make current user the name on the url
-  const currentUser = window.location.pathname.split("/")[2];
-  
+  // make search user the name on the url
+  const searchUser = window.location.pathname.split("/")[2];
+
   const navigate = useNavigate();
 
   const [profileInterests, setProfileInterests] = useState([]);
@@ -40,7 +40,7 @@ const UsersProfiles = () => {
     const fetchUserProfile = async () => {
       try {
         setLoadProfile(true);
-        const response = await axiosPrivate.get(`/profile/${currentUser}`);
+        const response = await axiosPrivate.get(`/profile/${searchUser}`);
         setFirstName(response.data.firstname);
         setLastName(response.data.lastname);
         setUsername(response.data.username);
@@ -59,10 +59,88 @@ const UsersProfiles = () => {
     };
     fetchUserProfile();
     //eslint-disable-next-line
-  }, [currentUser]);
+  }, [searchUser]);
 
+  // fetch interests from user
+  const getInterests = async () => {
+    try {
+      setLoading(true);
+      const response = await axiosPrivate.get(`/users`);
+      // return the interests of the logged in user
+      const userInterests = response.data.find(
+        (user) => user.username === searchUser
+      ).interests;
 
+      // set the interests in the state in alphabetical order
+      setProfileInterests(
+        userInterests.sort((a, b) =>
+          a.toLowerCase().localeCompare(b.toLowerCase())
+        )
+      );
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setError(error);
+    }
+  };
 
+  // handle fetch stories
+  const handleFetchStories = async () => {
+    try {
+      setLoading(true);
+      const response = await axiosPrivate.get(`/story/author/${searchUser}`, {
+        signal: controller.signal,
+      });
+      setStories(response.data);
+      // handle no stories to display
+      if (stories.length === 0) {
+        setResponse(<p>{"No stories published by this author"}</p>);
+      }
+      setLoading(false);
+    } catch (error) {
+      if (!error.response) {
+        setResponse("No server response");
+      } else if (error.response.status === 403) {
+        setResponse("Unauthorized");
+        // redirect to login page in 3 seconds
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 3000);
+      } else if (error.response.status === 404) {
+        setResponse(error.response.data.message);
+      } else {
+        setResponse("Something went wrong. Please try again");
+      }
+      setLoading(false);
+    }
+
+    return () => {
+      controller.abort();
+    };
+  };
+
+  // handle tabs
+  const handleTabs = (index) => {
+    setActive(index);
+    // if index is 1, fetch interests
+    if (index === 1) {
+      getInterests();
+      // hide profile_stories_div
+      const profileStoriesDiv = document.querySelector(".profile_stories_div");
+      profileStoriesDiv.style.display = "none";
+    }
+    // if index is 2, fetch stories
+    if (index === 2) {
+      handleFetchStories();
+      // display profile_stories_div
+      const profileStoriesDiv = document.querySelector(".profile_stories_div");
+      profileStoriesDiv.style.display = "block";
+    } else {
+      setStories([]);
+      setProfileInterests([]);
+      setResponse("");
+    }
+  };
 
   return (
     <section className="profile_sect">
@@ -86,7 +164,7 @@ const UsersProfiles = () => {
                 alt="user_img"
               />
             </div>
-         
+
             <div className="bio">
               {/* preloader */}
               {loadProfile && (
@@ -123,23 +201,23 @@ const UsersProfiles = () => {
 
         {/* profile contents */}
         <div className="profile_content_main_div">
-          {/* <div className="links_container">
+          <div className="links_container">
             <button
               className={active === 1 ? "tabs active_tabs" : "tabs"}
               onClick={() => handleTabs(1)}
             >
-              {currentUser}'s Interests
+              {searchUser}'s Interests
             </button>
             <button
               className={active === 2 ? "tabs active_tabs" : "tabs"}
               onClick={() => handleTabs(2)}
             >
-              {currentUser}'s Stories
+              {searchUser}'s Stories
             </button>
-          </div> */}
+          </div>
 
           {/* interests */}
-          {/* <div className={active === 1 ? "active_content" : "content"}>
+          <div className={active === 1 ? "active_content" : "content"}>
             <div className="profile_interests_list">
               {loading ? (
                 <div className="main_preloader">
@@ -157,11 +235,11 @@ const UsersProfiles = () => {
                 ))
               )}
             </div>
-          </div> */}
+          </div>
           {/* stories */}
           <div className="profile_stories_div">
             {/* display found stories by the author */}
-            {/* <div>
+            <div>
               <>
                 <div className="all_stories">
                   {loading ? (
@@ -181,11 +259,9 @@ const UsersProfiles = () => {
                   )}
                 </div>
               </>
-            </div> */}
+            </div>
           </div>
         </div>
-
-
       </div>
     </section>
   );
