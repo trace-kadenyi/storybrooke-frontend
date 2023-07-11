@@ -155,7 +155,10 @@ const Profile = () => {
     // Create a custom component for the toast content
     const DeleteAccountConfirmation = () => (
       <div className="del_acc_div">
-        <p>Are you sure you want to delete your account permanently? This action cannot be undone.</p>
+        <p>
+          Are you sure you want to delete your account permanently? This action
+          cannot be undone.
+        </p>
         <div className="delete_acc_toast_div">
           <button onClick={confirmDeleteAccount} className="yes">
             Yes
@@ -270,68 +273,70 @@ const Profile = () => {
           </div>
         </div>
         {/* profile contents */}
-        <div className="profile_content_main_div">
-          <div className="links_container">
-            <button
-              className={active === 1 ? "tabs active_tabs" : "tabs"}
-              onClick={() => handleTabs(1)}
-            >
-              {currentUser}'s Interests
-            </button>
-            <button
-              className={active === 2 ? "tabs active_tabs" : "tabs"}
-              onClick={() => handleTabs(2)}
-            >
-              {currentUser}'s Stories
-            </button>
-          </div>
+        {!loadProfile && (
+          <div className="profile_content_main_div">
+            <div className="links_container">
+              <button
+                className={active === 1 ? "tabs active_tabs" : "tabs"}
+                onClick={() => handleTabs(1)}
+              >
+                {currentUser}'s Interests
+              </button>
+              <button
+                className={active === 2 ? "tabs active_tabs" : "tabs"}
+                onClick={() => handleTabs(2)}
+              >
+                {currentUser}'s Stories
+              </button>
+            </div>
 
-          {/* interests */}
-          <div className={active === 1 ? "active_content" : "content"}>
-            <div className="profile_interests_list">
-              {loading ? (
-                <div className="main_preloader">
-                  <img
-                    src={storiesPreloader}
-                    alt="preloader"
-                    // className="main_preloader_img"
-                  />
-                </div>
-              ) : (
-                profileInterests.map((interest) => (
-                  <div className="profile_interests_item" key={interest}>
-                    <p>{interest}</p>
+            {/* interests */}
+            <div className={active === 1 ? "active_content" : "content"}>
+              <div className="profile_interests_list">
+                {loading ? (
+                  <div className="main_preloader">
+                    <img
+                      src={storiesPreloader}
+                      alt="preloader"
+                      // className="main_preloader_img"
+                    />
                   </div>
-                ))
-              )}
-            </div>
-          </div>
-          {/* stories */}
-          <div className="profile_stories_div">
-            {/* display found stories by the author */}
-            <div>
-              <>
-                <div className="all_stories">
-                  {loading ? (
-                    <div className="main_preloader">
-                      <img
-                        src={storiesPreloader}
-                        alt="preloader"
-                        className="main_preloader_img"
-                      />
+                ) : (
+                  profileInterests.map((interest) => (
+                    <div className="profile_interests_item" key={interest}>
+                      <p>{interest}</p>
                     </div>
-                  ) : stories.length > 0 ? (
-                    stories.map((story) => {
-                      return <Blueprint key={story._id} story={story} />;
-                    })
-                  ) : (
-                    <div className="by_genre_response">{response}</div>
-                  )}
-                </div>
-              </>
+                  ))
+                )}
+              </div>
+            </div>
+            {/* stories */}
+            <div className="profile_stories_div">
+              {/* display found stories by the author */}
+              <div>
+                <>
+                  <div className="all_stories">
+                    {loading ? (
+                      <div className="main_preloader">
+                        <img
+                          src={storiesPreloader}
+                          alt="preloader"
+                          className="main_preloader_img"
+                        />
+                      </div>
+                    ) : stories.length > 0 ? (
+                      stories.map((story) => {
+                        return <Blueprint key={story._id} story={story} />;
+                      })
+                    ) : (
+                      <div className="by_genre_response">{response}</div>
+                    )}
+                  </div>
+                </>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
