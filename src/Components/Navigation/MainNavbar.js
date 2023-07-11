@@ -42,6 +42,7 @@ const MainNavbar = () => {
         username.charAt(0).toUpperCase() + username.slice(1).toLowerCase()
       }`
     );
+    setUsername("");
   };
 
   return (
@@ -58,7 +59,7 @@ const MainNavbar = () => {
                 <input
                   type="text"
                   placeholder="Search for users"
-                  className="search_input"
+                  className="nav_search_input"
                   autoFocus
                   onChange={(e) => setUsername(e.target.value)}
                 />
