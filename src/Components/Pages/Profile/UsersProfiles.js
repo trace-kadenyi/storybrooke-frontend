@@ -156,14 +156,14 @@ const UsersProfiles = () => {
 
   return (
     <section className="profile_sect">
-      <MainNavbar 
-      loadResults={loadResults}
-      />
+      <MainNavbar loadResults={loadResults} />
       <div className="main_div">
         {/* cover image */}
         <div className="cover_div">
           <img
-            src={coverPic ? coverPic : defaultCover}
+            src={
+              loadProfile ? defaultCover : coverPic ? coverPic : defaultCover
+            }
             className="cover_pic"
             alt="cover_img"
           />
@@ -173,20 +173,21 @@ const UsersProfiles = () => {
           <div className="user_card_div">
             <div className="user_img">
               <img
-                src={profPic ? profPic : profPicPreloader}
-                className={profPic ? "prof_pic" : "user_img_default"}
+                src={loadProfile ? profPicPreloader : profPic}
+                className={!loadProfile ? "prof_pic" : "user_img_default"}
                 alt="user_img"
               />
             </div>
-
+            {/* USER BIO */}
             <div className="bio">
               {/* preloader */}
-              {loadProfile && (
+              {loadProfile ? (
                 <div className="preloader_div">
                   {<img src={preloader} alt="preloader" />}
                 </div>
+              ) : (
+                <p>{bio}</p>
               )}
-              <p>{bio}</p>
             </div>
           </div>
           <div className="profile_username_div main_profile_username_div">
@@ -202,14 +203,18 @@ const UsersProfiles = () => {
                 </div>
               </div>
             )}
-            <div className="profile_names_div">
-              <p className="username_span_para">
-                <span className="username_span">{firstName}</span>
-                {/* space */} <span className="username_span">{lastName}</span>
-              </p>
+            {/* USER NAMES */}
+            {!loadProfile && (
+              <div className="profile_names_div">
+                <p className="username_span_para">
+                  <span className="username_span">{firstName}</span>
+                  {/* space */}{" "}
+                  <span className="username_span">{lastName}</span>
+                </p>
 
-              {!loadProfile && <p className="profile_username">({username})</p>}
-            </div>
+                <p className="profile_username">({username})</p>
+              </div>
+            )}
           </div>
         </div>
 
