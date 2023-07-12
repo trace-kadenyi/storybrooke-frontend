@@ -37,6 +37,12 @@ const MainNavbar = () => {
       }`
     );
     setUsername("");
+
+    // close toggle
+    const toggle = document.getElementById("toggle");
+    const toggler = document.getElementById("main_nav");
+    toggle.classList.toggle("nav_active");
+    toggler.classList.toggle("nav_active");
   };
 
   return (
