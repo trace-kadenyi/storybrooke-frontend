@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 
 const Missing = () => {
   return (
-    <article style={{ padding: "100px" }}>
+    <article className="missing_page">
       <h1>Oops!</h1>
       <p>Page Not Found</p>
       <div className="flexGrow">
-        <Link to="/">Visit Our Homepage</Link>
+        <Link to="/" className="missing_link">Visit Our Homepage</Link>
       </div>
     </article>
   );
