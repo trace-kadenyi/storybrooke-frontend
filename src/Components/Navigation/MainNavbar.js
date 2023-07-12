@@ -11,12 +11,6 @@ const MainNavbar = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
 
-  // display none for missing links
-  const missingLinks = document.querySelector(".main_read_share");
-  if (missingLinks === "") {
-    missingLinks.style.display = "none";
-  }
-
   // remove active class from active link
   useEffect(() => {
     const activeLink = document.querySelector(".active");
