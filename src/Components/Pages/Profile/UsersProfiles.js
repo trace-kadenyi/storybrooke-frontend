@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 import MainNavbar from "../../Navigation/MainNavbar";
 import Blueprint from "../MainPages/ReadStories/Blueprint";
@@ -13,8 +12,6 @@ import defaultCover from "../../../Assets/Images/about.png";
 const UsersProfiles = () => {
   // make search user the name on the url
   const searchUser = window.location.pathname.split("/")[2];
-
-  const navigate = useNavigate();
 
   const [profileInterests, setProfileInterests] = useState([]);
   const [bio, setBio] = useState("");
@@ -150,7 +147,7 @@ const UsersProfiles = () => {
   // load profile on key press
   useEffect(() => {
     setLoadProfile(true);
-
+    handleTabs(0);
     //eslint-disable-next-line
   }, [searchUser]);
 
