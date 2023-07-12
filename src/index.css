@@ -31,6 +31,6 @@ body {
 
 @media screen and (max-width: 400px) {
   .missing_page {
-    padding: 20px;
+    padding: 150px 50px 0;
   }
 }
