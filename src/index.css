@@ -18,3 +18,19 @@ body {
 .initial_loading {
   color: #fff;
 }
+
+.missing_page {
+  color: #fff;
+  padding: 100px;
+}
+
+.missing_link {
+  color: #548341;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 400px) {
+  .missing_page {
+    padding: 20px;
+  }
+}
