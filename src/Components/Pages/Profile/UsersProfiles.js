@@ -31,7 +31,6 @@ const UsersProfiles = () => {
   const [error, setError] = useState(null);
   const axiosPrivate = useAxiosPrivate();
   const [active, setActive] = useState(0);
-  const [loadResults, setLoadResults] = useState(false);
   const [userProfileData, setUserProfileData] = useState({});
 
   const controller = new AbortController();
@@ -39,7 +38,6 @@ const UsersProfiles = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        setLoadResults(true);
         setLoadProfile(true);
         const response = await axiosPrivate.get(`/profile/${searchUser}`);
         setFirstName(response.data.firstname);
@@ -64,14 +62,10 @@ const UsersProfiles = () => {
 
         if (err.response.status === 404) {
           setResponse(err.response.data.message);
-          // setTimeout(() => {
-          //   navigate("/404");
-          // }, 3000);
-          // navigate("/404");
+          navigate("/404");
         }
         setLoadProfile(false);
       }
-      setLoadResults(false);
     };
     fetchUserProfile();
     //eslint-disable-next-line
@@ -167,7 +161,7 @@ const UsersProfiles = () => {
 
   return (
     <section className="profile_sect">
-      <MainNavbar loadResults={loadResults} />
+      <MainNavbar />
       <div className="main_div">
         {/* cover image */}
         <div className="cover_div">
