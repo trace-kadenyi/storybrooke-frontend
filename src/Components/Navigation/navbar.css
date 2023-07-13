@@ -28,14 +28,13 @@
 }
 
 .search_form input {
-  padding: 5px;
+  padding: 5.2px;
   color: #548341;
-  font-size: 1rem;
+  font-size: 15px;
   border: none;
   outline: none;
   width: 100%;
   border-radius: 5px;
-  font-family: cursive;
 }
 
 .nav_search_btn {
