@@ -70,7 +70,7 @@ const IndividualStory = () => {
     }
     setLoadSubmit(false);
   };
- 
+
   return (
     <section className="explore_sect">
       <MainNavbar />
@@ -147,6 +147,8 @@ const IndividualStory = () => {
                 {paragraph}
               </p>
             ))}
+
+            <h5 className="the_end">THE END</h5>
           </div>
         )}
       </div>
