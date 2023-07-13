@@ -31,7 +31,6 @@ const UsersProfiles = () => {
   const [error, setError] = useState(null);
   const axiosPrivate = useAxiosPrivate();
   const [active, setActive] = useState(0);
-  const [userProfileData, setUserProfileData] = useState({});
 
   const controller = new AbortController();
   // fetch profile details
@@ -49,8 +48,6 @@ const UsersProfiles = () => {
           ? setCoverPic(response.data.coverPicture)
           : setCoverPic(defaultCover);
         setDateJoined(response.data.dateJoined);
-        setUserProfileData(response.data);
-        console.log(userProfileData);
         setLoadProfile(false);
 
         // set the search input field to blank
@@ -61,7 +58,6 @@ const UsersProfiles = () => {
         setError(err);
 
         if (err.response.status === 404) {
-          setResponse(err.response.data.message);
           navigate("/404");
         }
         setLoadProfile(false);
