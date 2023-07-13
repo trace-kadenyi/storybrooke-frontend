@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AiFillEdit } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import MainNavbar from "../../Navigation/MainNavbar";
 import Blueprint from "../MainPages/ReadStories/Blueprint";
@@ -12,8 +10,10 @@ import profPicPreloader from "../../../Assets/Images/pic_preloader.gif";
 import storiesPreloader from "../../../Assets/Images/main.gif";
 import defaultCover from "../../../Assets/Images/about.png";
 
-const Profile = () => {
-  const currentUser = JSON.parse(localStorage.getItem("user"));
+const UsersProfiles = () => {
+  // make search user the name on the url
+  const searchUser = window.location.pathname.split("/")[2];
+
   const navigate = useNavigate();
 
   const [profileInterests, setProfileInterests] = useState([]);
@@ -35,10 +35,10 @@ const Profile = () => {
   const controller = new AbortController();
   // fetch profile details
   useEffect(() => {
-    const fetchProfile = async () => {
+    const fetchUserProfile = async () => {
       try {
         setLoadProfile(true);
-        const response = await axiosPrivate.get(`/profile/${currentUser}`);
+        const response = await axiosPrivate.get(`/profile/${searchUser}`);
         setFirstName(response.data.firstname);
         setLastName(response.data.lastname);
         setUsername(response.data.username);
@@ -49,15 +49,23 @@ const Profile = () => {
           : setCoverPic(defaultCover);
         setDateJoined(response.data.dateJoined);
         setLoadProfile(false);
+
+        // set the search input field to blank
+        const searchInput = document.querySelector(".nav_search_input");
+        searchInput.value = "";
       } catch (err) {
-        console.log(err);
-        setError(error);
+        console.log(err.response.status);
+        setError(err);
+
+        if (err.response.status === 404) {
+          navigate("/404");
+        }
         setLoadProfile(false);
       }
     };
-    fetchProfile();
+    fetchUserProfile();
     //eslint-disable-next-line
-  }, []);
+  }, [searchUser]);
 
   // fetch interests from user
   const getInterests = async () => {
@@ -66,7 +74,7 @@ const Profile = () => {
       const response = await axiosPrivate.get(`/users`);
       // return the interests of the logged in user
       const userInterests = response.data.find(
-        (user) => user.username === currentUser
+        (user) => user.username === searchUser
       ).interests;
 
       // set the interests in the state in alphabetical order
@@ -86,7 +94,7 @@ const Profile = () => {
   const handleFetchStories = async () => {
     try {
       setLoading(true);
-      const response = await axiosPrivate.get(`/story/author/${currentUser}`, {
+      const response = await axiosPrivate.get(`/story/author/${searchUser}`, {
         signal: controller.signal,
       });
       setStories(response.data);
@@ -140,68 +148,12 @@ const Profile = () => {
     }
   };
 
-  // handle edit click
-  const handleEditClick = () => {
-    navigate("/update_profile");
-  };
-
-  // handle delete account
-  const handleDeleteAccount = () => {
-    // hide the main div behind a black background
-    const mainDiv = document.querySelector(".main_div");
-    mainDiv.style.opacity = "0.2";
-    mainDiv.style.pointerEvents = "none";
-
-    // Create a custom component for the toast content
-    const DeleteAccountConfirmation = () => (
-      <div className="del_acc_div">
-        <p>
-          Are you sure you want to delete your account permanently? This action
-          cannot be undone.
-        </p>
-        <div className="delete_acc_toast_div">
-          <button onClick={confirmDeleteAccount} className="yes">
-            Yes
-          </button>
-          <button onClick={cancelDeleteAccount} className="no">
-            No
-          </button>
-        </div>
-      </div>
-    );
-
-    // Display the confirmation toast
-    toast.info(<DeleteAccountConfirmation />, {
-      position: toast.POSITION.TOP_RIGHT,
-      className: "custom-toast",
-      bodyClassName: "custom-toast-body",
-      progressClassName: "custom-toast-progress",
-      closeButton: false,
-      autoClose: false,
-      closeOnClick: false,
-      draggable: false,
-      hideProgressBar: true,
-    });
-  };
-
-  // Function to confirm deleting the account
-  const confirmDeleteAccount = () => {
-    navigate(`/delete_account/${currentUser}`);
-    toast.dismiss(); // Close the toast after navigation
-    // fix main div
-    const mainDiv = document.querySelector(".main_div");
-    mainDiv.style.opacity = "1";
-    mainDiv.style.pointerEvents = "auto";
-  };
-
-  // Function to cancel deleting the account
-  const cancelDeleteAccount = () => {
-    toast.dismiss(); // Close the toast
-    // fix main div
-    const mainDiv = document.querySelector(".main_div");
-    mainDiv.style.opacity = "1";
-    mainDiv.style.pointerEvents = "auto";
-  };
+  // load profile on key press
+  useEffect(() => {
+    setLoadProfile(true);
+    handleTabs(0);
+    //eslint-disable-next-line
+  }, [searchUser]);
 
   return (
     <section className="profile_sect">
@@ -210,7 +162,9 @@ const Profile = () => {
         {/* cover image */}
         <div className="cover_div">
           <img
-            src={coverPic ? coverPic : defaultCover}
+            src={
+              loadProfile ? defaultCover : coverPic ? coverPic : defaultCover
+            }
             className="cover_pic"
             alt="cover_img"
           />
@@ -220,25 +174,21 @@ const Profile = () => {
           <div className="user_card_div">
             <div className="user_img">
               <img
-                src={profPic ? profPic : profPicPreloader}
-                className={profPic ? "prof_pic" : "user_img_default"}
+                src={loadProfile ? profPicPreloader : profPic}
+                className={!loadProfile ? "prof_pic" : "user_img_default"}
                 alt="user_img"
               />
             </div>
-            {!loadProfile && (
-              <div className="edit_icon_div">
-                {/* edit icon */}
-                <AiFillEdit className="edit_icon" onClick={handleEditClick} />
-              </div>
-            )}
+            {/* USER BIO */}
             <div className="bio">
               {/* preloader */}
-              {loadProfile && (
+              {loadProfile ? (
                 <div className="preloader_div">
                   {<img src={preloader} alt="preloader" />}
                 </div>
+              ) : (
+                <p>{bio}</p>
               )}
-              <p>{bio}</p>
             </div>
           </div>
           <div className="profile_username_div main_profile_username_div">
@@ -252,26 +202,23 @@ const Profile = () => {
                     </span>
                   </p>
                 </div>
-                <div>
-                  <button
-                    className="delete_story_btn delete_acc_btn"
-                    onClick={handleDeleteAccount}
-                  >
-                    Delete Account
-                  </button>
-                </div>
               </div>
             )}
-            <div className="profile_names_div">
-              <p className="username_span_para">
-                <span className="username_span">{firstName}</span>
-                {/* space */} <span className="username_span">{lastName}</span>
-              </p>
+            {/* USER NAMES */}
+            {!loadProfile && (
+              <div className="profile_names_div">
+                <p className="username_span_para">
+                  <span className="username_span">{firstName}</span>
+                  {/* space */}{" "}
+                  <span className="username_span">{lastName}</span>
+                </p>
 
-              {!loadProfile && <p className="profile_username">({username})</p>}
-            </div>
+                <p className="profile_username">({username})</p>
+              </div>
+            )}
           </div>
         </div>
+
         {/* profile contents */}
         {!loadProfile && (
           <div className="profile_content_main_div">
@@ -280,13 +227,13 @@ const Profile = () => {
                 className={active === 1 ? "tabs active_tabs" : "tabs"}
                 onClick={() => handleTabs(1)}
               >
-                {currentUser}'s Interests
+                {searchUser}'s Interests
               </button>
               <button
                 className={active === 2 ? "tabs active_tabs" : "tabs"}
                 onClick={() => handleTabs(2)}
               >
-                {currentUser}'s Stories
+                {searchUser}'s Stories
               </button>
             </div>
 
@@ -342,4 +289,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default UsersProfiles;

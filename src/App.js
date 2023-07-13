@@ -13,7 +13,6 @@ import Unauthorized from "./Components/Pages/Unauthorized";
 import Admin from "./Components/Pages/Admin";
 import Editor from "./Components/Pages/Editor";
 import RequireAuth from "./Components/Pages/RequireAuth";
-import UpdateEmployee from "./Components/Pages/UpdateEmployee";
 import About from "./Components/Pages/About/About";
 import PersistLogin from "./Components/PersistLogin";
 import MainPage from "./Components/Pages/MainPages/MainPage/MainPage";
@@ -29,6 +28,7 @@ import UpdateStory from "./Components/Pages/MainPages/ShareStories/UpdateStory";
 import UpdateProfile from "./Components/Pages/Profile/UpdateProfile";
 import IndividualStory from "./Components/Pages/MainPages/ReadStories/IndividualStory";
 import DeleteAccount from "./Components/Pages/Profile/DeleteAccount";
+import UsersProfiles from "./Components/Pages/Profile/UsersProfiles";
 
 const App = () => {
   return (
@@ -62,10 +62,6 @@ const App = () => {
 
             <Route element={<RequireAuth allowedRoles={[1984, 5150]} />}>
               <Route path="lounge" element={<Lounge />} />
-            </Route>
-
-            <Route element={<RequireAuth allowedRoles={[1984, 5150]} />}>
-              <Route path="update" element={<UpdateEmployee />} />
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
@@ -113,11 +109,18 @@ const App = () => {
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
+              <Route path="search/:username" element={<UsersProfiles />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[2001]} />}>
               <Route path="story/:storyId" element={<IndividualStory />} />
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[2001]} />}>
-              <Route path="delete_account/:username" element={<DeleteAccount />} />
+              <Route
+                path="delete_account/:username"
+                element={<DeleteAccount />}
+              />
             </Route>
           </Route>
           {/* catch all */}
