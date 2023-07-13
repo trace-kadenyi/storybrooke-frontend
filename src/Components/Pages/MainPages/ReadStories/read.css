@@ -99,6 +99,15 @@
   font-size: 1rem;
 }
 
+.the_end {
+  text-align: center;
+  font-weight: 900;
+  font-family: cursive;
+  letter-spacing: 0.09rem;
+  margin: 10px;
+  color: #548341;
+}
+
 .delete_story_div {
   align-self: flex-end;
   height: 30px;
