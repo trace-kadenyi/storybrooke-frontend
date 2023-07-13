@@ -93,7 +93,7 @@ const IndividualStory = () => {
         )}
         {error && <p className="error">{error.message}</p>}
         {!loading && (
-          <div key={id} className="individual_story">
+          <div key={id} className="individual_story individual_story_page">
             {/* delete story */}
             {author === currentUser && (
               <div className="delete_story_div">
