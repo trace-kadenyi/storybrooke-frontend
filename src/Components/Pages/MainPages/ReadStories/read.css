@@ -112,11 +112,14 @@
 }
 
 .delete_story_div {
-  align-self: flex-end;
+  display: flex;
+  justify-content: flex-end;
   height: 30px;
+  width: 100%;
 }
 
 .delete_story_btn {
+  height: 25px;
   padding: 5px;
   border-radius: 10px;
   background: #092424;
@@ -133,6 +136,7 @@
 
 .delete_story_btn:hover {
   background: red;
+  width: 110px;
   color: #092424;
   font-weight: bold;
   border: 2px #092424 solid;
