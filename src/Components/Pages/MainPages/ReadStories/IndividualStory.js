@@ -70,7 +70,7 @@ const IndividualStory = () => {
     }
     setLoadSubmit(false);
   };
- 
+
   return (
     <section className="explore_sect">
       <MainNavbar />
@@ -93,7 +93,7 @@ const IndividualStory = () => {
         )}
         {error && <p className="error">{error.message}</p>}
         {!loading && (
-          <div key={id} className="individual_story">
+          <div key={id} className="individual_story individual_story_page">
             {/* delete story */}
             {author === currentUser && (
               <div className="delete_story_div">
@@ -147,6 +147,8 @@ const IndividualStory = () => {
                 {paragraph}
               </p>
             ))}
+
+            <h6 className="the_end">THE END</h6>
           </div>
         )}
       </div>

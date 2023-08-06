@@ -61,7 +61,7 @@ const MainNavbar = () => {
                   placeholder="Search for users"
                   className="nav_search_input"
                   autoFocus
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => setUsername(e.target.value.trim())}
                 />
                 <button type="submit" className="nav_search_btn">
                   <BsSearch className="nav_search_icon" />

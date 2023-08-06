@@ -92,17 +92,34 @@
   gap: 10px;
 }
 
+.individual_story_page {
+  overflow-y: auto;
+  max-height: 70vh;
+}
+
 .story_tick_icon {
   color: #fff;
   font-size: 1rem;
 }
 
+.the_end {
+  text-align: center;
+  font-weight: 900;
+  font-family: cursive;
+  letter-spacing: 0.09rem;
+  margin: 10px;
+  color: #548341;
+}
+
 .delete_story_div {
-  align-self: flex-end;
+  display: flex;
+  justify-content: flex-end;
   height: 30px;
+  width: 100%;
 }
 
 .delete_story_btn {
+  height: 25px;
   padding: 5px;
   border-radius: 10px;
   background: #092424;
@@ -119,6 +136,7 @@
 
 .delete_story_btn:hover {
   background: red;
+  width: 110px;
   color: #092424;
   font-weight: bold;
   border: 2px #092424 solid;
@@ -165,7 +183,6 @@
 
 .story_body {
   max-width: 100%;
-  overflow: hidden;
   line-height: 1.5rem;
 }
 
@@ -349,5 +366,9 @@
 
   .read_stories_intro {
     max-width: 90%;
+  }
+
+  .individual_story_page {
+    max-height: 100vh;
   }
 }
