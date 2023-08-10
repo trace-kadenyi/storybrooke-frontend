@@ -23,10 +23,10 @@ const Home = () => {
   const foundId = users?.find((user) => user.username === name)?._id;
 
   // get users on page load
-  useEffect(() => {
-    getUsers(setUsers, axiosPrivate, navigate, location);
-    // eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   getUsers(setUsers, axiosPrivate, navigate, location);
+  //   // eslint-disable-next-line
+  // }, []);
 
   // fetch user interests on page load
   useEffect(() => {
@@ -71,11 +71,9 @@ const Home = () => {
   useEffect(() => {
     const getInterests = async () => {
       try {
-        const response = await axiosPrivate.get(`/users`);
+        const response = await axiosPrivate.get(`/users/interests/${name}`);
         // return the interests of the logged in user
-        const userInterests = response.data.find(
-          (user) => user.username === name
-        ).interests;
+        const userInterests = response.data;
         // set the interests in the state
         setInterests(userInterests);
         setLoadInterests(false);
@@ -84,7 +82,6 @@ const Home = () => {
       }
     };
     getInterests();
-    //eslint-disable-next-line
   }, []);
 
   // toast message
