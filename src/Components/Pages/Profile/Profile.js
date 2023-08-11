@@ -63,12 +63,9 @@ const Profile = () => {
   const getInterests = async () => {
     try {
       setLoading(true);
-      const response = await axiosPrivate.get(`/users`);
+      const response = await axiosPrivate.get(`/users/interests/${currentUser}`);
       // return the interests of the logged in user
-      const userInterests = response.data.find(
-        (user) => user.username === currentUser
-      ).interests;
-
+      const userInterests = response.data;
       // set the interests in the state in alphabetical order
       setProfileInterests(
         userInterests.sort((a, b) =>

@@ -57,7 +57,7 @@ const Home = () => {
       try {
         //eslint-disable-next-line
         const response = await axiosPrivate.put(`/`, {
-          id: foundId,
+          username: name,
           interests: interests,
         });
       } catch (err) {
