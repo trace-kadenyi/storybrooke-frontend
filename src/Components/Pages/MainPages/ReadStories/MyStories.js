@@ -14,7 +14,6 @@ const MyStories = () => {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState("");
   const [error, setError] = useState(null);
-  // const effectRun = useRef(false);
   const axiosPrivate = useAxiosPrivate();
 
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -23,12 +22,11 @@ const MyStories = () => {
   useEffect(() => {
     const getInterests = async () => {
       try {
-        setLoading(true);
-        const response = await axiosPrivate.get(`/users`);
+        const response = await axiosPrivate.get(
+          `/users/interests/${currentUser}`
+        );
         // return the interests of the logged in user
-        const userInterests = response.data.find(
-          (user) => user.username === currentUser
-        ).interests;
+        const userInterests = response.data;
         // set the interests in the state in alphabetical order
         setInterests(
           userInterests.sort((a, b) =>
@@ -37,7 +35,6 @@ const MyStories = () => {
         );
       } catch (err) {
         console.log(err);
-        setError(error);
       }
     };
     getInterests();
@@ -46,18 +43,12 @@ const MyStories = () => {
 
   // get stories based on interests/genres
   useEffect(() => {
-    // let isMounted = true;
-    // const controller = new AbortController();
-
     // get the stories from each genre in the interests array
     const getStoriesFromInterests = async () => {
       try {
         setLoading(true);
         const storiesFromInterests = await Promise.all(
           interests.map(async (interest) => {
-            // const response = await axiosPrivate.get(`/story/find/${interest}`, {
-            //   signal: controller.signal,
-            // });
             const response = await axiosPrivate.get(`/story/find/${interest}`);
             return response.data;
           })
@@ -81,7 +72,6 @@ const MyStories = () => {
           return new Date(b.date) - new Date(a.date);
         });
 
-        // isMounted && setStories(uniqueStories);
         setStories(uniqueStories);
         if (stories.length === 0) {
           setLoading(true);
@@ -96,21 +86,13 @@ const MyStories = () => {
         return filteredStories;
       } catch (err) {
         console.log(err);
+        setError(err);
         setLoading(false);
       }
     };
 
     getStoriesFromInterests();
 
-    // if (effectRun.current) {
-    //   getStoriesFromInterests();
-    // }
-
-    // return () => {
-    //   isMounted = false;
-    //   controller.abort();
-    //   effectRun.current = true;
-    // };
     //eslint-disable-next-line
   }, [interests.length]);
 
