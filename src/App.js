@@ -41,6 +41,7 @@ const App = () => {
           <Route path="login" element={<Login />} />
           <Route path="linkpage" element={<LinkPage />} />
           <Route path="unauthorized" element={<Unauthorized />} />
+          <Route path="/about" element={<About />} />
 
           {/* private routes */}
           <Route element={<PersistLogin />}>
@@ -48,9 +49,9 @@ const App = () => {
               <Route path="/" element={<Home />} />
             </Route>
 
-            <Route element={<RequireAuth allowedRoles={[2001]} />}>
+            {/* <Route element={<RequireAuth allowedRoles={[2001]} />}>
               <Route path="/about" element={<About />} />
-            </Route>
+            </Route> */}
 
             <Route element={<RequireAuth allowedRoles={[1984]} />}>
               <Route path="editor" element={<Editor />} />
