@@ -81,7 +81,7 @@ const IndividualStory = () => {
           </Link>
         </nav>
       </header>
-      <div className="all_stories">
+      <div className="all_stories individual_all_stories">
         {loading && (
           <div className="main_preloader">
             <img
@@ -141,7 +141,6 @@ const IndividualStory = () => {
                 );
               })}
             </ul>
-            {/* <p className="story_body">{body}</p> */}
             {body.map((paragraph, index) => (
               <p key={index} className="story_body">
                 {paragraph}
