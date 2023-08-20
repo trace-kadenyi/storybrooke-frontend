@@ -368,6 +368,10 @@
     max-width: 90%;
   }
 
+  .individual_all_stories {
+    max-width: 90vw;
+  }
+
   .individual_story_page {
     max-height: 100vh;
   }
