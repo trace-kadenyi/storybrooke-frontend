@@ -57,8 +57,53 @@ const IndividualStory = () => {
   };
 
   // handle delete story
-  const handleDeleteStory = async (e) => {
+  const handleDeleteStory = () => {
+    // hide the main div behind a black background
+    const mainDiv = document.querySelector(".individual_str_sect");
+    mainDiv.style.opacity = "0.2";
+    mainDiv.style.pointerEvents = "none";
+
+    // Create a custom component for the toast content
+    const DeleteStoryConfirmation = () => (
+      <div className="del_acc_div">
+        <p>
+          Are you sure you want to delete your story permanently? This action
+          cannot be undone.
+        </p>
+        <div className="delete_acc_toast_div">
+          <button onClick={confirmDeleteStory} className="yes" id={id}>
+            Yes
+          </button>
+          <button onClick={cancelDeleteStory} className="no">
+            No
+          </button>
+        </div>
+      </div>
+    );
+
+    // Display the confirmation toast
+    toast.info(<DeleteStoryConfirmation />, {
+      position: toast.POSITION.TOP_RIGHT,
+      className: "custom-toast",
+      bodyClassName: "custom-toast-body",
+      progressClassName: "custom-toast-progress",
+      closeButton: false,
+      autoClose: false,
+      closeOnClick: false,
+      draggable: false,
+      hideProgressBar: true,
+    });
+  };
+
+  // Function to confirm deleting the account
+  const confirmDeleteStory = async (e) => {
     const storyId = e.currentTarget.id;
+    // dismiss toast
+    toast.dismiss();
+    // Return the main page to normal
+    const mainDiv = document.querySelector(".individual_str_sect");
+    mainDiv.style.opacity = "1";
+    mainDiv.style.pointerEvents = "auto";
     try {
       setLoadSubmit(true);
       const response = await axiosPrivate.delete(`/story/${storyId}`);
@@ -71,8 +116,17 @@ const IndividualStory = () => {
     setLoadSubmit(false);
   };
 
+  // Function to cancel deleting the account
+  const cancelDeleteStory = () => {
+    toast.dismiss();
+
+    const mainDiv = document.querySelector(".individual_str_sect");
+    mainDiv.style.opacity = "1";
+    mainDiv.style.pointerEvents = "auto";
+  };
+
   return (
-    <section className="explore_sect">
+    <section className="explore_sect individual_str_sect">
       <MainNavbar />
       <header className="login_header">
         <nav>
@@ -81,7 +135,7 @@ const IndividualStory = () => {
           </Link>
         </nav>
       </header>
-      <div className="all_stories">
+      <div className="all_stories individual_all_stories">
         {loading && (
           <div className="main_preloader">
             <img
@@ -141,7 +195,6 @@ const IndividualStory = () => {
                 );
               })}
             </ul>
-            {/* <p className="story_body">{body}</p> */}
             {body.map((paragraph, index) => (
               <p key={index} className="story_body">
                 {paragraph}

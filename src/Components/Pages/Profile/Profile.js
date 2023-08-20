@@ -145,7 +145,7 @@ const Profile = () => {
   // handle delete account
   const handleDeleteAccount = () => {
     // hide the main div behind a black background
-    const mainDiv = document.querySelector(".main_div");
+    const mainDiv = document.querySelector(".profile_sect");
     mainDiv.style.opacity = "0.2";
     mainDiv.style.pointerEvents = "none";
 
@@ -186,7 +186,7 @@ const Profile = () => {
     navigate(`/delete_account/${currentUser}`);
     toast.dismiss(); // Close the toast after navigation
     // fix main div
-    const mainDiv = document.querySelector(".main_div");
+    const mainDiv = document.querySelector(".profile_sect");
     mainDiv.style.opacity = "1";
     mainDiv.style.pointerEvents = "auto";
   };
@@ -195,7 +195,7 @@ const Profile = () => {
   const cancelDeleteAccount = () => {
     toast.dismiss(); // Close the toast
     // fix main div
-    const mainDiv = document.querySelector(".main_div");
+    const mainDiv = document.querySelector(".profile_sect");
     mainDiv.style.opacity = "1";
     mainDiv.style.pointerEvents = "auto";
   };
