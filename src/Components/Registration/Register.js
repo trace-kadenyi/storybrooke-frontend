@@ -91,6 +91,11 @@ const Register = () => {
           <img src={logo} alt="logo" className="register_login_logo" />
           <ul>
             <li>
+              <NavLink to="/about" className="link register_link">
+                About
+              </NavLink>
+            </li>
+            <li>
               <NavLink to="/login" className="link register_link">
                 Login
               </NavLink>
