@@ -18,6 +18,7 @@ const IndividualStory = () => {
   const [author, setAuthor] = useState(
     JSON.parse(localStorage.getItem("user"))
   );
+  const [comments, setComments] = useState([]);
   const [date, setDate] = useState("");
   const [body, setBody] = useState("");
   const [loading, setLoading] = useState(true);
@@ -125,6 +126,21 @@ const IndividualStory = () => {
     mainDiv.style.pointerEvents = "auto";
   };
 
+  // handle fetch comments
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await axiosPrivate.get(`/comments/${id}`);
+        setComments(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchComments();
+  }, []);
+
   return (
     <section className="explore_sect individual_str_sect">
       <MainNavbar />
@@ -135,6 +151,7 @@ const IndividualStory = () => {
           </Link>
         </nav>
       </header>
+      {/* story */}
       <div className="all_stories individual_all_stories">
         {loading && (
           <div className="main_preloader">
@@ -204,6 +221,32 @@ const IndividualStory = () => {
             <h6 className="the_end">THE END</h6>
           </div>
         )}
+      </div>
+      {/* comments section */}
+      <div className="comments_div">
+        <h3 className="comments_header">COMMENTS</h3>
+        <div className="comments">
+          {comments.length > 0 ? (
+            <ul className="comments_list">
+              {comments.map((comment) => (
+                <li key={comment._id} className="comment">
+                  <div className="comment_author_date">
+                    <p className="comment_author">{comment.commenter}</p>
+                    <p className="comment_date">
+                      <span>{comment.date} </span>{" "}
+                    </p>
+                  </div>
+                  <div className="comment_body_div">
+                    <p className="comment_body">{comment.body}</p>
+                    <span className="am_pm">{comment.time}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="no_comments">No comments yet</p>
+          )}
+        </div>
       </div>
     </section>
   );
