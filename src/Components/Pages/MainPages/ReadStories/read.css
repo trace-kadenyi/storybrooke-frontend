@@ -345,6 +345,56 @@
   font-style: italic;
 }
 
+.comments_header {
+  color: #fff;
+  text-align: center;
+  width: 150px;
+  margin: 50px auto;
+  font-family: cursive;
+  border-top: 2px #548341 solid;
+}
+
+.comments_list {
+  /* border: 2px red solid; */
+  margin: 20px;
+  /* color: #fff; */
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  opacity: 0.8;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment {
+  padding: 5px 20px;
+  /* border: 2px red solid; */
+  background: #fff;
+  width: 80vw;
+}
+
+.comment_author_date {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment_date {
+  font-size: 11px;
+}
+
+.comment_body_div {
+  /* border: 2px red solid; */
+  position: relative;
+}
+.am_pm {
+  font-weight: bold;
+  font-size: 11px;
+  position: absolute;
+  right: 0;
+  bottom: 0px;
+}
+
 @media screen and (max-width: 550px) {
   .title_date {
     flex-direction: column;
@@ -374,5 +424,9 @@
 
   .individual_story_page {
     max-height: 100vh;
+  }
+
+  .comment {
+    width: 90vw;
   }
 }
