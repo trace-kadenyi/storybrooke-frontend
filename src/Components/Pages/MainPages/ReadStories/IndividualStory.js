@@ -166,6 +166,40 @@ const IndividualStory = () => {
     );
     repliesBtn.style.display = "none";
   };
+
+  // handle replies date
+  const handleRepliesDate = (date) => {
+    const today = new Date();
+
+    const dateString = date;
+    const dateFromLocalString = new Date(dateString);
+
+    const timeDiff = today - dateFromLocalString;
+
+    const seconds = Math.floor(timeDiff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (seconds < 60) {
+      return `${seconds} seconds ago`;
+    } else if (minutes < 60) {
+      return `${minutes} minutes ago`;
+    } else if (hours < 24) {
+      return `${hours} hours ago`;
+    } else if (days < 30) {
+      return `${days} days ago`;
+    } else if (days >= 30 && days < 365) {
+      const months = Math.floor(days / 30);
+      return `${months} months ago`;
+    } else if (days >= 365) {
+      const years = Math.floor(days / 365);
+      return `${years} years ago`;
+    } else {
+      return "Just now";
+    }
+  };
+
   return (
     <section className="explore_sect individual_str_sect">
       <MainNavbar />
@@ -285,11 +319,10 @@ const IndividualStory = () => {
                             id={comment._id}
                           >
                             <div className="reply_author_date">
-                              <p className="reply_author">
-                                {reply.commenter}
-                              </p>
+                              <p className="reply_author">{reply.commenter}</p>
                               <p className="comment_date">
-                               {reply.date}
+                                {/* {reply.date} */}
+                                {handleRepliesDate(reply.date)}
                               </p>
                             </div>
                             <div className="reply_body_div">
