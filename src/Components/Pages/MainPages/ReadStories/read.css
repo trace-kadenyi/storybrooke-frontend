@@ -345,6 +345,8 @@
   font-style: italic;
 }
 
+/* COMMENTS */
+
 .comments_header {
   color: #fff;
   text-align: center;
@@ -393,6 +395,39 @@
   position: absolute;
   right: 0;
   bottom: 0px;
+  border-bottom: 1px #ccc solid;
+}
+
+/* REPLIES */
+
+.replies_list {
+  list-style-type: none;
+  margin-left: 5%;
+  /* border-top: 1px #d8d5d5 solid; */
+}
+
+
+.reply_author_date {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.reply_author, .reply_body {
+  font-size: 14px;
+
+}
+
+
+.comment_author, .reply_author {
+  /* font-size: 14px; */
+  font-weight: bold;
+}
+
+.no_replies {
+  font-size: 11px;
+  font-weight: bold;
+  font-style: italic;
 }
 
 @media screen and (max-width: 550px) {
