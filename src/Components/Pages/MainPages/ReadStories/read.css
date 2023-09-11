@@ -347,6 +347,9 @@
 
 /* COMMENTS */
 
+.comments_div {
+  margin-bottom: 50px;
+}
 .comments_header {
   color: #fff;
   text-align: center;
@@ -406,28 +409,51 @@
   /* border-top: 1px #d8d5d5 solid; */
 }
 
-
 .reply_author_date {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.reply_author, .reply_body {
+.reply_author,
+.reply_body {
   font-size: 14px;
-
 }
 
-
-.comment_author, .reply_author {
-  /* font-size: 14px; */
+.comment_author,
+.reply_author {
   font-weight: bold;
+}
+
+.more_reply_btn {
+  display: none;
+}
+
+.no_comments {
+  color: #fff;
+  text-align: center;
+  text-transform: capitalize;
+  font-style: italic;
 }
 
 .no_replies {
   font-size: 11px;
   font-weight: bold;
   font-style: italic;
+}
+
+.comment_reply_btn {
+  border: none;
+  color: #548341;
+  background: none;
+  text-decoration: underline;
+  font-size: 11.5px;
+  cursor: pointer;
+}
+
+.comment_reply_btn:hover {
+  font-style: italic;
+  font-weight: 600;
 }
 
 @media screen and (max-width: 550px) {
