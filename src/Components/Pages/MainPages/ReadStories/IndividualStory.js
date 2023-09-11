@@ -19,6 +19,7 @@ const IndividualStory = () => {
     JSON.parse(localStorage.getItem("user"))
   );
   const [comments, setComments] = useState([]);
+  const [replyData, setReplyData] = useState({});
   const [date, setDate] = useState("");
   const [body, setBody] = useState("");
   const [loading, setLoading] = useState(true);
@@ -132,7 +133,6 @@ const IndividualStory = () => {
       try {
         const response = await axiosPrivate.get(`/comments/${id}`);
         setComments(response.data);
-        console.log(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -141,6 +141,31 @@ const IndividualStory = () => {
     fetchComments();
   }, []);
 
+  const handleFetchReplies = async (e) => {
+    const commentID = e.currentTarget.id;
+    console.log(commentID);
+    try {
+      const response = await axiosPrivate.get(`/comments/replies/${commentID}`);
+      console.log(response.data);
+      setReplyData({
+        ...replyData,
+        [commentID]: response.data,
+      });
+
+      if (!response.data.length) {
+        const reply = document.querySelector(
+          `.replies_list[id="${commentID}"]`
+        );
+        reply.innerHTML = "<p class='no_replies'>No replies yet</p>";
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    const repliesBtn = document.querySelector(
+      `.comment_reply_btn[id="${commentID}"]`
+    );
+    repliesBtn.style.display = "none";
+  };
   return (
     <section className="explore_sect individual_str_sect">
       <MainNavbar />
@@ -239,6 +264,41 @@ const IndividualStory = () => {
                   <div className="comment_body_div">
                     <p className="comment_body">{comment.body}</p>
                     <span className="am_pm">{comment.time}</span>
+                  </div>
+                  <div className="comment_reply_div">
+                    <button
+                      className="comment_reply_btn"
+                      id={comment._id}
+                      onClick={handleFetchReplies}
+                    >
+                      Replies
+                    </button>
+
+                    {/* replies */}
+                    <ul className="replies_list" id={comment._id}>
+                      {
+                        // check if the replies exist
+                        (replyData[comment._id] || []).map((reply) => (
+                          <li
+                            key={reply._id}
+                            className="reply"
+                            id={comment._id}
+                          >
+                            <div className="reply_author_date">
+                              <p className="reply_author">
+                                {reply.commenter}
+                              </p>
+                              <p className="comment_date">
+                               {reply.date}
+                              </p>
+                            </div>
+                            <div className="reply_body_div">
+                              <p className="reply_body">{reply.body}</p>
+                            </div>
+                          </li>
+                        ))
+                      }
+                    </ul>
                   </div>
                 </li>
               ))}
