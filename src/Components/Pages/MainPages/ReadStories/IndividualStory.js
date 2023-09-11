@@ -141,6 +141,7 @@ const IndividualStory = () => {
     fetchComments();
   }, []);
 
+  // handle fetch replies
   const handleFetchReplies = async (e) => {
     const commentID = e.currentTarget.id;
     console.log(commentID);
@@ -282,7 +283,8 @@ const IndividualStory = () => {
         )}
       </div>
       {/* comments section */}
-      <div className="comments_div">
+      {!loading &&
+        <div className="comments_div">
         <h3 className="comments_header">COMMENTS</h3>
         <div className="comments">
           {comments.length > 0 ? (
@@ -305,7 +307,7 @@ const IndividualStory = () => {
                       id={comment._id}
                       onClick={handleFetchReplies}
                     >
-                      Replies
+                      View replies
                     </button>
 
                     {/* replies */}
@@ -340,7 +342,7 @@ const IndividualStory = () => {
             <p className="no_comments">No comments yet</p>
           )}
         </div>
-      </div>
+      </div>}
     </section>
   );
 };
