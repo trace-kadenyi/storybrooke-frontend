@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AiFillEdit } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
+import { v4 as uuidv4 } from "uuid";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import logo from "../../../../Assets/Images/logo.png";
@@ -22,7 +23,7 @@ const IndividualStory = () => {
   const [replyData, setReplyData] = useState({});
   const [date, setDate] = useState("");
   const [body, setBody] = useState("");
-  const [newComment, setNewComment] = useState("");
+  const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
@@ -140,7 +141,7 @@ const IndividualStory = () => {
     };
 
     fetchComments();
-  }, []);
+  }, [comments.length]);
 
   // handle fetch replies
   const handleFetchReplies = async (e) => {
@@ -201,6 +202,39 @@ const IndividualStory = () => {
       return "Just now";
     }
   };
+
+  // handle add comment
+  const handleAddComment = async (e) => {
+    e.preventDefault();
+
+    try {
+      const newComment = {
+        commenter: currentUser,
+        body: comment,
+      };
+
+      const response = await axiosPrivate.post(`/comments/${id}`, newComment);
+      console.log(response.data);
+      setComments([...comments, response.data]);
+      setComment("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // handle add comment button
+  const addCommentBtn = document.querySelector(".add_comment_btn");
+  if (addCommentBtn) {
+    if (comment.length < 1) {
+      addCommentBtn.style.opacity = "0.5";
+      // addCommentBtn.style.pointerEvents = "none";
+      addCommentBtn.style.padding = "3px";
+    } else {
+      addCommentBtn.style.opacity = "0.8";
+      addCommentBtn.style.pointerEvents = "auto";
+      addCommentBtn.style.cursor = "pointer";
+    }
+  }
 
   return (
     <section className="explore_sect individual_str_sect">
@@ -284,80 +318,83 @@ const IndividualStory = () => {
         )}
       </div>
       {/* comments section */}
-      {!loading &&
+      {!loading && (
         <div className="comments_div">
-        <h3 className="comments_header">COMMENTS</h3>
-        {/* add a comment */}
-        <div className="add_comment_div">
-          <form className="add_comment_form">
-            <textarea
-              className="add_comment_textarea"
-              placeholder="What do you think?"
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-            ></textarea>
-            <button className="add_comment_btn" style={{display: "none"}}
-            >Add Comment</button>
-          </form>
-        </div>
-        {/* display all comments */}
-        <div className="comments">
-          {comments.length > 0 ? (
-            <ul className="comments_list">
-              {comments.map((comment) => (
-                <li key={comment._id} className="comment">
-                  <div className="comment_author_date">
-                    <p className="comment_author">{comment.commenter}</p>
-                    <p className="comment_date">
-                      <span>{comment.date} </span>{" "}
-                    </p>
-                  </div>
-                  <div className="comment_body_div">
-                    <p className="comment_body">{comment.body}</p>
-                    <span className="am_pm">{comment.time}</span>
-                  </div>
-                  <div className="comment_reply_div">
-                    <button
-                      className="comment_reply_btn"
-                      id={comment._id}
-                      onClick={handleFetchReplies}
-                    >
-                      View replies
-                    </button>
+          <h3 className="comments_header">COMMENTS</h3>
+          {/* add a comment */}
+          <div className="add_comment_div">
+            <form className="add_comment_form" onSubmit={handleAddComment}>
+              <textarea
+                className="add_comment_textarea"
+                placeholder="What do you think?"
+                value={comment}
+                required
+                onChange={(e) => setComment(e.target.value)}
+              ></textarea>
+              <button className="add_comment_btn">Add Comment</button>
+            </form>
+          </div>
+          {/* display all comments */}
+          <div className="comments">
+            {comments.length > 0 ? (
+              <ul className="comments_list">
+                {comments.map((comment) => (
+                  <li key={comment._id} className="comment">
+                    <div className="comment_author_date">
+                      <p className="comment_author">{comment.commenter}</p>
+                      <p className="comment_date">
+                        <span>{comment.date} </span>{" "}
+                      </p>
+                    </div>
+                    <div className="comment_body_div">
+                      <p className="comment_body">{comment.body}</p>
+                      <span className="am_pm">{comment.time}</span>
+                    </div>
+                    <div className="comment_reply_div">
+                      <button
+                        className="comment_reply_btn"
+                        id={comment._id}
+                        onClick={handleFetchReplies}
+                      >
+                        View replies
+                      </button>
 
-                    {/* replies */}
-                    <ul className="replies_list" id={comment._id}>
-                      {
-                        // check if the replies exist
-                        (replyData[comment._id] || []).map((reply) => (
-                          <li
-                            key={reply._id}
-                            className="reply"
-                            id={comment._id}
-                          >
-                            <div className="reply_author_date">
-                              <p className="reply_author">{reply.commenter}</p>
-                              <p className="comment_date">
-                                {/* {reply.date} */}
-                                {handleRepliesDate(reply.date)}
-                              </p>
-                            </div>
-                            <div className="reply_body_div">
-                              <p className="reply_body">{reply.body}</p>
-                            </div>
-                          </li>
-                        ))
-                      }
-                    </ul>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="no_comments">No comments yet</p>
-          )}
+                      {/* replies */}
+                      <ul className="replies_list" id={comment._id}>
+                        {
+                          // check if the replies exist
+                          (replyData[comment._id] || []).map((reply) => (
+                            <li
+                              key={reply._id}
+                              className="reply"
+                              id={comment._id}
+                            >
+                              <div className="reply_author_date">
+                                <p className="reply_author">
+                                  {reply.commenter}
+                                </p>
+                                <p className="comment_date">
+                                  {/* {reply.date} */}
+                                  {handleRepliesDate(reply.date)}
+                                </p>
+                              </div>
+                              <div className="reply_body_div">
+                                <p className="reply_body">{reply.body}</p>
+                              </div>
+                            </li>
+                          ))
+                        }
+                      </ul>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="no_comments">No comments yet</p>
+            )}
+          </div>
         </div>
-      </div>}
+      )}
     </section>
   );
 };
