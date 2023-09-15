@@ -473,6 +473,7 @@
   color: #fff;
 }
 
+
 @media screen and (max-width: 550px) {
   .title_date {
     flex-direction: column;
