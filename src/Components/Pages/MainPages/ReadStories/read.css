@@ -397,7 +397,8 @@
   /* border-bottom: 1px #ccc solid; */
   display: flex;
   align-items: center;
-  gap: 3px;
+  /* gap: 3px; */
+  margin-right: 2px;
 }
 
 .ellipsis {
@@ -405,7 +406,7 @@
   font-size: 1.2rem;
   color: #548341;
   cursor: pointer;
-  right: 0;
+  right: 2px;
 }
 
 /* REPLIES */
@@ -479,6 +480,11 @@
   border-bottom: 1px #548341 solid;
   outline: none;
   color: #fff;
+}
+
+.add_comment_btn {
+  padding: 3px;
+  border-radius: 5px;
 }
 
 @media screen and (max-width: 550px) {

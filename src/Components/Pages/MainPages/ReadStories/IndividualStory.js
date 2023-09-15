@@ -204,13 +204,11 @@ const IndividualStory = () => {
   // handle add comment
   const handleAddComment = async (e) => {
     e.preventDefault();
-
     try {
       const newComment = {
         commenter: currentUser,
         body: comment,
       };
-
       const response = await axiosPrivate.post(`/comments/${id}`, newComment);
       setComments([...comments, response.data.comment]);
       setComment("");
@@ -226,9 +224,12 @@ const IndividualStory = () => {
       addCommentBtn.style.opacity = "0.5";
       // addCommentBtn.style.pointerEvents = "none";
       addCommentBtn.style.padding = "3px";
+      addCommentBtn.style.cursor = "not-allowed";
     } else {
-      addCommentBtn.style.opacity = "0.8";
+      addCommentBtn.style.opacity = "1";
       addCommentBtn.style.pointerEvents = "auto";
+      addCommentBtn.style.backgroundColor = "#548341";
+      addCommentBtn.style.color = "#fff";
       addCommentBtn.style.cursor = "pointer";
     }
   }
