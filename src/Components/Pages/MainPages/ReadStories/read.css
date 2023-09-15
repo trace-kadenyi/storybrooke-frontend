@@ -361,7 +361,6 @@
 
 .comments_list {
   margin: 20px;
-  /* color: #fff; */
   list-style-type: none;
   display: flex;
   flex-direction: column;
@@ -373,7 +372,6 @@
 
 .comment {
   padding: 5px 20px;
-  /* border: 2px red solid; */
   background: #fff;
   width: 80vw;
 }
@@ -387,16 +385,14 @@
   font-size: 11px;
 }
 
-.comment_body_div {
-  /* border: 2px red solid; */
-  position: relative;
+.reply_ampm_div {
+  display: flex;
+  justify-content: space-between;
 }
+
 .am_pm {
   font-weight: bold;
   font-size: 11px;
-  position: absolute;
-  right: 0;
-  bottom: 0px;
   border-bottom: 1px #ccc solid;
 }
 
@@ -405,7 +401,6 @@
 .replies_list {
   list-style-type: none;
   margin-left: 5%;
-  /* border-top: 1px #d8d5d5 solid; */
 }
 
 .reply_author_date {
@@ -439,6 +434,7 @@
   font-size: 11px;
   font-weight: bold;
   font-style: italic;
+  border-top: 1px #ccc solid;
 }
 
 .comment_reply_btn {
@@ -472,7 +468,6 @@
   outline: none;
   color: #fff;
 }
-
 
 @media screen and (max-width: 550px) {
   .title_date {
