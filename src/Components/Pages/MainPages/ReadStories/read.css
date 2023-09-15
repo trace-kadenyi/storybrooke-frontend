@@ -360,7 +360,6 @@
 }
 
 .comments_list {
-  /* border: 2px red solid; */
   margin: 20px;
   /* color: #fff; */
   list-style-type: none;
@@ -454,6 +453,24 @@
 .comment_reply_btn:hover {
   font-style: italic;
   font-weight: 600;
+}
+
+.add_comment_div {
+  margin: 0 auto;
+  width: 80vw;
+  /* border: 2px red solid; */
+}
+
+.add_comment_textarea {
+  width: 100%;
+  background: none;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border: none;
+  border-bottom: 1px #548341 solid;
+  outline: none;
+  color: #fff;
 }
 
 @media screen and (max-width: 550px) {
