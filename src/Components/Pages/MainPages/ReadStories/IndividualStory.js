@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AiFillEdit } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
+import { IoEllipsisHorizontalCircle } from "react-icons/io5";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import logo from "../../../../Assets/Images/logo.png";
@@ -355,7 +356,10 @@ const IndividualStory = () => {
                         >
                           View replies
                         </button>
-                        <span className="am_pm">{comment.time}</span>
+                        <span className="am_pm">
+                          {comment.time}
+                          <IoEllipsisHorizontalCircle className="ellipsis" />
+                        </span>
                       </div>
                       {/* replies */}
                       <ul className="replies_list" id={comment._id}>
