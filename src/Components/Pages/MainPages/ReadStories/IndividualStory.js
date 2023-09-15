@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AiFillEdit } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
-import { v4 as uuidv4 } from "uuid";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import logo from "../../../../Assets/Images/logo.png";
@@ -146,10 +145,8 @@ const IndividualStory = () => {
   // handle fetch replies
   const handleFetchReplies = async (e) => {
     const commentID = e.currentTarget.id;
-    console.log(commentID);
     try {
       const response = await axiosPrivate.get(`/comments/replies/${commentID}`);
-      console.log(response.data);
       setReplyData({
         ...replyData,
         [commentID]: response.data,
@@ -167,7 +164,7 @@ const IndividualStory = () => {
     const repliesBtn = document.querySelector(
       `.comment_reply_btn[id="${commentID}"]`
     );
-    repliesBtn.style.display = "none";
+    repliesBtn.style.visibility = "hidden";
   };
 
   // handle replies date
@@ -214,8 +211,7 @@ const IndividualStory = () => {
       };
 
       const response = await axiosPrivate.post(`/comments/${id}`, newComment);
-      console.log(response.data);
-      setComments([...comments, response.data]);
+      setComments([...comments, response.data.comment]);
       setComment("");
     } catch (error) {
       console.log(error);
@@ -348,17 +344,19 @@ const IndividualStory = () => {
                     </div>
                     <div className="comment_body_div">
                       <p className="comment_body">{comment.body}</p>
-                      <span className="am_pm">{comment.time}</span>
+                      {/* <span className="am_pm">{comment.time}</span> */}
                     </div>
                     <div className="comment_reply_div">
-                      <button
-                        className="comment_reply_btn"
-                        id={comment._id}
-                        onClick={handleFetchReplies}
-                      >
-                        View replies
-                      </button>
-
+                      <div className="reply_ampm_div">
+                        <button
+                          className="comment_reply_btn"
+                          id={comment._id}
+                          onClick={handleFetchReplies}
+                        >
+                          View replies
+                        </button>
+                        <span className="am_pm">{comment.time}</span>
+                      </div>
                       {/* replies */}
                       <ul className="replies_list" id={comment._id}>
                         {
