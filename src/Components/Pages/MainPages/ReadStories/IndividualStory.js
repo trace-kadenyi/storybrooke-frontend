@@ -22,6 +22,7 @@ const IndividualStory = () => {
   const [replyData, setReplyData] = useState({});
   const [date, setDate] = useState("");
   const [body, setBody] = useState("");
+  const [newComment, setNewComment] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
@@ -286,6 +287,20 @@ const IndividualStory = () => {
       {!loading &&
         <div className="comments_div">
         <h3 className="comments_header">COMMENTS</h3>
+        {/* add a comment */}
+        <div className="add_comment_div">
+          <form className="add_comment_form">
+            <textarea
+              className="add_comment_textarea"
+              placeholder="What do you think?"
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+            ></textarea>
+            <button className="add_comment_btn" style={{display: "none"}}
+            >Add Comment</button>
+          </form>
+        </div>
+        {/* display all comments */}
         <div className="comments">
           {comments.length > 0 ? (
             <ul className="comments_list">
