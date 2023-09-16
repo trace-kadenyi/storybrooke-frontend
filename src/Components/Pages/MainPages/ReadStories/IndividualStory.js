@@ -234,6 +234,20 @@ const IndividualStory = () => {
     }
   }
 
+  // toggle ellipsis and edit/delete buttons
+  const toggleEllipsis = (e) => {
+    const ellipsis = e.currentTarget;
+    const editDeleteBtn = e.currentTarget.nextElementSibling;
+    if (ellipsis.style.display === "none") {
+      ellipsis.style.display = "block";
+      editDeleteBtn.style.display = "none";
+      console.log(editDeleteBtn)
+    } else {
+      ellipsis.style.display = "none";
+      editDeleteBtn.style.display = "block";
+    }
+  };
+
   return (
     <section className="explore_sect individual_str_sect">
       <MainNavbar />
@@ -359,8 +373,12 @@ const IndividualStory = () => {
                         </button>
                         <span className="am_pm">
                           {comment.time}
-                          <IoEllipsisHorizontalCircle className="ellipsis" />
+                          <IoEllipsisHorizontalCircle className="ellipsis" onClick={toggleEllipsis} />
                         </span>
+                      </div>
+                      <div className="comment_edit_delete_btn">
+                        <button>Edit</button>
+                        <button>Delete</button>
                       </div>
                       {/* replies */}
                       <ul className="replies_list" id={comment._id}>
