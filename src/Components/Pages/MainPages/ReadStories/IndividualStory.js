@@ -237,11 +237,11 @@ const IndividualStory = () => {
   // toggle ellipsis and edit/delete buttons
   const toggleEllipsis = (e) => {
     const ellipsis = e.currentTarget;
-    const editDeleteBtn = e.currentTarget.nextElementSibling;
+    const editDeleteBtn =
+      e.currentTarget.parentElement.parentElement.nextElementSibling;
     if (ellipsis.style.display === "none") {
       ellipsis.style.display = "block";
       editDeleteBtn.style.display = "none";
-      console.log(editDeleteBtn)
     } else {
       ellipsis.style.display = "none";
       editDeleteBtn.style.display = "block";
@@ -373,7 +373,10 @@ const IndividualStory = () => {
                         </button>
                         <span className="am_pm">
                           {comment.time}
-                          <IoEllipsisHorizontalCircle className="ellipsis" onClick={toggleEllipsis} />
+                          <IoEllipsisHorizontalCircle
+                            className="ellipsis"
+                            onClick={toggleEllipsis}
+                          />
                         </span>
                       </div>
                       <div className="comment_edit_delete_btn">
