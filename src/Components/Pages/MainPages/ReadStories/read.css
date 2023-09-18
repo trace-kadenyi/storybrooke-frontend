@@ -491,7 +491,7 @@
   position: absolute;
   right: 21px;
   background: #fff;
-  bottom: 3px;
+  top: 3px;
   flex-direction: column;
   width: 85px;
   gap: 10px;
