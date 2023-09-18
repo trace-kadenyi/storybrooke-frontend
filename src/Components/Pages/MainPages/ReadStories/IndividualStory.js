@@ -240,11 +240,11 @@ const IndividualStory = () => {
     const editDeleteBtn =
       e.currentTarget.parentElement.parentElement.nextElementSibling;
     if (ellipsis.style.display === "none") {
-      ellipsis.style.display = "block";
+      ellipsis.style.display = "flex";
       editDeleteBtn.style.display = "none";
     } else {
       ellipsis.style.display = "none";
-      editDeleteBtn.style.display = "block";
+      editDeleteBtn.style.display = "flex";
     }
   };
 
