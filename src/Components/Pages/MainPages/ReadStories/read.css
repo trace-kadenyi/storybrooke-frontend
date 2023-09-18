@@ -489,10 +489,9 @@
 
 .comment_edit_delete_btn {
   position: absolute;
-  right: 2px;
+  right: 21px;
   background: #fff;
-  top: 5px;
-  display: flex;
+  bottom: 3px;
   flex-direction: column;
   width: 85px;
   gap: 10px;
@@ -507,6 +506,10 @@
   color: #548341;
   font-size: 11px;
   padding: 5px;
+}
+
+.edit_delete_btn_toggle {
+  display: flex;
 }
 
 @media screen and (max-width: 550px) {

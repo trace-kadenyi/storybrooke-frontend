@@ -239,13 +239,14 @@ const IndividualStory = () => {
     const ellipsis = e.currentTarget;
     const editDeleteBtn =
       e.currentTarget.parentElement.parentElement.nextElementSibling;
-    if (ellipsis.style.display === "none") {
-      ellipsis.style.display = "flex";
-      editDeleteBtn.style.display = "none";
-    } else {
-      ellipsis.style.display = "none";
-      editDeleteBtn.style.display = "flex";
-    }
+    // if (ellipsis.style.display === "none") {
+    //   ellipsis.style.display = "flex";
+    //   editDeleteBtn.style.display = "none";
+    // } else {
+    //   ellipsis.style.display = "none";
+    //   editDeleteBtn.style.display = "flex";
+    // }
+    editDeleteBtn.classList.toggle("edit_delete_btn_toggle");
   };
 
   return (
