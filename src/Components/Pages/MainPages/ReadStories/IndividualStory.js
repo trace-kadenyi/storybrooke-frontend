@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AiFillEdit } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
+import { IoEllipsisHorizontalCircle } from "react-icons/io5";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import logo from "../../../../Assets/Images/logo.png";
@@ -18,8 +19,11 @@ const IndividualStory = () => {
   const [author, setAuthor] = useState(
     JSON.parse(localStorage.getItem("user"))
   );
+  const [comments, setComments] = useState([]);
+  const [replyData, setReplyData] = useState({});
   const [date, setDate] = useState("");
   const [body, setBody] = useState("");
+  const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
@@ -125,6 +129,119 @@ const IndividualStory = () => {
     mainDiv.style.pointerEvents = "auto";
   };
 
+  // handle fetch comments
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await axiosPrivate.get(`/comments/${id}`);
+        setComments(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchComments();
+  }, [comments.length]);
+
+  // handle fetch replies
+  const handleFetchReplies = async (e) => {
+    const commentID = e.currentTarget.id;
+    try {
+      const response = await axiosPrivate.get(`/comments/replies/${commentID}`);
+      setReplyData({
+        ...replyData,
+        [commentID]: response.data,
+      });
+
+      if (!response.data.length) {
+        const reply = document.querySelector(
+          `.replies_list[id="${commentID}"]`
+        );
+        reply.innerHTML = "<p class='no_replies'>No replies yet</p>";
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    const repliesBtn = document.querySelector(
+      `.comment_reply_btn[id="${commentID}"]`
+    );
+    repliesBtn.style.visibility = "hidden";
+  };
+
+  // handle replies date
+  const handleRepliesDate = (date) => {
+    const today = new Date();
+
+    const dateString = date;
+    const dateFromLocalString = new Date(dateString);
+
+    const timeDiff = today - dateFromLocalString;
+
+    const seconds = Math.floor(timeDiff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (seconds < 60) {
+      return `${seconds} seconds ago`;
+    } else if (minutes < 60) {
+      return `${minutes} minutes ago`;
+    } else if (hours < 24) {
+      return `${hours} hours ago`;
+    } else if (days < 30) {
+      return `${days} days ago`;
+    } else if (days >= 30 && days < 365) {
+      const months = Math.floor(days / 30);
+      return `${months} months ago`;
+    } else if (days >= 365) {
+      const years = Math.floor(days / 365);
+      return `${years} years ago`;
+    } else {
+      return "Just now";
+    }
+  };
+
+  // handle add comment
+  const handleAddComment = async (e) => {
+    e.preventDefault();
+    try {
+      const newComment = {
+        commenter: currentUser,
+        body: comment,
+      };
+      const response = await axiosPrivate.post(`/comments/${id}`, newComment);
+      setComments([...comments, response.data.comment]);
+      setComment("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // handle add comment button
+  const addCommentBtn = document.querySelector(".add_comment_btn");
+  if (addCommentBtn) {
+    if (comment.length < 1) {
+      addCommentBtn.style.opacity = "0.5";
+      // addCommentBtn.style.pointerEvents = "none";
+      addCommentBtn.style.padding = "3px";
+      addCommentBtn.style.cursor = "not-allowed";
+    } else {
+      addCommentBtn.style.opacity = "1";
+      addCommentBtn.style.pointerEvents = "auto";
+      addCommentBtn.style.backgroundColor = "#548341";
+      addCommentBtn.style.color = "#fff";
+      addCommentBtn.style.cursor = "pointer";
+    }
+  }
+
+  // toggle ellipsis and edit/delete buttons
+  const toggleEllipsis = (e) => {
+    const ellipsis = e.currentTarget;
+    const editDeleteBtn =
+      e.currentTarget.parentElement.parentElement.nextElementSibling;
+    editDeleteBtn.classList.toggle("edit_delete_btn_toggle");
+  };
+
   return (
     <section className="explore_sect individual_str_sect">
       <MainNavbar />
@@ -135,6 +252,7 @@ const IndividualStory = () => {
           </Link>
         </nav>
       </header>
+      {/* story */}
       <div className="all_stories individual_all_stories">
         {loading && (
           <div className="main_preloader">
@@ -205,6 +323,96 @@ const IndividualStory = () => {
           </div>
         )}
       </div>
+      {/* comments section */}
+      {!loading && (
+        <div className="comments_div">
+          <h3 className="comments_header">COMMENTS</h3>
+          {/* add a comment */}
+          <div className="add_comment_div">
+            <form className="add_comment_form" onSubmit={handleAddComment}>
+              <textarea
+                className="add_comment_textarea"
+                placeholder="What do you think?"
+                value={comment}
+                required
+                onChange={(e) => setComment(e.target.value)}
+              ></textarea>
+              <button className="add_comment_btn">Add Comment</button>
+            </form>
+          </div>
+          {/* display all comments */}
+          <div className="comments">
+            {comments.length > 0 ? (
+              <ul className="comments_list">
+                {comments.map((comment) => (
+                  <li key={comment._id} className="comment">
+                    <div className="comment_author_date">
+                      <p className="comment_author">{comment.commenter}</p>
+                      <p className="comment_date">
+                        <span>{comment.date} </span>{" "}
+                      </p>
+                    </div>
+                    <div className="comment_body_div">
+                      <p className="comment_body">{comment.body}</p>
+                      {/* <span className="am_pm">{comment.time}</span> */}
+                    </div>
+                    <div className="comment_reply_div">
+                      <div className="reply_ampm_div">
+                        <button
+                          className="comment_reply_btn"
+                          id={comment._id}
+                          onClick={handleFetchReplies}
+                        >
+                          View replies
+                        </button>
+                        <span className="am_pm">
+                          {comment.time}
+                          <IoEllipsisHorizontalCircle
+                            className="ellipsis"
+                            onClick={toggleEllipsis}
+                          />
+                        </span>
+                      </div>
+                      <div className="comment_edit_delete_btn">
+                        <button>Edit</button>
+                        <button>Delete</button>
+                      </div>
+                      {/* replies */}
+                      <ul className="replies_list" id={comment._id}>
+                        {
+                          // check if the replies exist
+                          (replyData[comment._id] || []).map((reply) => (
+                            <li
+                              key={reply._id}
+                              className="reply"
+                              id={comment._id}
+                            >
+                              <div className="reply_author_date">
+                                <p className="reply_author">
+                                  {reply.commenter}
+                                </p>
+                                <p className="comment_date">
+                                  {/* {reply.date} */}
+                                  {handleRepliesDate(reply.date)}
+                                </p>
+                              </div>
+                              <div className="reply_body_div">
+                                <p className="reply_body">{reply.body}</p>
+                              </div>
+                            </li>
+                          ))
+                        }
+                      </ul>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="no_comments">No comments yet</p>
+            )}
+          </div>
+        </div>
+      )}
     </section>
   );
 };
