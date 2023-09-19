@@ -416,6 +416,10 @@
   margin-left: 5%;
 }
 
+.replies_list_toggle {
+  display: none;
+}
+
 .reply_author_date {
   display: flex;
   align-items: center;
