@@ -141,7 +141,7 @@ const IndividualStory = () => {
     };
 
     fetchComments();
-  }, [comments]);
+  }, [comments.length]);
 
   // handle fetch replies
   const handleFetchReplies = async (e) => {
@@ -436,7 +436,7 @@ const IndividualStory = () => {
                         </span>
                       </div>
                       <div className="comment_edit_delete_btn">
-                        <button id={comment._id} onClick={editComment}>Edit</button>
+                        <button id={comment._id}>Edit</button>
                         <button id={comment._id} onClick={deleteComment}>
                           Delete
                         </button>
