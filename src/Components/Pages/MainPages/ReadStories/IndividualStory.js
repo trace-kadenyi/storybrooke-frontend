@@ -141,7 +141,7 @@ const IndividualStory = () => {
     };
 
     fetchComments();
-  }, [comments.length]);
+  }, [comments]);
 
   // handle fetch replies
   const handleFetchReplies = async (e) => {
@@ -240,6 +240,66 @@ const IndividualStory = () => {
     const editDeleteBtn =
       e.currentTarget.parentElement.parentElement.nextElementSibling;
     editDeleteBtn.classList.toggle("edit_delete_btn_toggle");
+  };
+
+  // delete comment
+  const deleteComment = (e) => {
+    const commentID = e.currentTarget.id;
+    try {
+      axiosPrivate.delete(`/comments/${commentID}`);
+      const newComments = comments.filter((comment) => {
+        return comment._id !== commentID;
+      });
+      setComments(newComments);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // edit comment
+  const editComment = (e) => {
+    const commentID = e.currentTarget.id;
+    const commentBody = document.querySelector(
+      `.comment_body[id="${commentID}"]`
+    );
+  //  turn the comment body into a textarea
+    const textarea = document.createElement("textarea");
+    textarea.className = "edit_comment_textarea";
+    textarea.value = commentBody.textContent;
+    commentBody.replaceWith(textarea);
+    textarea.focus();
+
+    // edit comment
+    const updatedComment = {
+      commenter: currentUser,
+      body: textarea.value,
+    }
+
+    try {
+      axiosPrivate.put(`/comments/edit/${commentID}`, updatedComment);
+      textarea.addEventListener("keydown", (e) => {
+        if(e.key === "Enter") {
+        const newCommentBody = document.createElement("p");
+        newCommentBody.className = "comment_body";
+        newCommentBody.textContent = textarea.value;
+        textarea.replaceWith(newCommentBody);
+        }
+      })
+
+      const newComments = comments.map((comment) => {
+        if(comment._id === commentID) {
+          return {
+            ...comment,
+            body: textarea.value
+          }
+        }
+        return comment;
+      })
+      setComments(newComments);
+      
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -353,7 +413,9 @@ const IndividualStory = () => {
                       </p>
                     </div>
                     <div className="comment_body_div">
-                      <p className="comment_body">{comment.body}</p>
+                      <p className="comment_body" id={comment._id}>
+                        {comment.body}
+                      </p>
                       {/* <span className="am_pm">{comment.time}</span> */}
                     </div>
                     <div className="comment_reply_div">
@@ -374,8 +436,10 @@ const IndividualStory = () => {
                         </span>
                       </div>
                       <div className="comment_edit_delete_btn">
-                        <button>Edit</button>
-                        <button>Delete</button>
+                        <button id={comment._id} onClick={editComment}>Edit</button>
+                        <button id={comment._id} onClick={deleteComment}>
+                          Delete
+                        </button>
                       </div>
                       {/* replies */}
                       <ul className="replies_list" id={comment._id}>
