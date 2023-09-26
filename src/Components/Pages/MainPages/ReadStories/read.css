@@ -516,6 +516,17 @@
   display: flex;
 }
 
+.edit_comment_textarea {
+  width: 80%;
+  background: none;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border: none;
+  border-bottom: 1px #548341 solid;
+  outline: none;
+}
+
 @media screen and (max-width: 550px) {
   .title_date {
     flex-direction: column;
