@@ -39,7 +39,6 @@ const IndividualStory = () => {
       try {
         const response = await axiosPrivate.get(`/story/${id}`);
         setTitle(response.data.title);
-        // setStory(response.data.story.story);
         setAuthor(response.data.author);
         setGenres(response.data.genres);
         setDate(response.data.date);
