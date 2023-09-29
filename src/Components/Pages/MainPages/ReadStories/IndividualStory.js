@@ -340,14 +340,24 @@ const IndividualStory = () => {
           commenter: owner,
           body: textarea.value,
         };
-        console.log(updatedComment);
         await axiosPrivate.put(`/comments/edit/${commentID}`, updatedComment);
+
+        let dateObj = new Date();
+        let options = {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        };
+
+        const date = dateObj.toLocaleDateString(undefined, options);
 
         const newComments = comments.map((comment) => {
           if (comment._id === commentID) {
             return {
               ...comment,
               body: textarea.value,
+              date: date,
+              time: new Date().toLocaleTimeString(),
             };
           }
           return comment;
@@ -358,24 +368,6 @@ const IndividualStory = () => {
       console.log(error);
     }
   };
-
-  // const editCommentSample = async (e) => {
-  //   e.preventDefault();
-  //   const textarea = document.querySelector(".edit_comment_textarea");
-  //   const goBtn = document.querySelector(".go_btn");
-  //   const commentId = "65168a8e234bfaea3f42745d";
-  //   try {
-  //     const updatedComment = {
-  //       commenter: "Nikki",
-  //       body: textarea.value,
-  //     }
-  //     console.log(updatedComment);
-  //     await axiosPrivate.put(`/comments/edit/${commentId}`, updatedComment);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-
-  // }
 
   return (
     <section className="explore_sect individual_str_sect">
@@ -557,11 +549,6 @@ const IndividualStory = () => {
           </div>
         </div>
       )}
-
-      {/* <form className="edit_comment_form" onSubmit={editCommentSample}>
-        <textarea className="edit_comment_textarea"></textarea>
-        <button className="go_btn">Go</button>
-      </form> */}
     </section>
   );
 };
