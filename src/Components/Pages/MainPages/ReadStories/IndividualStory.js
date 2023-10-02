@@ -333,6 +333,11 @@ const IndividualStory = () => {
         newCommentBody.textContent = textarea.value;
         textarea.replaceWith(newCommentBody);
         goBtn.remove();
+        // hide the edit/delete buttons
+        const editDeleteBtn = document.querySelector(
+          `.comment_edit_delete_btn[id="${commentID}"]`
+        );
+        editDeleteBtn.classList.remove("edit_delete_btn_toggle");
 
         // edit comment
         const updatedComment = {
@@ -501,7 +506,7 @@ const IndividualStory = () => {
                           />
                         </span>
                       </div>
-                      <div className="comment_edit_delete_btn">
+                      <div className="comment_edit_delete_btn" id={comment._id}>
                         <button
                           id={comment._id}
                           onClick={(e) => editComment(e, comment.commenter)}
