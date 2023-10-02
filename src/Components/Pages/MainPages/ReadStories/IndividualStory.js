@@ -317,7 +317,7 @@ const IndividualStory = () => {
     //  turn the comment body into a textarea
     const textarea = document.createElement("textarea");
     textarea.className = "edit_comment_textarea";
-    textarea.value = commentBody.textContent;
+    // textarea.value = commentBody.textContent;
     commentBody.replaceWith(textarea);
     textarea.focus();
     const goBtn = document.createElement("button");
@@ -333,11 +333,6 @@ const IndividualStory = () => {
         newCommentBody.textContent = textarea.value;
         textarea.replaceWith(newCommentBody);
         goBtn.remove();
-        // hide the edit/delete buttons
-        const editDeleteBtn = document.querySelector(
-          `.comment_edit_delete_btn[id="${commentID}"]`
-        );
-        editDeleteBtn.classList.remove("edit_delete_btn_toggle");
 
         // edit comment
         const updatedComment = {
@@ -354,6 +349,12 @@ const IndividualStory = () => {
         };
 
         const date = dateObj.toLocaleDateString(undefined, options);
+
+        // hide the edit/delete buttons
+        const editDeleteBtn = document.querySelector(
+          `.comment_edit_delete_btn[id="${commentID}"]`
+        );
+        editDeleteBtn.classList.remove("edit_delete_btn_toggle");
 
         const newComments = comments.map((comment) => {
           if (comment._id === commentID) {
