@@ -27,6 +27,7 @@ const IndividualStory = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
+  const [editing, setEditing] = useState(false); // to handle the editing status of the comment
 
   // current user
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -255,124 +256,78 @@ const IndividualStory = () => {
     }
   };
 
-  // edit comment
-  // const editComment = (e) => {
+  // // edit comment
+  // const editComment = async (e, owner) => {
   //   const commentID = e.currentTarget.id;
   //   const commentBody = document.querySelector(
   //     `.comment_body[id="${commentID}"]`
   //   );
-  // //  turn the comment body into a textarea
+  //   const editDeleteBtn = document.querySelector(
+  //     `.comment_edit_delete_btn[id="${commentID}"]`
+  //   );
+
+  //   //  turn the comment body into a textarea
   //   const textarea = document.createElement("textarea");
   //   textarea.className = "edit_comment_textarea";
   //   textarea.value = commentBody.textContent;
   //   commentBody.replaceWith(textarea);
   //   textarea.focus();
+  //   const goBtn = document.createElement("button");
+  //   goBtn.className = "go_btn";
+  //   goBtn.textContent = "Go";
+  //   textarea.after(goBtn);
 
   //   // edit comment
-  //   // const updatedComment = {
-  //   //   commenter: currentUser,
-  //   //   body: textarea.value,
-  //   // }
-
   //   try {
-  //     textarea.addEventListener("keydown", async (e) => {
-  //       if(e.key === "Enter") {
+  //     goBtn.addEventListener("click", async (e) => {
   //       const newCommentBody = document.createElement("p");
   //       newCommentBody.className = "comment_body";
   //       newCommentBody.textContent = textarea.value;
   //       textarea.replaceWith(newCommentBody);
+  //       goBtn.remove();
 
   //       // edit comment
   //       const updatedComment = {
-  //         commenter: currentUser,
+  //         commenter: owner,
   //         body: textarea.value,
-  //       }
-  //       console.log(updatedComment);
+  //       };
   //       await axiosPrivate.put(`/comments/edit/${commentID}`, updatedComment);
 
-  //       }
-  //     })
+  //       let dateObj = new Date();
+  //       let options = {
+  //         year: "numeric",
+  //         month: "short",
+  //         day: "numeric",
+  //       };
 
-  //     const newComments = comments.map((comment) => {
-  //       if(comment._id === commentID) {
-  //         return {
-  //           ...comment,
-  //           body: textarea.value
+  //       const date = dateObj.toLocaleDateString(undefined, options);
+
+  //       // hide the edit/delete buttons
+
+  //       editDeleteBtn.classList.remove("edit_delete_btn_toggle");
+
+  //       const newComments = comments.map((comment) => {
+  //         if (comment._id === commentID) {
+  //           return {
+  //             ...comment,
+  //             body: textarea.value,
+  //             date: date,
+  //             time: new Date().toLocaleTimeString(),
+  //           };
   //         }
-  //       }
-  //       return comment;
-  //     })
-  //     setComments(newComments);
-
+  //         return comment;
+  //       });
+  //       setComments(newComments);
+  //     });
   //   } catch (error) {
   //     console.log(error);
   //   }
   // };
 
-  const editComment = async (e, owner) => {
-    const commentID = e.currentTarget.id;
-    const commentBody = document.querySelector(
-      `.comment_body[id="${commentID}"]`
-    );
-    //  turn the comment body into a textarea
-    const textarea = document.createElement("textarea");
-    textarea.className = "edit_comment_textarea";
-    // textarea.value = commentBody.textContent;
-    commentBody.replaceWith(textarea);
-    textarea.focus();
-    const goBtn = document.createElement("button");
-    goBtn.className = "go_btn";
-    goBtn.textContent = "Go";
-    textarea.after(goBtn);
-
-    // edit comment
-    try {
-      goBtn.addEventListener("click", async (e) => {
-        const newCommentBody = document.createElement("p");
-        newCommentBody.className = "comment_body";
-        newCommentBody.textContent = textarea.value;
-        textarea.replaceWith(newCommentBody);
-        goBtn.remove();
-
-        // edit comment
-        const updatedComment = {
-          commenter: owner,
-          body: textarea.value,
-        };
-        await axiosPrivate.put(`/comments/edit/${commentID}`, updatedComment);
-
-        let dateObj = new Date();
-        let options = {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        };
-
-        const date = dateObj.toLocaleDateString(undefined, options);
-
-        // hide the edit/delete buttons
-        const editDeleteBtn = document.querySelector(
-          `.comment_edit_delete_btn[id="${commentID}"]`
-        );
-        editDeleteBtn.classList.remove("edit_delete_btn_toggle");
-
-        const newComments = comments.map((comment) => {
-          if (comment._id === commentID) {
-            return {
-              ...comment,
-              body: textarea.value,
-              date: date,
-              time: new Date().toLocaleTimeString(),
-            };
-          }
-          return comment;
-        });
-        setComments(newComments);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // edit the comment
+  const editComment = (e, owner) => {
+    
+  }
 
   return (
     <section className="explore_sect individual_str_sect">
