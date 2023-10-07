@@ -256,78 +256,75 @@ const IndividualStory = () => {
     }
   };
 
-  // // edit comment
-  // const editComment = async (e, owner) => {
-  //   const commentID = e.currentTarget.id;
-  //   const commentBody = document.querySelector(
-  //     `.comment_body[id="${commentID}"]`
-  //   );
-  //   const editDeleteBtn = document.querySelector(
-  //     `.comment_edit_delete_btn[id="${commentID}"]`
-  //   );
+  // edit comment
+  const editComment = async (e, owner) => {
+    const commentID = e.currentTarget.id;
+    const commentBody = document.querySelector(
+      `.comment_body[id="${commentID}"]`
+    );
+    const editDeleteBtn = document.querySelector(
+      `.comment_edit_delete_btn[id="${commentID}"]`
+    );
+    // console.log(commentBody.textContent, 'before')
 
-  //   //  turn the comment body into a textarea
-  //   const textarea = document.createElement("textarea");
-  //   textarea.className = "edit_comment_textarea";
-  //   textarea.value = commentBody.textContent;
-  //   commentBody.replaceWith(textarea);
-  //   textarea.focus();
-  //   const goBtn = document.createElement("button");
-  //   goBtn.className = "go_btn";
-  //   goBtn.textContent = "Go";
-  //   textarea.after(goBtn);
+    //  turn the comment body into a textarea
+    const textarea = document.createElement("textarea");
+    textarea.className = "edit_comment_textarea";
+    textarea.value = commentBody.textContent;
+    commentBody.replaceWith(textarea);
+    textarea.focus();
+    const goBtn = document.createElement("button");
+    goBtn.className = "go_btn";
+    goBtn.textContent = "Go";
+    textarea.after(goBtn);
 
-  //   // edit comment
-  //   try {
-  //     goBtn.addEventListener("click", async (e) => {
-  //       const newCommentBody = document.createElement("p");
-  //       newCommentBody.className = "comment_body";
-  //       newCommentBody.textContent = textarea.value;
-  //       textarea.replaceWith(newCommentBody);
-  //       goBtn.remove();
+    // edit comment
+    try {
+      goBtn.addEventListener("click", async (e) => {
+        const newCommentBody = document.createElement("p");
+        newCommentBody.className = "comment_body";
+        newCommentBody.id = commentID;
+        newCommentBody.textContent = textarea.value;
+        textarea.replaceWith(newCommentBody);
+        goBtn.remove();
 
-  //       // edit comment
-  //       const updatedComment = {
-  //         commenter: owner,
-  //         body: textarea.value,
-  //       };
-  //       await axiosPrivate.put(`/comments/edit/${commentID}`, updatedComment);
+        // edit comment
+        const updatedComment = {
+          commenter: owner,
+          body: textarea.value,
+        };
+        await axiosPrivate.put(`/comments/edit/${commentID}`, updatedComment);
 
-  //       let dateObj = new Date();
-  //       let options = {
-  //         year: "numeric",
-  //         month: "short",
-  //         day: "numeric",
-  //       };
+        let dateObj = new Date();
+        let options = {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        };
 
-  //       const date = dateObj.toLocaleDateString(undefined, options);
+        const date = dateObj.toLocaleDateString(undefined, options);
 
-  //       // hide the edit/delete buttons
+        // hide the edit/delete buttons
 
-  //       editDeleteBtn.classList.remove("edit_delete_btn_toggle");
+        editDeleteBtn.classList.remove("edit_delete_btn_toggle");
 
-  //       const newComments = comments.map((comment) => {
-  //         if (comment._id === commentID) {
-  //           return {
-  //             ...comment,
-  //             body: textarea.value,
-  //             date: date,
-  //             time: new Date().toLocaleTimeString(),
-  //           };
-  //         }
-  //         return comment;
-  //       });
-  //       setComments(newComments);
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // edit the comment
-  const editComment = (e, owner) => {
-    
-  }
+        const newComments = comments.map((comment) => {
+          if (comment._id === commentID) {
+            return {
+              ...comment,
+              body: textarea.value,
+              date: date,
+              time: new Date().toLocaleTimeString(),
+            };
+          }
+          return comment;
+        });
+        setComments(newComments);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <section className="explore_sect individual_str_sect">
