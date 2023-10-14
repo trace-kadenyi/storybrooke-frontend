@@ -265,7 +265,6 @@ const IndividualStory = () => {
     const editDeleteBtn = document.querySelector(
       `.comment_edit_delete_btn[id="${commentID}"]`
     );
-    // console.log(commentBody.textContent, 'before')
 
     //  turn the comment body into a textarea
     const textarea = document.createElement("textarea");
@@ -275,7 +274,7 @@ const IndividualStory = () => {
     textarea.focus();
     const goBtn = document.createElement("button");
     goBtn.className = "go_btn";
-    goBtn.textContent = "Go";
+    goBtn.textContent = "Submit";
     textarea.after(goBtn);
 
     // edit comment
@@ -464,7 +463,7 @@ const IndividualStory = () => {
                           id={comment._id}
                           onClick={(e) => editComment(e, comment.commenter)}
                         >
-                          Edit
+                         Edit
                         </button>
                         <button id={comment._id} onClick={deleteComment}>
                           Delete
