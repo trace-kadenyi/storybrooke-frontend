@@ -527,6 +527,22 @@
   outline: none;
 }
 
+.go_btn {
+  background: #092424;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 11px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.go_btn:hover {
+  background: #548341;
+  border-radius: 20px;
+}
+
 @media screen and (max-width: 550px) {
   .title_date {
     flex-direction: column;
@@ -560,5 +576,10 @@
 
   .comment {
     width: 90vw;
+  }
+
+  .edit_comment_textarea {
+    max-width: 70%;
+
   }
 }
