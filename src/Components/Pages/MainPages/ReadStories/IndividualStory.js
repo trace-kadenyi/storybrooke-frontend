@@ -272,10 +272,25 @@ const IndividualStory = () => {
     textarea.value = commentBody.textContent;
     commentBody.replaceWith(textarea);
     textarea.focus();
+    const btnsDiv = document.createElement("div");
+    btnsDiv.className = "submit-cancel-btns-div";
+    textarea.after(btnsDiv);
     const goBtn = document.createElement("button");
     goBtn.className = "go_btn";
     goBtn.textContent = "Submit";
-    textarea.after(goBtn);
+    btnsDiv.append(goBtn);
+    const cancelBtn = document.createElement("button");
+    cancelBtn.className = "cancel_btn";
+    cancelBtn.textContent = "Cancel";
+    btnsDiv.append(cancelBtn);
+
+    // cancel edit
+    cancelBtn.addEventListener("click", () => {
+      textarea.replaceWith(commentBody);
+      goBtn.remove();
+      cancelBtn.remove();
+      editDeleteBtn.classList.remove("edit_delete_btn_toggle");
+    });
 
     // edit comment
     try {
@@ -286,6 +301,7 @@ const IndividualStory = () => {
         newCommentBody.textContent = textarea.value;
         textarea.replaceWith(newCommentBody);
         goBtn.remove();
+        cancelBtn.remove();
 
         // edit comment
         const updatedComment = {
@@ -461,11 +477,16 @@ const IndividualStory = () => {
                       <div className="comment_edit_delete_btn" id={comment._id}>
                         <button
                           id={comment._id}
+                          className="edit_comment_btn"
                           onClick={(e) => editComment(e, comment.commenter)}
                         >
-                         Edit
+                          Edit
                         </button>
-                        <button id={comment._id} onClick={deleteComment}>
+                        <button
+                          id={comment._id}
+                          onClick={deleteComment}
+                          className="delete_comment_btn"
+                        >
                           Delete
                         </button>
                       </div>
