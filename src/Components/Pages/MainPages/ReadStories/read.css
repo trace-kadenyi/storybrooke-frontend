@@ -580,6 +580,23 @@
   border-radius: 20px;
 }
 
+.like_reply_btn {
+  display: flex;
+  gap: 5px;
+}
+
+.like_reply_btn button {
+  padding: 2px 5px;
+  color: #548341;
+  border-radius: 5px;
+  border: 1px #548341 solid;
+  margin: 5px 0;
+  }
+
+  .reply_input_div {
+    display: none;
+  }
+
 @media screen and (max-width: 550px) {
   .title_date {
     flex-direction: column;
