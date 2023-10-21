@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AiFillEdit } from "react-icons/ai";
+import { AiFillEdit, AiFillLike } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
 import { IoEllipsisHorizontalCircle } from "react-icons/io5";
+import { BsFillReplyAllFill } from "react-icons/bs";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import logo from "../../../../Assets/Images/logo.png";
@@ -459,8 +460,12 @@ const IndividualStory = () => {
                     </div>
                     <div className="comment_reply_div">
                       <div className="like_reply_btn">
-                        <button>Like</button>
-                        <button>Reply</button>
+                        <button>
+                          <AiFillLike className="like_icon" />
+                        </button>
+                        <button>
+                          <BsFillReplyAllFill className="reply_icon" />
+                        </button>
                       </div>
                       <div className="reply_ampm_div">
                         <button
@@ -468,7 +473,7 @@ const IndividualStory = () => {
                           id={comment._id}
                           onClick={handleFetchReplies}
                         >
-                          View replies
+                          View Replies
                         </button>
                         <span className="am_pm">
                           {comment.time}
