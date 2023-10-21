@@ -458,6 +458,10 @@ const IndividualStory = () => {
                       {/* <span className="am_pm">{comment.time}</span> */}
                     </div>
                     <div className="comment_reply_div">
+                      <div className="like_reply_btn">
+                        <button>Like</button>
+                        <button>Reply</button>
+                      </div>
                       <div className="reply_ampm_div">
                         <button
                           className="comment_reply_btn"
