@@ -591,11 +591,33 @@
   border-radius: 5px;
   border: 1px #548341 solid;
   margin: 5px 0;
-  }
+  cursor: pointer;
+}
 
-  .reply_input_div {
-    display: none;
-  }
+.reply_input_div {
+  display: none;
+}
+
+.reply_input_div textarea {
+  width: 70%;
+  background: none;
+  display: flex;
+  align-items: center;
+  margin: 5px 7%;
+  border: none;
+  border-bottom: 1px #548341 solid;
+  outline: none;
+}
+
+.reply_cancel_btn {
+  display: flex;
+  gap: 5px;
+  margin: 5px 10%;
+}
+
+.reply_cancel_btn button {
+  cursor: pointer;
+}
 
 @media screen and (max-width: 550px) {
   .title_date {
@@ -634,5 +656,9 @@
 
   .edit_comment_textarea {
     max-width: 70%;
+  }
+
+  .reply_input_div textarea {
+    width: 90%;
   }
 }
