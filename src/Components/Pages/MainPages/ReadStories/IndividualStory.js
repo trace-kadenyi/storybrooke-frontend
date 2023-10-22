@@ -24,6 +24,7 @@ const IndividualStory = () => {
   const [replyData, setReplyData] = useState({});
   const [date, setDate] = useState("");
   const [body, setBody] = useState("");
+  const [reply, setReply] = useState(""); // to handle the reply input
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -342,6 +343,51 @@ const IndividualStory = () => {
     }
   };
 
+  // handle reply button
+  const handleReplyBtn = (e) => {
+    const replyBtn = e.currentTarget;
+    const replyDiv = replyBtn.parentElement.parentElement.nextElementSibling;
+    replyDiv.style.display = "flex";
+  };
+
+  // handle cancel reply button
+  const cancelReply = (e) => {
+    const cancelBtn = e.currentTarget;
+    const replyDiv = cancelBtn.parentElement.parentElement;
+    replyDiv.style.display = "none";
+  };
+
+  // add reply
+  const addReply = async (e) => {
+    const commentID = e.currentTarget.id;
+    try {
+      const newReply = {
+        commenter: currentUser,
+        body: reply,
+      };
+
+      const response = await axiosPrivate.put(
+        `/comments/${commentID}`,
+        newReply
+      );
+
+      // setReplyData({
+      //   ...replyData,
+      //   [commentID]: [...replyData[commentID], { ...newReply }],
+      // });
+      handleFetchReplies((e = { currentTarget: { id: commentID } }));
+      setReply("");
+      console.log(response.data);
+      // hide the reply input
+      const replyDiv = document.querySelector(
+        `.reply_input_div[id="${commentID}"]`
+      );
+      replyDiv.style.display = "none";
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <section className="explore_sect individual_str_sect">
       <MainNavbar />
@@ -464,8 +510,34 @@ const IndividualStory = () => {
                           <AiFillLike className="like_icon" />
                         </button>
                         <button>
-                          <BsFillReplyAllFill className="reply_icon" />
+                          <BsFillReplyAllFill
+                            className="reply_icon"
+                            onClick={handleReplyBtn}
+                          />
                         </button>
+                      </div>
+                      <div className="reply_input_div" id={comment._id}>
+                        <textarea
+                          className="reply_input"
+                          placeholder="Write a reply..."
+                          value={reply}
+                          onChange={(e) => setReply(e.target.value)}
+                        ></textarea>
+                        <div className="reply_cancel_btn">
+                          <button
+                            className="reply_btn"
+                            id={comment._id}
+                            onClick={addReply}
+                          >
+                            Reply
+                          </button>
+                          <button
+                            className="cancel_reply_btn"
+                            onClick={cancelReply}
+                          >
+                            Cancel
+                          </button>
+                        </div>
                       </div>
                       <div className="reply_ampm_div">
                         <button
