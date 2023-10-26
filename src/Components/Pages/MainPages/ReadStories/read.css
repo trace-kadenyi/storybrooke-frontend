@@ -495,11 +495,12 @@
   position: absolute;
   right: 21px;
   background: #fff;
-  top: 3px;
+  top: 2px;
   flex-direction: column;
   width: 85px;
   gap: 10px;
   display: none;
+  padding: 2px;
 }
 
 .comment_edit_delete_btn button {
@@ -512,8 +513,110 @@
   padding: 5px;
 }
 
+.comment_edit_delete_btn button:hover {
+  border-radius: 20px;
+  color: #fff;
+  letter-spacing: 0.07rem;
+}
+
+.edit_comment_btn:hover {
+  background: #548341;
+}
+.delete_comment_btn:hover {
+  background: red;
+}
+
 .edit_delete_btn_toggle {
   display: flex;
+}
+
+.edit_comment_textarea {
+  width: 80%;
+  background: none;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border: none;
+  border-bottom: 1px #548341 solid;
+  outline: none;
+}
+
+.submit-cancel-btns-div {
+  display: flex;
+  gap: 5px;
+  margin-top: 3px;
+}
+
+.go_btn {
+  background: #092424;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 11px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.cancel_btn {
+  background: #fff;
+  border: #ccc solid 1px;
+  border-radius: 5px;
+  color: #548341;
+  cursor: pointer;
+  font-size: 11px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.cancel_btn:hover {
+  background: gray;
+  border-radius: 20px;
+  color: #fff;
+}
+
+.go_btn:hover {
+  background: #548341;
+  border-radius: 20px;
+}
+
+.like_reply_btn {
+  display: flex;
+  gap: 5px;
+}
+
+.like_reply_btn button {
+  padding: 2px 5px;
+  color: #548341;
+  border-radius: 5px;
+  border: 1px #548341 solid;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.reply_input_div {
+  display: none;
+}
+
+.reply_input_div textarea {
+  width: 70%;
+  background: none;
+  display: flex;
+  align-items: center;
+  margin: 5px 7%;
+  border: none;
+  border-bottom: 1px #548341 solid;
+  outline: none;
+}
+
+.reply_cancel_btn {
+  display: flex;
+  gap: 5px;
+  margin: 5px 10%;
+}
+
+.reply_cancel_btn button {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 550px) {
@@ -549,5 +652,13 @@
 
   .comment {
     width: 90vw;
+  }
+
+  .edit_comment_textarea {
+    max-width: 70%;
+  }
+
+  .reply_input_div textarea {
+    width: 90%;
   }
 }

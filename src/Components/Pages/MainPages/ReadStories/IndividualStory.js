@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AiFillEdit } from "react-icons/ai";
+import { AiFillEdit, AiFillLike } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
 import { IoEllipsisHorizontalCircle } from "react-icons/io5";
+import { BsFillReplyAllFill } from "react-icons/bs";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import logo from "../../../../Assets/Images/logo.png";
@@ -23,10 +24,12 @@ const IndividualStory = () => {
   const [replyData, setReplyData] = useState({});
   const [date, setDate] = useState("");
   const [body, setBody] = useState("");
+  const [reply, setReply] = useState(""); // to handle the reply input
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
+  const [editing, setEditing] = useState(false); // to handle the editing status of the comment
 
   // current user
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -39,7 +42,6 @@ const IndividualStory = () => {
       try {
         const response = await axiosPrivate.get(`/story/${id}`);
         setTitle(response.data.title);
-        // setStory(response.data.story.story);
         setAuthor(response.data.author);
         setGenres(response.data.genres);
         setDate(response.data.date);
@@ -242,6 +244,150 @@ const IndividualStory = () => {
     editDeleteBtn.classList.toggle("edit_delete_btn_toggle");
   };
 
+  // delete comment
+  const deleteComment = async (e) => {
+    const commentID = e.currentTarget.id;
+    try {
+      await axiosPrivate.delete(`/comments/${commentID}`);
+      const newComments = comments.filter((comment) => {
+        return comment._id !== commentID;
+      });
+      setComments(newComments);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // edit comment
+  const editComment = async (e, owner) => {
+    const commentID = e.currentTarget.id;
+    const commentBody = document.querySelector(
+      `.comment_body[id="${commentID}"]`
+    );
+    const editDeleteBtn = document.querySelector(
+      `.comment_edit_delete_btn[id="${commentID}"]`
+    );
+
+    //  turn the comment body into a textarea
+    const textarea = document.createElement("textarea");
+    textarea.className = "edit_comment_textarea";
+    textarea.value = commentBody.textContent;
+    commentBody.replaceWith(textarea);
+    textarea.focus();
+    const btnsDiv = document.createElement("div");
+    btnsDiv.className = "submit-cancel-btns-div";
+    textarea.after(btnsDiv);
+    const goBtn = document.createElement("button");
+    goBtn.className = "go_btn";
+    goBtn.textContent = "Submit";
+    btnsDiv.append(goBtn);
+    const cancelBtn = document.createElement("button");
+    cancelBtn.className = "cancel_btn";
+    cancelBtn.textContent = "Cancel";
+    btnsDiv.append(cancelBtn);
+
+    // cancel edit
+    cancelBtn.addEventListener("click", () => {
+      textarea.replaceWith(commentBody);
+      goBtn.remove();
+      cancelBtn.remove();
+      editDeleteBtn.classList.remove("edit_delete_btn_toggle");
+    });
+
+    // edit comment
+    try {
+      goBtn.addEventListener("click", async (e) => {
+        const newCommentBody = document.createElement("p");
+        newCommentBody.className = "comment_body";
+        newCommentBody.id = commentID;
+        newCommentBody.textContent = textarea.value;
+        textarea.replaceWith(newCommentBody);
+        goBtn.remove();
+        cancelBtn.remove();
+
+        // edit comment
+        const updatedComment = {
+          commenter: owner,
+          body: textarea.value,
+        };
+        await axiosPrivate.put(`/comments/edit/${commentID}`, updatedComment);
+
+        let dateObj = new Date();
+        let options = {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        };
+
+        const date = dateObj.toLocaleDateString(undefined, options);
+
+        // hide the edit/delete buttons
+
+        editDeleteBtn.classList.remove("edit_delete_btn_toggle");
+
+        const newComments = comments.map((comment) => {
+          if (comment._id === commentID) {
+            return {
+              ...comment,
+              body: textarea.value,
+              date: date,
+              time: new Date().toLocaleTimeString(),
+            };
+          }
+          return comment;
+        });
+        setComments(newComments);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // handle reply button
+  const handleReplyBtn = (e) => {
+    const replyBtn = e.currentTarget;
+    const replyDiv = replyBtn.parentElement.parentElement.nextElementSibling;
+    replyDiv.style.display = "flex";
+  };
+
+  // handle cancel reply button
+  const cancelReply = (e) => {
+    const cancelBtn = e.currentTarget;
+    const replyDiv = cancelBtn.parentElement.parentElement;
+    replyDiv.style.display = "none";
+  };
+
+  // add reply
+  const addReply = async (e) => {
+    const commentID = e.currentTarget.id;
+    try {
+      const newReply = {
+        commenter: currentUser,
+        body: reply,
+      };
+
+      const response = await axiosPrivate.put(
+        `/comments/${commentID}`,
+        newReply
+      );
+
+      // setReplyData({
+      //   ...replyData,
+      //   [commentID]: [...replyData[commentID], { ...newReply }],
+      // });
+      handleFetchReplies((e = { currentTarget: { id: commentID } }));
+      setReply("");
+      console.log(response.data);
+      // hide the reply input
+      const replyDiv = document.querySelector(
+        `.reply_input_div[id="${commentID}"]`
+      );
+      replyDiv.style.display = "none";
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <section className="explore_sect individual_str_sect">
       <MainNavbar />
@@ -353,17 +499,53 @@ const IndividualStory = () => {
                       </p>
                     </div>
                     <div className="comment_body_div">
-                      <p className="comment_body">{comment.body}</p>
+                      <p className="comment_body" id={comment._id}>
+                        {comment.body}
+                      </p>
                       {/* <span className="am_pm">{comment.time}</span> */}
                     </div>
                     <div className="comment_reply_div">
+                      <div className="like_reply_btn">
+                        <button>
+                          <AiFillLike className="like_icon" />
+                        </button>
+                        <button>
+                          <BsFillReplyAllFill
+                            className="reply_icon"
+                            onClick={handleReplyBtn}
+                          />
+                        </button>
+                      </div>
+                      <div className="reply_input_div" id={comment._id}>
+                        <textarea
+                          className="reply_input"
+                          placeholder="Write a reply..."
+                          value={reply}
+                          onChange={(e) => setReply(e.target.value)}
+                        ></textarea>
+                        <div className="reply_cancel_btn">
+                          <button
+                            className="reply_btn"
+                            id={comment._id}
+                            onClick={addReply}
+                          >
+                            Reply
+                          </button>
+                          <button
+                            className="cancel_reply_btn"
+                            onClick={cancelReply}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
                       <div className="reply_ampm_div">
                         <button
                           className="comment_reply_btn"
                           id={comment._id}
                           onClick={handleFetchReplies}
                         >
-                          View replies
+                          View Replies
                         </button>
                         <span className="am_pm">
                           {comment.time}
@@ -373,9 +555,21 @@ const IndividualStory = () => {
                           />
                         </span>
                       </div>
-                      <div className="comment_edit_delete_btn">
-                        <button>Edit</button>
-                        <button>Delete</button>
+                      <div className="comment_edit_delete_btn" id={comment._id}>
+                        <button
+                          id={comment._id}
+                          className="edit_comment_btn"
+                          onClick={(e) => editComment(e, comment.commenter)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          id={comment._id}
+                          onClick={deleteComment}
+                          className="delete_comment_btn"
+                        >
+                          Delete
+                        </button>
                       </div>
                       {/* replies */}
                       <ul className="replies_list" id={comment._id}>
