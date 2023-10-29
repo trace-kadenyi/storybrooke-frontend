@@ -375,6 +375,11 @@ const IndividualStory = () => {
       //   ...replyData,
       //   [commentID]: [...replyData[commentID], { ...newReply }],
       // });
+      // clear replies list
+      const repliesList = document.querySelector(
+        `.replies_list[id="${commentID}"]`
+      );
+      repliesList.innerHTML = "";
       handleFetchReplies((e = { currentTarget: { id: commentID } }));
       setReply("");
       console.log(response.data);
