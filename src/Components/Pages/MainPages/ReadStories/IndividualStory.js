@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AiFillEdit, AiFillLike } from "react-icons/ai";
+import { AiFillEdit, AiFillLike, AiFillDislike } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
 import { IoEllipsisHorizontalCircle } from "react-icons/io5";
 import { BsFillReplyAllFill } from "react-icons/bs";
@@ -601,6 +601,19 @@ const IndividualStory = () => {
                               </div>
                               <div className="reply_body_div">
                                 <p className="reply_body">{reply.body}</p>
+                              </div>
+                              <div className="like_reply_btn">
+                                <button>
+                                  <AiFillLike className="like_icon" />
+                                </button>
+                                <button>
+                                  <AiFillDislike className="like_icon" />
+                                </button>
+                                {reply.commenter === currentUser && (
+                                  <button className="delete_reply_icon">
+                                    delete
+                                  </button>
+                                )}
                               </div>
                             </li>
                           ))
