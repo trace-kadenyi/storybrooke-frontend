@@ -547,7 +547,8 @@
   margin-top: 3px;
 }
 
-.go_btn {
+.go_btn,
+.reply_btn {
   background: #092424;
   border: none;
   border-radius: 5px;
@@ -558,24 +559,25 @@
   margin-bottom: 5px;
 }
 
-.cancel_btn {
-  background: #fff;
+.cancel_btn,
+.cancel_reply_btn {
+  background: gray;
   border: #ccc solid 1px;
   border-radius: 5px;
-  color: #548341;
+  color: #fff;
   cursor: pointer;
   font-size: 11px;
   padding: 5px;
   margin-bottom: 5px;
 }
 
-.cancel_btn:hover {
-  background: gray;
+.cancel_btn:hover,
+.cancel_reply_btn:hover {
   border-radius: 20px;
-  color: #fff;
 }
 
-.go_btn:hover {
+.go_btn:hover,
+.reply_btn:hover {
   background: #548341;
   border-radius: 20px;
 }
