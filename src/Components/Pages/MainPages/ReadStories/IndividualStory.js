@@ -366,28 +366,32 @@ const IndividualStory = () => {
         body: reply,
       };
 
-      const response = await axiosPrivate.put(
-        `/comments/${commentID}`,
-        newReply
-      );
-
-      // setReplyData({
-      //   ...replyData,
-      //   [commentID]: [...replyData[commentID], { ...newReply }],
-      // });
-      // clear replies list
-      const repliesList = document.querySelector(
+      // check if reply list is empty
+      const replyList = document.querySelector(
         `.replies_list[id="${commentID}"]`
       );
-      repliesList.innerHTML = "";
-      handleFetchReplies((e = { currentTarget: { id: commentID } }));
+      if (replyList.innerHTML === `<p class="no_replies">No replies yet</p>`) {
+        replyList.innerHTML = "";
+      }
+
+      setReplyData({
+        ...replyData,
+        [commentID]: [...replyData[commentID], { ...newReply }],
+      });
+
+      // clear the reply input
       setReply("");
-      console.log(response.data);
+
       // hide the reply input
       const replyDiv = document.querySelector(
         `.reply_input_div[id="${commentID}"]`
       );
       replyDiv.style.display = "none";
+
+      const response = await axiosPrivate.put(
+        `/comments/${commentID}`,
+        newReply
+      );
     } catch (error) {
       console.log(error);
     }
