@@ -411,6 +411,10 @@
 
 /* REPLIES */
 
+.reply {
+  margin-bottom: 10px;
+}
+
 .replies_list {
   list-style-type: none;
   margin-left: 5%;
@@ -619,6 +623,17 @@
 
 .reply_cancel_btn button {
   cursor: pointer;
+}
+
+.delete_reply_icon {
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.delete_reply_icon:hover {
+  background: red;
+  color: #fff;
+  border-radius: 20px;
 }
 
 @media screen and (max-width: 550px) {
