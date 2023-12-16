@@ -145,8 +145,6 @@ const IndividualStory = () => {
     fetchComments();
   }, [comments.length]);
 
-
-
   // handle add comment
   const handleAddComment = async (e) => {
     e.preventDefault();
@@ -295,28 +293,39 @@ const IndividualStory = () => {
   };
 
   // handle fetch replies
-  const handleFetchReplies = async (e) => {
-    const commentID = e.currentTarget.id;
+  const handleFetchReplies = async (commentID) => {
     try {
       const response = await axiosPrivate.get(`/comments/replies/${commentID}`);
-      console.log(response.data);
-      setReplyData({
-        ...replyData,
-        [commentID]: response.data,
-      });
-      console.log(replyData);
+      const replies = response.data;
+
+      // Update replyData state with the fetched replies
+      setReplyData((prevReplyData) => ({
+        ...prevReplyData,
+        [commentID]: replies,
+      }));
+
+      const replyList = document.querySelector(
+        `.replies_list[id="${commentID}"]`
+      );
+
+      if (replyList) {
+        if (replies && replies.length > 0) {
+          // Update your UI with the fetched replies
+          console.log(`Replies for comment ${commentID}:`, replies);
+          // Display replies in your UI as needed
+        } else {
+          // Display "No replies yet" in your UI
+          console.log(`No replies for comment ${commentID}`);
+          replyList.innerHTML = "No replies yet";
+          replyList.classList.add("no_replies");
+        }
+      }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  useEffect(() => {
-    // This effect will run whenever replyData changes
-    console.log('Updated replyData:', replyData);
-  }, [replyData]);
-
- 
-
+  // handle add reply
   const addReply = async (e) => {
     const commentID = e.currentTarget.id;
 
@@ -333,18 +342,15 @@ const IndividualStory = () => {
         newReply
       );
 
-      // check if reply list is empty
-      const replyList = document.querySelector(
-        `.replies_list[id="${commentID}"]`
-      );
+      setReplyData((prevReplyData) => {
+        const existingReplies = Array.isArray(prevReplyData[commentID])
+          ? prevReplyData[commentID]
+          : [];
 
-       if (replyList.innerHTML === `<p class="no_replies">No replies yet</p>`) {
-         replyList.innerHTML = "";
-       }
- 
-       setReplyData({
-        ...replyData,
-        [commentID]: [...replyData[commentID], { ...response.data.reply }],
+        return {
+          ...prevReplyData,
+          [commentID]: [...existingReplies, { ...response.data.reply }],
+        };
       });
 
       // clear the reply input
@@ -356,11 +362,41 @@ const IndividualStory = () => {
       );
       replyDiv.style.display = "none";
 
+      // check if reply list is empty
+      const replyList = document.querySelector(
+        `.replies_list[id="${commentID}"]`
+      );
+      console.log(replyList.innerHTML);
+
+      if (replyList.innerHTML === `No replies yet`) {
+        replyList.innerHTML = "";
+        replyList.classList.remove("no_replies");
+      }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
+  // delete reply
+  const deleteReply = async (e) => {
+    const commentID = e.currentTarget.parentElement.parentElement.id;
+    const replyID = e.currentTarget.id;
+
+    try {
+      const response = await axiosPrivate.delete(`/comments/reply/${replyID}`);
+
+      const newReplies = replyData[commentID].filter((reply) => {
+        return reply._id !== replyID;
+      });
+
+      setReplyData({
+        ...replyData,
+        [commentID]: newReplies,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <section className="explore_sect individual_str_sect">
@@ -517,7 +553,7 @@ const IndividualStory = () => {
                         <button
                           className="comment_reply_btn"
                           id={comment._id}
-                          onClick={handleFetchReplies}
+                          onClick={() => handleFetchReplies(comment._id)}
                         >
                           View Replies
                         </button>
@@ -545,7 +581,53 @@ const IndividualStory = () => {
                           Delete
                         </button>
                       </div>
-                     
+                      {/* replies */}
+                      <ul className="replies_list" id={comment._id}>
+                        {
+                          // check if the replies exist
+
+                          (Array.isArray(replyData[comment._id])
+                            ? replyData[comment._id]
+                            : []
+                          ).map((reply) => (
+                            <li
+                              key={reply._id}
+                              className="reply"
+                              id={comment._id}
+                            >
+                              <div className="reply_author_date">
+                                <p className="reply_author">
+                                  {reply.commenter}
+                                </p>
+                                <p className="comment_date">
+                                  {/* {reply.date} */}
+                                  {reply.date}
+                                </p>
+                              </div>
+                              <div className="reply_body_div">
+                                <p className="reply_body">{reply.body}</p>
+                              </div>
+                              <div className="like_reply_btn">
+                                <button>
+                                  <AiFillLike className="like_icon" />
+                                </button>
+                                <button>
+                                  <AiFillDislike className="like_icon" />
+                                </button>
+                                {reply.commenter === currentUser && (
+                                  <button
+                                    className="delete_reply_icon"
+                                    id={reply._id}
+                                    onClick={deleteReply}
+                                  >
+                                    delete
+                                  </button>
+                                )}
+                              </div>
+                            </li>
+                          ))
+                        }
+                      </ul>
                     </div>
                   </li>
                 ))}
