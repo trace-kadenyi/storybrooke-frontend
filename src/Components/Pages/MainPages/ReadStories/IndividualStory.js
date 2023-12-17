@@ -29,7 +29,6 @@ const IndividualStory = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
-  const [editing, setEditing] = useState(false); // to handle the editing status of the comment
 
   // current user
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -292,6 +291,13 @@ const IndividualStory = () => {
     replyDiv.style.display = "flex";
   };
 
+  // handle cancel reply button
+  const cancelReply = (e) => {
+    const cancelBtn = e.currentTarget;
+    const replyDiv = cancelBtn.parentElement.parentElement;
+    replyDiv.style.display = "none";
+  };
+
   // handle fetch replies
   const handleFetchReplies = async (commentID) => {
     try {
@@ -310,18 +316,65 @@ const IndividualStory = () => {
 
       if (replyList) {
         if (replies && replies.length > 0) {
-          // Update your UI with the fetched replies
-          console.log(`Replies for comment ${commentID}:`, replies);
-          // Display replies in your UI as needed
+          console.log(`${replies.length} replies`);
         } else {
-          // Display "No replies yet" in your UI
-          console.log(`No replies for comment ${commentID}`);
           replyList.innerHTML = "No replies yet";
           replyList.classList.add("no_replies");
         }
       }
+
+      // const viewReplies = document.querySelector(
+      //   `.comment_reply_btn[id="${commentID}"]`
+      // );
+
+      // if (viewReplies && replies && replies.length > 0) {
+      //   viewReplies.style.display = "none";
+      // } else if (viewReplies && replies && replies.length === 0) {
+      //   viewReplies.style.display = "block";
+      // }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  // handle replies date
+  const handleRepliesDate = (commentDate, commentTime) => {
+    // Construct a date string in the format: 'Dec 17, 2023 11:28:52'
+    const commentDateTimeString = `${commentDate} ${commentTime}`;
+
+    // Create a Date object for the comment date and time
+    const commentDateTime = new Date(commentDateTimeString);
+
+    // Get the current date and time
+    const today = new Date();
+
+    // Calculate the time difference in milliseconds
+    const timeDiff = today - commentDateTime;
+
+    // Convert the time difference to seconds, minutes, hours, etc.
+    const seconds = Math.floor(timeDiff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (seconds <= 0) {
+    } else if (seconds < 60) {
+      return `${seconds} seconds ago`;
+    } else if (minutes < 60) {
+      return `${minutes} minutes ago`;
+    } else if (hours < 24) {
+      return `${hours} hours ago`;
+    } else if (days < 30) {
+      return `${days} days ago`;
+    } else if (days >= 30 && days < 365) {
+      const months = Math.floor(days / 30);
+      return `${months} months ago`;
+    } else if (days >= 365) {
+      const years = Math.floor(days / 365);
+      return `${years} years ago`;
+    } else {
+      // Format the comment date and time in the user's local time zone
+      return commentDateTime.toLocaleString();
     }
   };
 
@@ -334,8 +387,6 @@ const IndividualStory = () => {
         commenter: currentUser,
         body: reply,
       };
-
-      console.log(newReply);
 
       const response = await axiosPrivate.post(
         `/comments/reply/${commentID}`,
@@ -366,7 +417,6 @@ const IndividualStory = () => {
       const replyList = document.querySelector(
         `.replies_list[id="${commentID}"]`
       );
-      console.log(replyList.innerHTML);
 
       if (replyList.innerHTML === `No replies yet`) {
         replyList.innerHTML = "";
@@ -512,7 +562,9 @@ const IndividualStory = () => {
                       <p className="comment_body" id={comment._id}>
                         {comment.body}
                       </p>
-                      {/* <span className="am_pm">{comment.time}</span> */}
+                      <span className="am_pm" style={{ margin: "10px 0" }}>
+                        {comment.time}
+                      </span>
                     </div>
                     <div className="comment_reply_div">
                       <div className="like_reply_btn">
@@ -543,7 +595,7 @@ const IndividualStory = () => {
                           </button>
                           <button
                             className="cancel_reply_btn"
-                            // onClick={cancelReply}
+                            onClick={cancelReply}
                           >
                             Cancel
                           </button>
@@ -557,8 +609,8 @@ const IndividualStory = () => {
                         >
                           View Replies
                         </button>
-                        <span className="am_pm">
-                          {comment.time}
+                        <span className="ellipsis_span">
+                          {/* {comment.time} */}
                           <IoEllipsisHorizontalCircle
                             className="ellipsis"
                             onClick={toggleEllipsis}
@@ -601,7 +653,7 @@ const IndividualStory = () => {
                                 </p>
                                 <p className="comment_date">
                                   {/* {reply.date} */}
-                                  {reply.date}
+                                  {handleRepliesDate(reply.date, reply.time)}
                                 </p>
                               </div>
                               <div className="reply_body_div">

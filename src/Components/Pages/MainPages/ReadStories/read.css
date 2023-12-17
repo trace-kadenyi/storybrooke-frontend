@@ -394,16 +394,20 @@
 .am_pm {
   font-weight: bold;
   font-size: 11px;
-  /* border-bottom: 1px #ccc solid; */
   display: flex;
   align-items: center;
-  /* gap: 3px; */
   margin-right: 2px;
+  font-style: italic;
+}
+
+.ellipsis_span {
+  display: flex;
+  align-items: center;
 }
 
 .ellipsis {
   position: absolute;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: #548341;
   cursor: pointer;
   right: 2px;
@@ -414,6 +418,15 @@
 .reply {
   margin-bottom: 10px;
 }
+
+/* .replies_title {
+  display: none;
+  color: #548341;
+  margin: 10px 0;
+  border-top: 1px #ccc solid;
+  border-bottom: 1px #ccc solid;
+  width: max-content;
+} */
 
 .replies_list {
   list-style-type: none;
