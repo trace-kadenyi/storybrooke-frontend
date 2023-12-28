@@ -649,6 +649,26 @@
   border-radius: 20px;
 }
 
+.edited {
+  font-size: 11px;
+  letter-spacing: 0.03rem;
+  font-weight: 500;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.body_edit_container {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+@media screen and (max-width: 1999px) {
+  .body_edit_container {
+    display: block;
+  }
+}
+
 @media screen and (max-width: 550px) {
   .title_date {
     flex-direction: column;
