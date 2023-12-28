@@ -556,6 +556,7 @@
   border: none;
   border-bottom: 1px #548341 solid;
   outline: none;
+  margin: 20px 0 10px;
 }
 
 .submit-cancel-btns-div {
@@ -705,7 +706,7 @@
   }
 
   .edit_comment_textarea {
-    max-width: 70%;
+    width: 100%;
   }
 
   .reply_input_div textarea {
