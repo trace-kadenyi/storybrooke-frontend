@@ -1,3 +1,11 @@
+.block_disp {
+  display: block;
+}
+
+.none_disp {
+  display: none;
+}
+
 .read_stories_sect {
   min-height: 100vh;
   background-size: cover;
@@ -418,15 +426,6 @@
 .reply {
   margin-bottom: 10px;
 }
-
-/* .replies_title {
-  display: none;
-  color: #548341;
-  margin: 10px 0;
-  border-top: 1px #ccc solid;
-  border-bottom: 1px #ccc solid;
-  width: max-content;
-} */
 
 .replies_list {
   list-style-type: none;
