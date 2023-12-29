@@ -573,15 +573,21 @@ const IndividualStory = () => {
                         <span>{comment.date} </span>{" "}
                       </p>
                     </div>
-                    <div className="comment_body_div">
-                      <div className="body_edit_container">
-                        {edited.includes(comment._id) && (
+                    {edited.includes(comment._id) && (
                           <span className="edited"> (edited)</span>
                         )}
+                    <div className="comment_body_div">
+                    {/* {edited.includes(comment._id) && (
+                          <span className="edited"> (edited)</span>
+                        )} */}
+                      {/* <div className="body_edit_container"> */}
+                        {/* {edited.includes(comment._id) && (
+                          <span className="edited"> (edited)</span>
+                        )} */}
                         <p className="comment_body" id={comment._id}>
                           {comment.body}
                         </p>
-                      </div>
+                      {/* </div> */}
                       <span className="am_pm" style={{ margin: "10px 0" }}>
                         {comment.time}
                       </span>
