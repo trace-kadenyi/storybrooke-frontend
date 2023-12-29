@@ -369,16 +369,22 @@ const IndividualStory = () => {
     // If the replies have not been fetched yet, fetch them
     if (!replyData[commentID]) {
       handleFetchReplies(commentID);
+      console.log("fetching replies firs time");
     }
 
     // If the replies have been fetched, but the user clicks on the "View Replies" button again, hide the replies
     if (replyData[commentID] && viewReplies[commentID]) {
       replyList.style.display = "none";
+      // replyList.classList.remove("no_replies");
+      console.log("hiding replies");
     }
 
     // If the replies have been fetched, but the user clicks on the "Hide Replies" button again, show the replies
     if (replyData[commentID] && !viewReplies[commentID]) {
       replyList.style.display = "block";
+
+      console.log("showing replies");
+      console.log(replyList.textContent);
       // add no replies class if there are no replies
       if (replyList.textContent === "No replies yet") {
         // replyList.innerHTML = "No replies yet";
@@ -388,46 +394,6 @@ const IndividualStory = () => {
   };
 
   // handle replies date
-  // const handleRepliesDate = (commentDate, commentTime) => {
-  //   // Construct a date string in the format: 'Dec 17, 2023 11:28:52'
-  //   const commentDateTimeString = `${commentDate} ${commentTime}`;
-
-  //   // Create a Date object for the comment date and time
-  //   const commentDateTime = new Date(commentDateTimeString);
-
-  //   // Get the current date and time
-  //   const today = new Date();
-
-  //   // Calculate the time difference in milliseconds
-  //   const timeDiff = today - commentDateTime;
-
-  //   // Convert the time difference to seconds, minutes, hours, etc.
-  //   const seconds = Math.floor(timeDiff / 1000);
-  //   const minutes = Math.floor(seconds / 60);
-  //   const hours = Math.floor(minutes / 60);
-  //   const days = Math.floor(hours / 24);
-
-  //   if (seconds <= 0) {
-  //   } else if (seconds < 60) {
-  //     return `${seconds} seconds ago`;
-  //   } else if (minutes < 60) {
-  //     return `${minutes} minutes ago`;
-  //   } else if (hours < 24) {
-  //     return `${hours} hours ago`;
-  //   } else if (days < 30) {
-  //     return `${days} days ago`;
-  //   } else if (days >= 30 && days < 365) {
-  //     const months = Math.floor(days / 30);
-  //     return `${months} months ago`;
-  //   } else if (days >= 365) {
-  //     const years = Math.floor(days / 365);
-  //     return `${years} years ago`;
-  //   } else {
-  //     // Format the comment date and time in the user's local time zone
-  //     return commentDateTime.toLocaleString();
-  //   }
-  // };
-
   const handleRepliesDate = (commentDate, commentTime) => {
     // Construct a date string in the format: 'Dec 17, 2023 11:28:52'
     const commentDateTimeString = `${commentDate} ${commentTime}`;
@@ -435,31 +401,22 @@ const IndividualStory = () => {
     // Create a Date object for the comment date and time
     const commentDateTime = new Date(commentDateTimeString);
 
-    // Get the user's time zone
-    const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    // Get the current date and time
+    const today = new Date();
 
-    // Format the comment date and time in the user's local time zone
-    const formattedDateTime = commentDateTime.toLocaleString(undefined, {
-      timeZone: userTimeZone,
-    });
+    // Calculate the time difference in milliseconds
+    const timeDiff = today - commentDateTime;
 
-    // Calculate the time difference in seconds
-    const secondsDiff = Math.floor(
-      (Date.now() - commentDateTime.getTime()) / 1000
-    );
-
-    if (secondsDiff <= 0) {
-      return "Just now";
-    } else if (secondsDiff < 60) {
-      return `${secondsDiff} seconds ago`;
-    }
-
-    // Convert the time difference to minutes, hours, etc.
-    const minutes = Math.floor(secondsDiff / 60);
+    // Convert the time difference to seconds, minutes, hours, etc.
+    const seconds = Math.floor(timeDiff / 1000);
+    const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
 
-    if (minutes < 60) {
+    if (seconds <= 0) {
+    } else if (seconds < 60) {
+      return `${seconds} seconds ago`;
+    } else if (minutes < 60) {
       return `${minutes} minutes ago`;
     } else if (hours < 24) {
       return `${hours} hours ago`;
@@ -472,7 +429,8 @@ const IndividualStory = () => {
       const years = Math.floor(days / 365);
       return `${years} years ago`;
     } else {
-      return formattedDateTime;
+      // Format the comment date and time in the user's local time zone
+      return commentDateTime.toLocaleString();
     }
   };
 
