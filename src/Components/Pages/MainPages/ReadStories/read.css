@@ -192,6 +192,7 @@
 .story_body {
   max-width: 100%;
   line-height: 1.5rem;
+  overflow-wrap: break-word;
 }
 
 .story_author {
