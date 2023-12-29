@@ -509,13 +509,16 @@ const IndividualStory = () => {
         [commentID]: newReplies,
       });
 
-      if (newReplies.length === 0) {
+      setTimeout(() => {
         const replyList = document.querySelector(
           `.replies_list[id="${commentID}"]`
         );
-        replyList.innerHTML = "No replies yet";
-        replyList.classList.add("no_replies");
-      }
+
+        if (newReplies.length === 0 && replyList) {
+          replyList.innerHTML = "No replies yet";
+          replyList.classList.add("no_replies");
+        }
+      }, 0);
     } catch (error) {
       console.log(error);
     }
