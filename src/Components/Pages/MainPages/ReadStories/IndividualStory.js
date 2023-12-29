@@ -394,6 +394,46 @@ const IndividualStory = () => {
   };
 
   // handle replies date
+  // const handleRepliesDate = (commentDate, commentTime) => {
+  //   // Construct a date string in the format: 'Dec 17, 2023 11:28:52'
+  //   const commentDateTimeString = `${commentDate} ${commentTime}`;
+
+  //   // Create a Date object for the comment date and time
+  //   const commentDateTime = new Date(commentDateTimeString);
+
+  //   // Get the current date and time
+  //   const today = new Date();
+
+  //   // Calculate the time difference in milliseconds
+  //   const timeDiff = today - commentDateTime;
+
+  //   // Convert the time difference to seconds, minutes, hours, etc.
+  //   const seconds = Math.floor(timeDiff / 1000);
+  //   const minutes = Math.floor(seconds / 60);
+  //   const hours = Math.floor(minutes / 60);
+  //   const days = Math.floor(hours / 24);
+
+  //   if (seconds <= 0) {
+  //   } else if (seconds < 60) {
+  //     return `${seconds} seconds ago`;
+  //   } else if (minutes < 60) {
+  //     return `${minutes} minutes ago`;
+  //   } else if (hours < 24) {
+  //     return `${hours} hours ago`;
+  //   } else if (days < 30) {
+  //     return `${days} days ago`;
+  //   } else if (days >= 30 && days < 365) {
+  //     const months = Math.floor(days / 30);
+  //     return `${months} months ago`;
+  //   } else if (days >= 365) {
+  //     const years = Math.floor(days / 365);
+  //     return `${years} years ago`;
+  //   } else {
+  //     // Format the comment date and time in the user's local time zone
+  //     return commentDateTime.toLocaleString();
+  //   }
+  // };
+
   const handleRepliesDate = (commentDate, commentTime) => {
     // Construct a date string in the format: 'Dec 17, 2023 11:28:52'
     const commentDateTimeString = `${commentDate} ${commentTime}`;
@@ -401,11 +441,11 @@ const IndividualStory = () => {
     // Create a Date object for the comment date and time
     const commentDateTime = new Date(commentDateTimeString);
 
-    // Get the current date and time
-    const today = new Date();
+    // Format the comment date and time in the user's local time zone
+    const formattedDateTime = commentDateTime.toLocaleString();
 
     // Calculate the time difference in milliseconds
-    const timeDiff = today - commentDateTime;
+    const timeDiff = Date.now() - commentDateTime.getTime();
 
     // Convert the time difference to seconds, minutes, hours, etc.
     const seconds = Math.floor(timeDiff / 1000);
@@ -414,6 +454,7 @@ const IndividualStory = () => {
     const days = Math.floor(hours / 24);
 
     if (seconds <= 0) {
+      return "Just now";
     } else if (seconds < 60) {
       return `${seconds} seconds ago`;
     } else if (minutes < 60) {
@@ -429,8 +470,7 @@ const IndividualStory = () => {
       const years = Math.floor(days / 365);
       return `${years} years ago`;
     } else {
-      // Format the comment date and time in the user's local time zone
-      return commentDateTime.toLocaleString();
+      return formattedDateTime;
     }
   };
 
