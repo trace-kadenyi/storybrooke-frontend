@@ -600,6 +600,10 @@
   border-radius: 20px;
 }
 
+.reply_btn {
+  border-radius: 20px;
+}
+
 .like_reply_btn {
   display: flex;
   gap: 5px;
@@ -619,11 +623,11 @@
 }
 
 .reply_input_div textarea {
-  width: 70%;
+  width: 90%;
   background: none;
   display: flex;
   align-items: center;
-  margin: 5px 7%;
+  margin: 5px 5px 5px 7%;
   border: none;
   border-bottom: 1px #548341 solid;
   outline: none;
@@ -707,6 +711,10 @@
 
   .edit_comment_textarea {
     width: 100%;
+  }
+
+  .reply_input_div {
+    flex-direction: column;
   }
 
   .reply_input_div textarea {
