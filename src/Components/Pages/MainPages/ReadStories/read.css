@@ -1,3 +1,11 @@
+.block_disp {
+  display: block;
+}
+
+.none_disp {
+  display: none;
+}
+
 .read_stories_sect {
   min-height: 100vh;
   background-size: cover;
@@ -419,15 +427,6 @@
   margin-bottom: 10px;
 }
 
-/* .replies_title {
-  display: none;
-  color: #548341;
-  margin: 10px 0;
-  border-top: 1px #ccc solid;
-  border-bottom: 1px #ccc solid;
-  width: max-content;
-} */
-
 .replies_list {
   list-style-type: none;
   margin-left: 5%;
@@ -556,6 +555,7 @@
   border: none;
   border-bottom: 1px #548341 solid;
   outline: none;
+  margin: 20px 0 10px;
 }
 
 .submit-cancel-btns-div {
@@ -599,6 +599,10 @@
   border-radius: 20px;
 }
 
+.reply_btn {
+  border-radius: 20px;
+}
+
 .like_reply_btn {
   display: flex;
   gap: 5px;
@@ -618,11 +622,11 @@
 }
 
 .reply_input_div textarea {
-  width: 70%;
+  width: 90%;
   background: none;
   display: flex;
   align-items: center;
-  margin: 5px 7%;
+  margin: 5px 5px 5px 7%;
   border: none;
   border-bottom: 1px #548341 solid;
   outline: none;
@@ -647,6 +651,26 @@
   background: red;
   color: #fff;
   border-radius: 20px;
+}
+
+.edited {
+  font-size: 11px;
+  letter-spacing: 0.03rem;
+  font-weight: 500;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.body_edit_container {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+@media screen and (max-width: 1999px) {
+  .body_edit_container {
+    display: block;
+  }
 }
 
 @media screen and (max-width: 550px) {
@@ -685,7 +709,11 @@
   }
 
   .edit_comment_textarea {
-    max-width: 70%;
+    width: 100%;
+  }
+
+  .reply_input_div {
+    flex-direction: column;
   }
 
   .reply_input_div textarea {

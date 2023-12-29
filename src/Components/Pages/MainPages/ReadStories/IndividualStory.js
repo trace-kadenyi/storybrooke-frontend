@@ -29,6 +29,8 @@ const IndividualStory = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
+  const [edited, setEdited] = useState([]); // to show edited on comments that have been edited
+  const [viewReplies, setViewReplies] = useState(false); // to show the view replies button
 
   // current user
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -135,14 +137,24 @@ const IndividualStory = () => {
     const fetchComments = async () => {
       try {
         const response = await axiosPrivate.get(`/comments/${id}`);
-        setComments(Array.isArray(response.data) ? response.data : []);
+        const fetchedComments = Array.isArray(response.data)
+          ? response.data
+          : [];
+
+        setComments(fetchedComments);
+
+        const editedCommentIds = fetchedComments
+          .filter((comment) => comment.edited)
+          .map((comment) => comment._id);
+
+        setEdited(editedCommentIds);
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchComments();
-  }, [comments.length]);
+  }, [id, comments.length]);
 
   // handle add comment
   const handleAddComment = async (e) => {
@@ -213,6 +225,7 @@ const IndividualStory = () => {
     const textarea = document.createElement("textarea");
     textarea.className = "edit_comment_textarea";
     textarea.value = commentBody.textContent;
+    textarea.rows = "3";
     commentBody.replaceWith(textarea);
     textarea.focus();
     const btnsDiv = document.createElement("div");
@@ -278,6 +291,8 @@ const IndividualStory = () => {
           return comment;
         });
         setComments(newComments);
+
+        setEdited((prevEdited) => [...prevEdited, commentID]);
       });
     } catch (error) {
       console.log(error);
@@ -310,30 +325,71 @@ const IndividualStory = () => {
         [commentID]: replies,
       }));
 
+      // No need to toggle viewReplies state here
+
       const replyList = document.querySelector(
         `.replies_list[id="${commentID}"]`
       );
 
       if (replyList) {
         if (replies && replies.length > 0) {
-          console.log(`${replies.length} replies`);
+          // Render replies
         } else {
+          // Render "No replies yet" if there are no replies
           replyList.innerHTML = "No replies yet";
           replyList.classList.add("no_replies");
         }
       }
-
-      // const viewReplies = document.querySelector(
-      //   `.comment_reply_btn[id="${commentID}"]`
-      // );
-
-      // if (viewReplies && replies && replies.length > 0) {
-      //   viewReplies.style.display = "none";
-      // } else if (viewReplies && replies && replies.length === 0) {
-      //   viewReplies.style.display = "block";
-      // }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  // handle view replies
+  const handleViewReplies = (commentID) => {
+    // Toggle viewReplies state for the specific comment
+    setViewReplies((prevViewReplies) => ({
+      ...prevViewReplies,
+      [commentID]: !prevViewReplies[commentID],
+    }));
+
+    const replyList = document.querySelector(
+      `.replies_list[id="${commentID}"]`
+    );
+
+    if (viewReplies[commentID]) {
+      // Hide the replies
+      replyList.style.display = "none";
+      replyList.classList.remove("no_replies");
+    } else {
+      // Show the replies
+      replyList.style.display = "block";
+    }
+
+    // If the replies have not been fetched yet, fetch them
+    if (!replyData[commentID]) {
+      handleFetchReplies(commentID);
+      console.log("fetching replies firs time");
+    }
+
+    // If the replies have been fetched, but the user clicks on the "View Replies" button again, hide the replies
+    if (replyData[commentID] && viewReplies[commentID]) {
+      replyList.style.display = "none";
+      // replyList.classList.remove("no_replies");
+      console.log("hiding replies");
+    }
+
+    // If the replies have been fetched, but the user clicks on the "Hide Replies" button again, show the replies
+    if (replyData[commentID] && !viewReplies[commentID]) {
+      replyList.style.display = "block";
+
+      console.log("showing replies");
+      console.log(replyList.textContent);
+      // add no replies class if there are no replies
+      if (replyList.textContent === "No replies yet") {
+        // replyList.innerHTML = "No replies yet";
+        replyList.classList.add("no_replies");
+      }
     }
   };
 
@@ -407,16 +463,25 @@ const IndividualStory = () => {
       // clear the reply input
       setReply("");
 
+      // change view replies to true if it is false for that comment
+
+      setViewReplies((prevViewReplies) => ({
+        ...prevViewReplies,
+        [commentID]: true,
+      }));
+
+      // show the replies
+      const replyList = document.querySelector(
+        `.replies_list[id="${commentID}"]`
+      );
+
+      replyList.style.display = "block";
+
       // hide the reply input
       const replyDiv = document.querySelector(
         `.reply_input_div[id="${commentID}"]`
       );
       replyDiv.style.display = "none";
-
-      // check if reply list is empty
-      const replyList = document.querySelector(
-        `.replies_list[id="${commentID}"]`
-      );
 
       if (replyList.innerHTML === `No replies yet`) {
         replyList.innerHTML = "";
@@ -443,6 +508,17 @@ const IndividualStory = () => {
         ...replyData,
         [commentID]: newReplies,
       });
+
+      setTimeout(() => {
+        const replyList = document.querySelector(
+          `.replies_list[id="${commentID}"]`
+        );
+
+        if (newReplies.length === 0 && replyList) {
+          replyList.innerHTML = "No replies yet";
+          replyList.classList.add("no_replies");
+        }
+      }, 0);
     } catch (error) {
       console.log(error);
     }
@@ -540,6 +616,7 @@ const IndividualStory = () => {
                 className="add_comment_textarea"
                 placeholder="What do you think?"
                 value={comment}
+                rows={3}
                 required
                 onChange={(e) => setComment(e.target.value)}
               ></textarea>
@@ -558,10 +635,21 @@ const IndividualStory = () => {
                         <span>{comment.date} </span>{" "}
                       </p>
                     </div>
+                    {edited.includes(comment._id) && (
+                      <span className="edited"> (edited)</span>
+                    )}
                     <div className="comment_body_div">
+                      {/* {edited.includes(comment._id) && (
+                          <span className="edited"> (edited)</span>
+                        )} */}
+                      {/* <div className="body_edit_container"> */}
+                      {/* {edited.includes(comment._id) && (
+                          <span className="edited"> (edited)</span>
+                        )} */}
                       <p className="comment_body" id={comment._id}>
                         {comment.body}
                       </p>
+                      {/* </div> */}
                       <span className="am_pm" style={{ margin: "10px 0" }}>
                         {comment.time}
                       </span>
@@ -583,6 +671,7 @@ const IndividualStory = () => {
                           className="reply_input"
                           placeholder="Write a reply..."
                           value={reply}
+                          rows={3}
                           onChange={(e) => setReply(e.target.value)}
                         ></textarea>
                         <div className="reply_cancel_btn">
@@ -605,9 +694,13 @@ const IndividualStory = () => {
                         <button
                           className="comment_reply_btn"
                           id={comment._id}
-                          onClick={() => handleFetchReplies(comment._id)}
+                          onClick={(e) => handleViewReplies(comment._id)}
                         >
-                          View Replies
+                          {/* View Replies */}
+                          {/* {viewReplies ? "Hide Replies" : "View Replies"} */}
+                          {viewReplies[comment._id]
+                            ? "Hide Replies"
+                            : "View Replies"}
                         </button>
                         <span className="ellipsis_span">
                           {/* {comment.time} */}
