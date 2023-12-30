@@ -426,6 +426,7 @@
 
 .reply {
   margin-bottom: 10px;
+  margin-top: 5px;
 }
 
 .replies_list {
@@ -446,6 +447,14 @@
 .reply_author,
 .reply_body {
   font-size: 14px;
+}
+
+.reply_body {
+  margin: 3px 0;
+}
+
+.comment_body {
+  margin: 5px 0 3px;
 }
 
 .comment_author,
