@@ -117,6 +117,7 @@
   letter-spacing: 0.09rem;
   margin: 10px;
   color: #548341;
+  text-decoration: overline;
 }
 
 .delete_story_div {

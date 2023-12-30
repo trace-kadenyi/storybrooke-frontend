@@ -641,7 +641,7 @@ const IndividualStory = () => {
               </p>
             ))}
 
-            <h6 className="the_end">THE END</h6>
+            <h6 className="the_end">FIN</h6>
           </div>
         )}
       </div>
