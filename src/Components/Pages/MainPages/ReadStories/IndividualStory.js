@@ -376,16 +376,11 @@ const IndividualStory = () => {
     // If the replies have been fetched, but the user clicks on the "View Replies" button again, hide the replies
     if (replyData[commentID] && viewReplies[commentID]) {
       replyList.style.display = "none";
-      // replyList.classList.remove("no_replies");
-      console.log("hiding replies");
     }
 
     // If the replies have been fetched, but the user clicks on the "Hide Replies" button again, show the replies
     if (replyData[commentID] && !viewReplies[commentID]) {
       replyList.style.display = "block";
-
-      console.log("showing replies");
-      console.log(replyList.textContent);
       // add no replies class if there are no replies
       if (replyList.textContent === "No replies yet") {
         // replyList.innerHTML = "No replies yet";
@@ -435,23 +430,47 @@ const IndividualStory = () => {
   //   }
   // };
 
-  const handleRepliesDate = (commentDate) => {
-    try {
-      console.log("Original commentDate:", commentDate);
+  // handle comment date
+  const handleCommentDate = (dateString) => {
+    const dateObject = new Date(dateString);
 
+    const formattedDate = dateObject
+      .toDateString()
+      .replace(/^\S+\s/, "") // Remove the day of the week
+      .replace(/(\d{2})\s/, "$1, "); // Add a comma after the day
+
+    return formattedDate;
+  };
+
+  // handle comment time
+  const handleCommentTime = (fullDate) => {
+    // console.log(fullDate)
+    const localTime = new Date(fullDate).toLocaleTimeString();
+
+    const time = localTime.replace(/:\d{2}\s/, " "); // Remove the seconds
+    // console.log(time)
+
+    if(time === "Invalid Date") {
+      return fullDate.replace(/:\d{2}\s/, " "); // Remove the seconds
+    } else {
+      return time;
+    }
+  };
+
+  // handle replies date
+  const handleRepliesDate = (replyDate) => {
+    try {
       // Remove the '(East Africa Time)' part from the string
-      const dateWithoutTimeZone = commentDate.replace(/ \(.*\)/, "");
+      const dateWithoutTimeZone = replyDate.replace(/ \(.*\)/, "");
 
       // Create a Date object for the adjusted date
       const date = new Date(dateWithoutTimeZone);
-
-      console.log("Parsed date:", date);
 
       // Format the date difference
       return formatDistanceToNow(date, { addSuffix: true });
     } catch (error) {
       console.error("Error adjusting date:", error);
-      return commentDate; // Return the original date string in case of an error
+      return replyDate; // Return the original date string in case of an error
     }
   };
 
@@ -653,26 +672,20 @@ const IndividualStory = () => {
                     <div className="comment_author_date">
                       <p className="comment_author">{comment.commenter}</p>
                       <p className="comment_date">
-                        <span>{comment.date} </span>{" "}
+                        <span>{handleCommentDate(comment.date)}</span>{" "}
                       </p>
                     </div>
                     {edited.includes(comment._id) && (
                       <span className="edited"> (edited)</span>
                     )}
                     <div className="comment_body_div">
-                      {/* {edited.includes(comment._id) && (
-                          <span className="edited"> (edited)</span>
-                        )} */}
-                      {/* <div className="body_edit_container"> */}
-                      {/* {edited.includes(comment._id) && (
-                          <span className="edited"> (edited)</span>
-                        )} */}
                       <p className="comment_body" id={comment._id}>
                         {comment.body}
                       </p>
                       {/* </div> */}
                       <span className="am_pm" style={{ margin: "10px 0" }}>
-                        {comment.time}
+                        {/* {comment.time} */}
+                        {handleCommentTime(comment.time)}
                       </span>
                     </div>
                     <div className="comment_reply_div">
@@ -723,13 +736,17 @@ const IndividualStory = () => {
                             ? "Hide Replies"
                             : "View Replies"}
                         </button>
-                        <span className="ellipsis_span">
-                          {/* {comment.time} */}
-                          <IoEllipsisHorizontalCircle
-                            className="ellipsis"
-                            onClick={toggleEllipsis}
-                          />
-                        </span>
+                        {
+                          // show ellipsis if the comment owner is the current user
+                          comment.commenter === currentUser && (
+                            <span className="ellipsis_span">
+                              <IoEllipsisHorizontalCircle
+                                className="ellipsis"
+                                onClick={toggleEllipsis}
+                              />
+                            </span>
+                          )
+                        }
                       </div>
                       <div className="comment_edit_delete_btn" id={comment._id}>
                         <button
