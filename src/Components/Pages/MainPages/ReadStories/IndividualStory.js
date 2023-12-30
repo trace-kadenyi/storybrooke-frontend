@@ -5,6 +5,7 @@ import { AiFillEdit, AiFillLike, AiFillDislike } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
 import { IoEllipsisHorizontalCircle } from "react-icons/io5";
 import { BsFillReplyAllFill } from "react-icons/bs";
+import { formatDistanceToNow, parse, parseISO, isValid } from "date-fns";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import logo from "../../../../Assets/Images/logo.png";
@@ -31,6 +32,7 @@ const IndividualStory = () => {
   const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
   const [edited, setEdited] = useState([]); // to show edited on comments that have been edited
   const [viewReplies, setViewReplies] = useState(false); // to show the view replies button
+  const [timeAgo, setTimeAgo] = useState("");
 
   // current user
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -369,7 +371,6 @@ const IndividualStory = () => {
     // If the replies have not been fetched yet, fetch them
     if (!replyData[commentID]) {
       handleFetchReplies(commentID);
-      console.log("fetching replies firs time");
     }
 
     // If the replies have been fetched, but the user clicks on the "View Replies" button again, hide the replies
@@ -394,43 +395,63 @@ const IndividualStory = () => {
   };
 
   // handle replies date
-  const handleRepliesDate = (commentDate, commentTime) => {
-    // Construct a date string in the format: 'Dec 17, 2023 11:28:52'
-    const commentDateTimeString = `${commentDate} ${commentTime}`;
+  // const handleRepliesDate = (commentDate, commentTime) => {
+  //   // Construct a date string in the format: 'Dec 17, 2023 11:28:52'
+  //   const commentDateTimeString = `${commentDate} ${commentTime}`;
 
-    // Create a Date object for the comment date and time
-    const commentDateTime = new Date(commentDateTimeString);
+  //   // Create a Date object for the comment date and time
+  //   const commentDateTime = new Date(commentDateTimeString);
 
-    // Get the current date and time
-    const today = new Date();
+  //   // Get the current date and time
+  //   const today = new Date();
 
-    // Calculate the time difference in milliseconds
-    const timeDiff = today - commentDateTime;
+  //   // Calculate the time difference in milliseconds
+  //   const timeDiff = today - commentDateTime;
 
-    // Convert the time difference to seconds, minutes, hours, etc.
-    const seconds = Math.floor(timeDiff / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
+  //   // Convert the time difference to seconds, minutes, hours, etc.
+  //   const seconds = Math.floor(timeDiff / 1000);
+  //   const minutes = Math.floor(seconds / 60);
+  //   const hours = Math.floor(minutes / 60);
+  //   const days = Math.floor(hours / 24);
 
-    if (seconds <= 0) {
-    } else if (seconds < 60) {
-      return `${seconds} seconds ago`;
-    } else if (minutes < 60) {
-      return `${minutes} minutes ago`;
-    } else if (hours < 24) {
-      return `${hours} hours ago`;
-    } else if (days < 30) {
-      return `${days} days ago`;
-    } else if (days >= 30 && days < 365) {
-      const months = Math.floor(days / 30);
-      return `${months} months ago`;
-    } else if (days >= 365) {
-      const years = Math.floor(days / 365);
-      return `${years} years ago`;
-    } else {
-      // Format the comment date and time in the user's local time zone
-      return commentDateTime.toLocaleString();
+  //   if (seconds <= 0) {
+  //   } else if (seconds < 60) {
+  //     return `${seconds} seconds ago`;
+  //   } else if (minutes < 60) {
+  //     return `${minutes} minutes ago`;
+  //   } else if (hours < 24) {
+  //     return `${hours} hours ago`;
+  //   } else if (days < 30) {
+  //     return `${days} days ago`;
+  //   } else if (days >= 30 && days < 365) {
+  //     const months = Math.floor(days / 30);
+  //     return `${months} months ago`;
+  //   } else if (days >= 365) {
+  //     const years = Math.floor(days / 365);
+  //     return `${years} years ago`;
+  //   } else {
+  //     // Format the comment date and time in the user's local time zone
+  //     return commentDateTime.toLocaleString();
+  //   }
+  // };
+
+  const handleRepliesDate = (commentDate) => {
+    try {
+      console.log("Original commentDate:", commentDate);
+
+      // Remove the '(East Africa Time)' part from the string
+      const dateWithoutTimeZone = commentDate.replace(/ \(.*\)/, "");
+
+      // Create a Date object for the adjusted date
+      const date = new Date(dateWithoutTimeZone);
+
+      console.log("Parsed date:", date);
+
+      // Format the date difference
+      return formatDistanceToNow(date, { addSuffix: true });
+    } catch (error) {
+      console.error("Error adjusting date:", error);
+      return commentDate; // Return the original date string in case of an error
     }
   };
 
@@ -746,7 +767,7 @@ const IndividualStory = () => {
                                 </p>
                                 <p className="comment_date">
                                   {/* {reply.date} */}
-                                  {handleRepliesDate(reply.date, reply.time)}
+                                  {handleRepliesDate(reply.date)}
                                 </p>
                               </div>
                               <div className="reply_body_div">
