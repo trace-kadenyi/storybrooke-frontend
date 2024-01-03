@@ -86,7 +86,7 @@
   justify-content: space-between;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
-  font-family: cursive;
+  /* font-family: cursive; */
   margin-bottom: 10px;
   letter-spacing: 0.05rem;
   font-style: italic;

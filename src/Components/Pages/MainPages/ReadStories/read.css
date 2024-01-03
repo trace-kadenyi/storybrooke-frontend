@@ -113,7 +113,7 @@
 .the_end {
   text-align: center;
   font-weight: 900;
-  font-family: cursive;
+  /* font-family: cursive; */
   letter-spacing: 0.09rem;
   margin: 10px;
   color: #548341;
@@ -365,7 +365,7 @@
   text-align: center;
   width: 150px;
   margin: 50px auto;
-  font-family: cursive;
+  /* font-family: cursive; */
   border-top: 2px #548341 solid;
 }
 
