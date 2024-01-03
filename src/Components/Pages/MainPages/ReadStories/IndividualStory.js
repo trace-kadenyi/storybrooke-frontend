@@ -794,9 +794,9 @@ const IndividualStory = () => {
                                 <button>
                                   <AiFillLike className="like_icon" />
                                 </button>
-                                <button>
+                                {/* <button>
                                   <AiFillDislike className="like_icon" />
-                                </button>
+                                </button> */}
                                 {reply.commenter === currentUser && (
                                   <button
                                     className="delete_reply_icon"
