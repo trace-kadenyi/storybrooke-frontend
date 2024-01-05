@@ -68,10 +68,9 @@ const Register = () => {
     } catch (error) {
       if (!error.response) {
         setResponse("No response from server");
-      } else if (error.response.status === 409) {
-        setResponse("User already exists");
       } else {
-        setResponse("Something went wrong. Please try again later.");
+      //  set message from response
+        setResponse(error.response.data.message);
       }
     }
     setLoadSubmit(false);
