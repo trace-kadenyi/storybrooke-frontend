@@ -160,7 +160,7 @@
   cursor: pointer;
   background: #fff;
   width: 160px;
-  height: 50px;
+  min-height: 70px;
   letter-spacing: 0.05rem;
   border: 2px #548341 solid;
   text-transform: uppercase;
@@ -502,6 +502,7 @@
 
   .links_container {
     gap: 10px;
+    flex-wrap: wrap;
   }
 
   .tabs {
