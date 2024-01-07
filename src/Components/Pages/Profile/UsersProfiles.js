@@ -33,26 +33,26 @@ const UsersProfiles = () => {
   const [error, setError] = useState(null);
   const axiosPrivate = useAxiosPrivate();
   const [active, setActive] = useState(0);
-  const [roles, setRoles] = useState({});
+  // const [roles, setRoles] = useState({});
 
   const controller = new AbortController();
 
   // get user roles
 
-  const getRoles = async () => {
-    try {
-      const response = await axiosPrivate.get(`/users/username/${currentUser}`);
+  // const getRoles = async () => {
+  //   try {
+  //     const response = await axiosPrivate.get(`/users/username/${currentUser}`);
 
-      setRoles(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //     setRoles(response.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  useEffect(() => {
-    getRoles();
-  }, []);
-  const admin = roles.hasOwnProperty("Admin");
+  // useEffect(() => {
+  //   getRoles();
+  // }, []);
+  // const admin = roles.hasOwnProperty("Admin");
 
   // fetch profile details
   useEffect(() => {
@@ -220,11 +220,11 @@ const UsersProfiles = () => {
                     </span>
                   </p>
                   {/* delete account button */}
-                  {admin && (
+                  {/* {admin && (
                     <button className="delete_account_btn">
                       Delete Account
                     </button>
-                  )}
+                  )} */}
                 </div>
               </div>
             )}
