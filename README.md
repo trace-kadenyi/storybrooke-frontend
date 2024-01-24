@@ -208,7 +208,7 @@ Give a ⭐️ if you like this project!
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-- I started this project to learn Node.js in particular. This <a href="https://youtu.be/f2EqECiTBL8?si=AJd0HATC4ysggjFO" target="_blank">tutorial by Dave Gray</a> was fundamental in helping get started with this project.
+- I started this project to learn Node.js in particular. This <a href="https://youtu.be/f2EqECiTBL8?si=AJd0HATC4ysggjFO" target="_blank">tutorial by Dave Gray</a> was fundamental in helping me get started with this project.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
