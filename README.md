@@ -82,6 +82,8 @@
 
 <div align="center">
   <img src="/src/Assets/Images/readme/pEXPLORE_PAGE.png" alt="screenshot" width="100%"  height="auto" />
+    <img src="/src/Assets/Images/readme/pEXPLORE_PAGE.png" alt="screenshot" width="100%"  height="auto" />
+
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
