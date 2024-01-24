@@ -40,28 +40,28 @@
 <details>
   <summary>Client</summary>
   <ul>
-    <li><a href="https://reactjs.org/">React.js</a></li>
+    <li><a href="https://reactjs.org/" target="_blank">React.js</a></li>
   </ul>
 </details>
 
 <details>
  <summary>Server</summary>
   <ul>
-    <li><a href="https://www.mongodb.com/mern-stack#:~:text=MERN%20stands%20for%20MongoDB%2C%20Express,a%20client%2Dside%20JavaScript%20framework">MERN Stack</a></li>
+    <li><a href="https://www.mongodb.com/mern-stack#:~:text=MERN%20stands%20for%20MongoDB%2C%20Express,a%20client%2Dside%20JavaScript%20framework" target="_blank">MERN Stack</a></li>
   </ul>
 </details>
 
 <details>
   <summary>Tools</summary>
   <ul>
-    <li><a href="https://restfulapi.net/">REST API</a></li>
+    <li><a href="https://restfulapi.net/" target="_blank">REST API</a></li>
   </ul>
 </details>
 
 <details>
 <summary>Deployment</summary>
   <ul>
-    <li><a href="https://www.vercel.com/">Vercel</a></li>
+    <li><a href="https://www.vercel.com/" target="_blank">Vercel</a></li>
   </ul>
 </details>
 
