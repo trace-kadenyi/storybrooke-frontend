@@ -64,7 +64,6 @@
   </ul>
 </details>
 
-
 <!-- Features -->
 
 ### Key Features <a name="key-features"></a>
@@ -81,13 +80,20 @@
 ### Preview <a name="preview"></a>
 
 <div align="center">
-  <img src="/src/Assets/Images/readme/pEXPLORE_PAGE.png" alt="screenshot" width="100%"  height="auto" />
-    <img src="/src/Assets/Images/readme/pEXPLORE_PAGE.png" alt="screenshot" width="100%"  height="auto" />
+  <img src="/src/Assets/Images/readme/PLogin_page.png" alt="screenshot"/>
+  <img src="/src/Assets/Images/readme/pHOME_PAGE.png" alt="screenshot"/>
+  <img src="/src/Assets/Images/readme/Pprofile_page.png" alt="screenshot"/>
+  <img src="/src/Assets/Images/readme/pEXPLORE_PAGE.png" alt="screenshot"/>
+</div>
 
+<div align="center">
+  <img src="/src/Assets/Images/readme/Dlogin page.png" alt="screenshot"/>
+  <img src="/src/Assets/Images/readme/DHome page.png" alt="screenshot"/>
+  <img src="/src/Assets/Images/readme/Dprofile page.png" alt="screenshot"/>
+  <img src="/src/Assets/Images/readme/Dexplore page.png" alt="screenshot"/>
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 <!-- LIVE DEMO -->
 
@@ -126,23 +132,23 @@ Clone the backend repository to your desired folder:
 $ git clone https://github.com/trace-kadenyi/storybrooke-backend.git
 ```
 
-
 ### Install
 
 ON two separate terminals, install this project with:
 
 1st Terminal:
+
 ```bash
   cd storybrooke-frontend
   npm install
 ```
 
 2nd Terminal:
+
 ```bash
   cd storybrooke-backend
   npm install
 ```
-
 
 ### Usage
 
@@ -153,6 +159,7 @@ To run the project locally, execute the following command:
 ```
 
 ### Database
+
 You will need to create your own db on MongoDB for this project. Follow <a href="https://mongodb.com/basics/create-database" target="_blank">THIS LINK</a> for directions on how to do so.
 
 ### Deployment
@@ -212,6 +219,5 @@ Give a ⭐️ if you like this project!
 
 - **How can I request a feature?** <br />
   You can request a feature by opening an issue.
-
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
