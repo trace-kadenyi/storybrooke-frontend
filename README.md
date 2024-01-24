@@ -80,17 +80,17 @@
 ### Preview <a name="preview"></a>
 
 <div align="center">
-  <img src="/src/Assets/Images/readme/PLogin_page.png" alt="screenshot"/>
-  <img src="/src/Assets/Images/readme/pHOME_PAGE.png" alt="screenshot"/>
-  <img src="/src/Assets/Images/readme/Pprofile_page.png" alt="screenshot"/>
-  <img src="/src/Assets/Images/readme/pEXPLORE_PAGE.png" alt="screenshot"/>
+  <img src="/src/Assets/Images/readme/PLogin_page.png" alt="screenshot" style="margin-bottom: 10px;"/>
+  <img src="/src/Assets/Images/readme/pHOME_PAGE.png" alt="screenshot" style="margin-bottom: 10px;"/>
+  <img src="/src/Assets/Images/readme/Pprofile_page.png" alt="screenshot" style="margin-bottom: 10px;"/>
+  <img src="/src/Assets/Images/readme/pEXPLORE_PAGE.png" alt="screenshot" style="margin-bottom: 10px;"/>
 </div>
 
 <div align="center">
-  <img src="/src/Assets/Images/readme/Dlogin page.png" alt="screenshot"/>
-  <img src="/src/Assets/Images/readme/DHome page.png" alt="screenshot"/>
-  <img src="/src/Assets/Images/readme/Dprofile page.png" alt="screenshot"/>
-  <img src="/src/Assets/Images/readme/Dexplore page.png" alt="screenshot"/>
+  <img src="/src/Assets/Images/readme/Dlogin page.png" alt="screenshot" style="margin-bottom: 10px;"/>
+  <img src="/src/Assets/Images/readme/DHome page.png" alt="screenshot" style="margin-bottom: 10px;"/>
+  <img src="/src/Assets/Images/readme/Dprofile page.png" alt="screenshot" style="margin-bottom: 10px;"/>
+  <img src="/src/Assets/Images/readme/Dexplore page.png" alt="screenshot" style="margin-bottom: 10px;"/>
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
