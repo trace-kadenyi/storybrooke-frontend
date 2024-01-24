@@ -44,6 +44,7 @@
   </ul>
 </details>
 
+<details>
  <summary>Server</summary>
   <ul>
     <li><a href="https://www.mongodb.com/mern-stack#:~:text=MERN%20stands%20for%20MongoDB%2C%20Express,a%20client%2Dside%20JavaScript%20framework">MERN Stack</a></li>
@@ -80,17 +81,17 @@
 ### Preview <a name="preview"></a>
 
 <div align="center">
-  <img src="/src/Assets/Images/readme/PLogin_page.png" alt="screenshot" style="margin-bottom: 10px;"/>
-  <img src="/src/Assets/Images/readme/pHOME_PAGE.png" alt="screenshot" style="margin-bottom: 10px;"/>
-  <img src="/src/Assets/Images/readme/Pprofile_page.png" alt="screenshot" style="margin-bottom: 10px;"/>
-  <img src="/src/Assets/Images/readme/pEXPLORE_PAGE.png" alt="screenshot" style="margin-bottom: 10px;"/>
+  <img src="/src/Assets/Images/readme/PLogin_page.png" alt="screenshot" style="margin-bottom: 20px"/>
+  <img src="/src/Assets/Images/readme/pHOME_PAGE.png" alt="screenshot" style="margin-bottom: 20px"/>
+  <img src="/src/Assets/Images/readme/Pprofile_page.png" alt="screenshot" style="margin-bottom: 20px"/>
+  <img src="/src/Assets/Images/readme/pEXPLORE_PAGE.png" alt="screenshot" style="margin-bottom: 20px"/>
 </div>
 
 <div align="center">
-  <img src="/src/Assets/Images/readme/Dlogin page.png" alt="screenshot" style="margin-bottom: 10px;"/>
-  <img src="/src/Assets/Images/readme/DHome page.png" alt="screenshot" style="margin-bottom: 10px;"/>
-  <img src="/src/Assets/Images/readme/Dprofile page.png" alt="screenshot" style="margin-bottom: 10px;"/>
-  <img src="/src/Assets/Images/readme/Dexplore page.png" alt="screenshot" style="margin-bottom: 10px;"/>
+  <img src="/src/Assets/Images/readme/Dlogin page.png" alt="screenshot" style="margin-bottom: 20px"/>
+  <img src="/src/Assets/Images/readme/DHome page.png" alt="screenshot" style="margin-bottom: 20px"/>
+  <img src="/src/Assets/Images/readme/Dprofile page.png" alt="screenshot" style="margin-bottom: 20px"/>
+  <img src="/src/Assets/Images/readme/Dexplore page.png" alt="screenshot" style="margin-bottom: 20px"/>
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
