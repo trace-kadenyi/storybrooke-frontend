@@ -2,7 +2,7 @@
 
 <div align="center">
 
-  <h3><b>Imagine - Tell Me A Story</b></h3>
+  <h3><b>Imagine - Tell Me A Story (IN PROGRESS)</b></h3>
 
 </div>
 
@@ -29,7 +29,7 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 [Imagine - Tell Me A Story (IN PROGRESS)] <a name="about-project"></a>
+# 📖 [Imagine - Tell Me A Story] <a name="about-project"></a>
 
 **Imagine - Tell Me A Story** is a web application for designed for users with a love for reading and/or writing. A user is able to create an account that is stored on the DB. The user can also select a number of interests upon logging in to the app. They can read stories that are already published on the app and also share their own stories if they're so inclined. A user is allowed to customize their profile as well as view other users' profiles, interests and stories. These are just but few of the features included in this app. There are also comments, replies and so much more to come...
 
