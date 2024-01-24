@@ -1,70 +1,190 @@
-# Getting Started with Create React App
+<a name="readme-top"></a>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
 
-## Available Scripts
+  <h3><b>Casual Gourmet</b></h3>
 
-In the project directory, you can run:
+</div>
 
-### `npm start`
+<!-- TABLE OF CONTENTS -->
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# 📗 Table of Contents
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [📖 About the Project](#about-project)
+  - [🛠 Built With](#built-with)
+    - [Tech Stack](#tech-stack)
+    - [Key Features](#key-features)
+    - [Preview](#preview)
+  - [🚀 Live Demo](#live-demo)
+- [💻 Getting Started](#getting-started)
+  - [Setup](#setup)
+  - [Prerequisites](#prerequisites)
+  - [Install](#install)
+  - [Usage](#usage)
+  - [Deployment](#deployment)
+- [👥 Authors](#authors)
+- [🤝 Contributing](#contributing)
+- [⭐️ Show your support](#support)
+- [🙏 Acknowledgements](#acknowledgements)
 
-### `npm test`
+<!-- PROJECT DESCRIPTION -->
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# 📖 [Casual Gourmet] <a name="about-project"></a>
 
-### `npm run build`
+**Casual Gourmet** is an application that provides users with multiple recipes for both foods and drinks. The recipes are classified into popular categories such as chicken, breakfast and vegetarian for foods and coffee/tea, cocktails and shakes for drinks. A fun corner is created whereby the user can search for various recipes by main ingredients or name among other filters. This is a fun application that is practical and useful to anyone who wants to try out new recipes.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🛠 Built With <a name="built-with"></a>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Tech Stack <a name="tech-stack"></a>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<details>
+  <summary>Client</summary>
+  <ul>
+    <li><a href="https://reactjs.org/">React.js</a></li>
+    <li><a href="https://redux.js.org/">Redux</a></li>
+  </ul>
+</details>
 
-### `npm run eject`
+<details>
+  <summary>Tools</summary>
+  <ul>
+    <li><a href="https://restfulapi.net/">REST API</a></li>
+  </ul>
+</details>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<details>
+<summary>Deployment</summary>
+  <ul>
+    <li><a href="https://www.vercel.com/">Vercel</a></li>
+  </ul>
+</details>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<!-- Features -->
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Key Features <a name="key-features"></a>
 
-## Learn More
+- **[Presents several pages with foods and drinks recipes]**
+- **[Presents search options for various recipes based on different filters]**
+- **[Allows a users to pick a random recipe]**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<!-- Preview -->
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Preview <a name="preview"></a>
 
-### Code Splitting
+<div align="center">
+  <img src="preview.png" alt="screenshot" width="100%"  height="auto" />
+</div>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<!-- LIVE DEMO -->
 
-### Making a Progressive Web App
+## 🚀 Live Demo <a name="live-demo"></a>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- [Live Demo Link](https://casual-gourmet.vercel.app/)
 
-### Advanced Configuration
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+<!-- GETTING STARTED -->
+
+## 💻 Getting Started <a name="getting-started"></a>
+
+To get a local copy up and running, follow these steps.
+
+### Prerequisites
+
+In order to run this project you need:
+
+```sh
+- git
+- node
+```
+
+### Setup
+
+Clone this repository to your desired folder:
+
+```bash
+$ git clone https://github.com/TracK92/casual_gourmet.git
+```
+
+
+### Install
+
+Install this project with:
+
+```bash
+  cd casual_gourmet
+  npm install
+```
+
+### Usage
+
+To run the project, execute the following command:
+
+```sh
+  npm run start
+```
 
 ### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+You can deploy the project to Vercel by following these steps:
 
-### `npm run build` fails to minify
+- Create a new site on Vercel
+- Select your repository
+- Select the branch to deploy
+- Vercel automatically configures the correct settings for your project
+- Click on deploy
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- AUTHORS -->
+
+## Authors <a name="authors"></a>
+
+👤 **Tracey Kadenyi**
+
+- GitHub: [@TracK92](https://github.com/TracK92)
+- LinkedIn: [@Tracey Kadenyi](https://www.linkedin.com/in/Tracey-Kadenyi/)
+- Twitter: [@traci_K7](https://twitter.com/traci_k7)
+
+<!-- CONTRIBUTING -->
+
+## 🤝 Contributing <a name="contributing"></a>
+
+Contributions, issues, and feature requests are welcome!
+
+Feel free to check the [issues page](../../issues/).
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- SUPPORT -->
+
+## ⭐️ Show your support <a name="support"></a>
+
+Give a ⭐️ if you like this project!
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- ACKNOWLEDGEMENTS -->
+
+## 🙏 Acknowledgments <a name="acknowledgements"></a>
+
+- Original idea of a recipe collection is obtained from the book Angels Fall by Nora Roberts. The main character is a chef and the text of the about page is directly quoted from her own cookbook idea in the story. Consider this the website version of Reece Gilmore's cookbook.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- FAQ (optional) -->
+
+## 📝 FAQ <a name="faq"></a>
+
+- **How can I report a bug?** <br />
+  You can report bugs by opening an issue.
+
+- **How can I request a feature?** <br />
+  You can request a feature by opening an issue.
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
