@@ -2,7 +2,7 @@
 
 <div align="center">
 
-  <h3><b>Casual Gourmet</b></h3>
+  <h3><b>Imagine - Tell Me A Story</b></h3>
 
 </div>
 
@@ -29,9 +29,9 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 [Casual Gourmet] <a name="about-project"></a>
+# 📖 [Imagine - Tell Me A Story (IN PROGRESS)] <a name="about-project"></a>
 
-**Casual Gourmet** is an application that provides users with multiple recipes for both foods and drinks. The recipes are classified into popular categories such as chicken, breakfast and vegetarian for foods and coffee/tea, cocktails and shakes for drinks. A fun corner is created whereby the user can search for various recipes by main ingredients or name among other filters. This is a fun application that is practical and useful to anyone who wants to try out new recipes.
+**Imagine - Tell Me A Story** is a web application for designed for users with a love for reading and/or writing. A user is able to create an account that is stored on the DB. The user can also select a number of interests upon logging in to the app. They can read stories that are already published on the app and also share their own stories if they're so inclined. A user is allowed to customize their profile as well as view other users' profiles, interests and stories. These are just but few of the features included in this app. There are also comments, replies and so much more to come...
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -41,7 +41,12 @@
   <summary>Client</summary>
   <ul>
     <li><a href="https://reactjs.org/">React.js</a></li>
-    <li><a href="https://redux.js.org/">Redux</a></li>
+  </ul>
+</details>
+
+ <summary>Server</summary>
+  <ul>
+    <li><a href="https://www.mongodb.com/mern-stack#:~:text=MERN%20stands%20for%20MongoDB%2C%20Express,a%20client%2Dside%20JavaScript%20framework">MERN Stack</a></li>
   </ul>
 </details>
 
@@ -64,16 +69,19 @@
 
 ### Key Features <a name="key-features"></a>
 
-- **[Presents several pages with foods and drinks recipes]**
-- **[Presents search options for various recipes based on different filters]**
-- **[Allows a users to pick a random recipe]**
+- **[Creates an account for users]**
+- **[Allows users to select their topics of interest]**
+- **[Allows users to read stories written by other users]**
+- **[Allows users to share their own stories publicly (including anonymously)]**
+- **[Allows users to comment on shared stories]**
+- **[Allows users to reply to comments]**
 
 <!-- Preview -->
 
 ### Preview <a name="preview"></a>
 
 <div align="center">
-  <img src="preview.png" alt="screenshot" width="100%"  height="auto" />
+  <img src="/src/Assets/Images/readme/PLogin page.PNG" alt="screenshot" width="100%"  height="auto" />
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -83,7 +91,7 @@
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo Link](https://casual-gourmet.vercel.app/)
+- [Live Demo Link](https://imagine-tellmeastory.vercel.app/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -104,29 +112,46 @@ In order to run this project you need:
 
 ### Setup
 
-Clone this repository to your desired folder:
+Clone the frontend repository to your desired folder:
 
 ```bash
-$ git clone https://github.com/TracK92/casual_gourmet.git
+$ git clone https://github.com/trace-kadenyi/storybrooke-frontend.git
+```
+
+Clone the backend repository to your desired folder:
+
+```bash
+$ git clone https://github.com/trace-kadenyi/storybrooke-backend.git
 ```
 
 
 ### Install
 
-Install this project with:
+ON two separate terminals, install this project with:
 
+1st Terminal:
 ```bash
-  cd casual_gourmet
+  cd storybrooke-frontend
   npm install
 ```
 
+2nd Terminal:
+```bash
+  cd storybrooke-backend
+  npm install
+```
+
+
 ### Usage
 
-To run the project, execute the following command:
+To run the project locally, execute the following command:
 
 ```sh
   npm run start
 ```
+
+### Database
+You will need to create your own db on MongoDB for this project. Follow <a href="https://mongodb.com/basics/create-database" target="_blank">THIS LINK</a> for directions on how to do so.
 
 ### Deployment
 
@@ -146,7 +171,7 @@ You can deploy the project to Vercel by following these steps:
 
 👤 **Tracey Kadenyi**
 
-- GitHub: [@TracK92](https://github.com/TracK92)
+- GitHub: [@trace-kadenyi](https://github.com/trace-kadenyi)
 - LinkedIn: [@Tracey Kadenyi](https://www.linkedin.com/in/Tracey-Kadenyi/)
 - Twitter: [@traci_K7](https://twitter.com/traci_k7)
 
@@ -172,7 +197,7 @@ Give a ⭐️ if you like this project!
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-- Original idea of a recipe collection is obtained from the book Angels Fall by Nora Roberts. The main character is a chef and the text of the about page is directly quoted from her own cookbook idea in the story. Consider this the website version of Reece Gilmore's cookbook.
+- I started this project to learn Node.js in particular. This <a href="https://youtu.be/f2EqECiTBL8?si=AJd0HATC4ysggjFO" target="_blank">tutorial by Dave Gray</a> was fundamental in helping get started with this project.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
