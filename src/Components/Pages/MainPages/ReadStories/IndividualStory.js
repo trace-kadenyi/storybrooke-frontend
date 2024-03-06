@@ -160,48 +160,21 @@ const IndividualStory = () => {
   }, [id, comments.length]);
 
   // store the likes for each comment
-  // useEffect(() => {
-  //   const likesObj = {};
-  //   comments.forEach((comment) => {
-  //     likesObj[comment._id] = comment.likes.length;
-  //   });
-
-  //   setLikes(likesObj);
-  // }, [comments]);
-
-  // // handle like button
-  // const handleLikeBtnClick = async (e) => {
-  //   const commentID = e.currentTarget.parentElement.id;
-
-  //   // Toggle the "liked" class on the like button
-  //   const likeBtn = e.currentTarget.parentElement;
-  //   likeBtn.classList.toggle("liked");
-
-  //   // Update the likes count
-  //   const updatedLikes = likeBtn.classList.contains("liked")
-  //     ? likes + 1
-  //     : likes - 1;
-  //   setLikes(updatedLikes);
-
-  //   // Update the likes in the database
-  //     try {
-  //       await axiosPrivate.put(`/likes/comments/${commentID}`, {
-  //         username: currentUser,
-  //       });
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-
-  // };
-
-  // store the likes for each comment
   useEffect(() => {
     const likesObj = {};
     comments.forEach((comment) => {
       likesObj[comment._id] = comment.likes.length;
+      // check if current user has liked the comment
+      if (comment.likes.includes(currentUser)) {
+        const likeBtn = document.querySelector(
+          `.main_like_button[id="${comment._id}"]`
+        );
+        likeBtn.classList.add("liked");
+      }
     });
 
     setLikes(likesObj);
+    // eslint-disable-next-line
   }, [comments]);
 
   // handle like button
@@ -211,6 +184,8 @@ const IndividualStory = () => {
     // Toggle the "liked" class on the like button
     const likeBtn = e.currentTarget.parentElement;
     likeBtn.classList.toggle("liked");
+
+    // Update the likes count
 
     // Update the likes in the database
     try {
@@ -224,7 +199,7 @@ const IndividualStory = () => {
       // updated UI with the new likes
       setLikes((prevLikes) => ({
         ...prevLikes,
-        [commentID]: fetchedLikes.value,
+        [commentID]: fetchedLikes.likes,
       }));
     } catch (error) {
       console.log(error);
@@ -729,7 +704,7 @@ const IndividualStory = () => {
                             <span>{likes[comment._id]} likes</span>
                           )}
                         </p>
-                        <button id={comment._id}>
+                        <button className="main_like_button" id={comment._id}>
                           <AiFillLike
                             className="like_icon"
                             onClick={handleLikeBtnClick}
