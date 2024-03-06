@@ -683,7 +683,7 @@ const IndividualStory = () => {
                     </div>
                     <div className="comment_reply_div">
                       <div className="like_reply_btn">
-                        <p>
+                        <p className="likes_para">
                           {/* likes */}
                           {likes === 1 ? `${likes} like` : `${likes} likes`}
                         </p>
