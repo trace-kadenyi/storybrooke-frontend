@@ -616,6 +616,7 @@
 
 .like_reply_btn {
   display: flex;
+  align-items: center;
   gap: 5px;
 }
 
@@ -681,6 +682,10 @@
 .liked {
   background: #548341;
   color: #ffffff !important;
+}
+
+.likes_para {
+  font-size: 11px;
 }
 
 @media screen and (max-width: 1999px) {
