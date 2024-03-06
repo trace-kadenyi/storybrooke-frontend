@@ -32,8 +32,7 @@ const IndividualStory = () => {
   const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
   const [edited, setEdited] = useState([]); // to show edited on comments that have been edited
   const [viewReplies, setViewReplies] = useState(false); // to show the view replies button
-  const [timeAgo, setTimeAgo] = useState("");
-  const [likes, setLikes] = useState(0); // to show the number of likes on a comment
+  const [likes, setLikes] = useState({}); // to show the number of likes on a comment
 
   // current user
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -145,9 +144,6 @@ const IndividualStory = () => {
           : [];
 
         setComments(fetchedComments);
-        setLikes(JSON.parse(fetchedComments[0].likes));
-        // console.log(typeof likes, likes)
-
         const editedCommentIds = fetchedComments
           .filter((comment) => comment.edited)
           .map((comment) => comment._id);
@@ -159,37 +155,80 @@ const IndividualStory = () => {
     };
 
     fetchComments();
+
+    // eslint-disable-next-line
   }, [id, comments.length]);
 
+  // store the likes for each comment
+  // useEffect(() => {
+  //   const likesObj = {};
+  //   comments.forEach((comment) => {
+  //     likesObj[comment._id] = comment.likes.length;
+  //   });
+
+  //   setLikes(likesObj);
+  // }, [comments]);
+
+  // // handle like button
+  // const handleLikeBtnClick = async (e) => {
+  //   const commentID = e.currentTarget.parentElement.id;
+
+  //   // Toggle the "liked" class on the like button
+  //   const likeBtn = e.currentTarget.parentElement;
+  //   likeBtn.classList.toggle("liked");
+
+  //   // Update the likes count
+  //   const updatedLikes = likeBtn.classList.contains("liked")
+  //     ? likes + 1
+  //     : likes - 1;
+  //   setLikes(updatedLikes);
+
+  //   // Update the likes in the database
+  //     try {
+  //       await axiosPrivate.put(`/likes/comments/${commentID}`, {
+  //         username: currentUser,
+  //       });
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+
+  // };
+
+  // store the likes for each comment
+  useEffect(() => {
+    const likesObj = {};
+    comments.forEach((comment) => {
+      likesObj[comment._id] = comment.likes.length;
+    });
+
+    setLikes(likesObj);
+  }, [comments]);
+
   // handle like button
-  const handleLikeBtnClick = (e) => {
+  const handleLikeBtnClick = async (e) => {
     const commentID = e.currentTarget.parentElement.id;
 
     // Toggle the "liked" class on the like button
     const likeBtn = e.currentTarget.parentElement;
     likeBtn.classList.toggle("liked");
 
-    // Update the likes count
-    const updatedLikes = likeBtn.classList.contains("liked")
-      ? likes + 1
-      : likes - 1;
-    setLikes(updatedLikes);
-
     // Update the likes in the database
-    const updateLikes = async (updatedLikes) => {
-      try {
-        const response = await axiosPrivate.put(
-          `/likes/comments/${commentID}`,
-          {
-            likes: updatedLikes,
-          }
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    try {
+      await axiosPrivate.put(`/likes/comments/${commentID}`, {
+        username: currentUser,
+      });
+      // fetch the likes for the specific comment
+      const response = await axiosPrivate.get(`/likes/comments/${commentID}`);
 
-    updateLikes(updatedLikes);
+      const fetchedLikes = response.data;
+      // updated UI with the new likes
+      setLikes((prevLikes) => ({
+        ...prevLikes,
+        [commentID]: fetchedLikes.value,
+      }));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // handle add comment
@@ -227,7 +266,6 @@ const IndividualStory = () => {
 
   // toggle ellipsis and edit/delete buttons
   const toggleEllipsis = (e) => {
-    const ellipsis = e.currentTarget;
     const editDeleteBtn =
       e.currentTarget.parentElement.parentElement.nextElementSibling;
     editDeleteBtn.classList.toggle("edit_delete_btn_toggle");
@@ -531,7 +569,7 @@ const IndividualStory = () => {
     const replyID = e.currentTarget.id;
 
     try {
-      const response = await axiosPrivate.delete(`/comments/reply/${replyID}`);
+      await axiosPrivate.delete(`/comments/reply/${replyID}`);
 
       const newReplies = replyData[commentID].filter((reply) => {
         return reply._id !== replyID;
@@ -685,7 +723,11 @@ const IndividualStory = () => {
                       <div className="like_reply_btn">
                         <p className="likes_para">
                           {/* likes */}
-                          {likes === 1 ? `${likes} like` : `${likes} likes`}
+                          {likes[comment._id] === 1 ? (
+                            <span>{likes[comment._id]} like</span>
+                          ) : (
+                            <span>{likes[comment._id]} likes</span>
+                          )}
                         </p>
                         <button id={comment._id}>
                           <AiFillLike
