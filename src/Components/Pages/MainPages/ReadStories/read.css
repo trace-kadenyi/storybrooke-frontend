@@ -678,6 +678,11 @@
   gap: 3px;
 }
 
+.liked {
+  background: #548341;
+  color: #ffffff !important;
+}
+
 @media screen and (max-width: 1999px) {
   .body_edit_container {
     display: block;
