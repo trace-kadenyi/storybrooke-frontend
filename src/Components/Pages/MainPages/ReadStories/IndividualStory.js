@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AiFillEdit, AiFillLike, AiFillDislike } from "react-icons/ai";
+import { AiFillEdit, AiFillLike } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
 import { IoEllipsisHorizontalCircle } from "react-icons/io5";
 import { BsFillReplyAllFill } from "react-icons/bs";
-import { formatDistanceToNow, parse, parseISO, isValid } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import logo from "../../../../Assets/Images/logo.png";
@@ -33,6 +33,7 @@ const IndividualStory = () => {
   const [edited, setEdited] = useState([]); // to show edited on comments that have been edited
   const [viewReplies, setViewReplies] = useState(false); // to show the view replies button
   const [timeAgo, setTimeAgo] = useState("");
+  const [likes, setLikes] = useState(0); // to show the number of likes on a comment
 
   // current user
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -144,6 +145,8 @@ const IndividualStory = () => {
           : [];
 
         setComments(fetchedComments);
+        setLikes(JSON.parse(fetchedComments[0].likes));
+        // console.log(typeof likes, likes)
 
         const editedCommentIds = fetchedComments
           .filter((comment) => comment.edited)
@@ -157,6 +160,37 @@ const IndividualStory = () => {
 
     fetchComments();
   }, [id, comments.length]);
+
+  // handle like button
+  const handleLikeBtnClick = (e) => {
+    const commentID = e.currentTarget.parentElement.id;
+
+    // Toggle the "liked" class on the like button
+    const likeBtn = e.currentTarget.parentElement;
+    likeBtn.classList.toggle("liked");
+
+    // Update the likes count
+    const updatedLikes = likeBtn.classList.contains("liked")
+      ? likes + 1
+      : likes - 1;
+    setLikes(updatedLikes);
+
+    // Update the likes in the database
+    const updateLikes = async (updatedLikes) => {
+      try {
+        const response = await axiosPrivate.put(
+          `/likes/comments/${commentID}`,
+          {
+            likes: updatedLikes,
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    updateLikes(updatedLikes);
+  };
 
   // handle add comment
   const handleAddComment = async (e) => {
@@ -389,47 +423,6 @@ const IndividualStory = () => {
     }
   };
 
-  // handle replies date
-  // const handleRepliesDate = (commentDate, commentTime) => {
-  //   // Construct a date string in the format: 'Dec 17, 2023 11:28:52'
-  //   const commentDateTimeString = `${commentDate} ${commentTime}`;
-
-  //   // Create a Date object for the comment date and time
-  //   const commentDateTime = new Date(commentDateTimeString);
-
-  //   // Get the current date and time
-  //   const today = new Date();
-
-  //   // Calculate the time difference in milliseconds
-  //   const timeDiff = today - commentDateTime;
-
-  //   // Convert the time difference to seconds, minutes, hours, etc.
-  //   const seconds = Math.floor(timeDiff / 1000);
-  //   const minutes = Math.floor(seconds / 60);
-  //   const hours = Math.floor(minutes / 60);
-  //   const days = Math.floor(hours / 24);
-
-  //   if (seconds <= 0) {
-  //   } else if (seconds < 60) {
-  //     return `${seconds} seconds ago`;
-  //   } else if (minutes < 60) {
-  //     return `${minutes} minutes ago`;
-  //   } else if (hours < 24) {
-  //     return `${hours} hours ago`;
-  //   } else if (days < 30) {
-  //     return `${days} days ago`;
-  //   } else if (days >= 30 && days < 365) {
-  //     const months = Math.floor(days / 30);
-  //     return `${months} months ago`;
-  //   } else if (days >= 365) {
-  //     const years = Math.floor(days / 365);
-  //     return `${years} years ago`;
-  //   } else {
-  //     // Format the comment date and time in the user's local time zone
-  //     return commentDateTime.toLocaleString();
-  //   }
-  // };
-
   // handle comment date
   const handleCommentDate = (dateString) => {
     const dateObject = new Date(dateString);
@@ -450,7 +443,7 @@ const IndividualStory = () => {
     const time = localTime.replace(/:\d{2}\s/, " "); // Remove the seconds
     // console.log(time)
 
-    if(time === "Invalid Date") {
+    if (time === "Invalid Date") {
       return fullDate.replace(/:\d{2}\s/, " "); // Remove the seconds
     } else {
       return time;
@@ -690,8 +683,15 @@ const IndividualStory = () => {
                     </div>
                     <div className="comment_reply_div">
                       <div className="like_reply_btn">
-                        <button>
-                          <AiFillLike className="like_icon" />
+                        <p>
+                          {/* likes */}
+                          {likes === 1 ? `${likes} like` : `${likes} likes`}
+                        </p>
+                        <button id={comment._id}>
+                          <AiFillLike
+                            className="like_icon"
+                            onClick={handleLikeBtnClick}
+                          />
                         </button>
                         <button>
                           <BsFillReplyAllFill
