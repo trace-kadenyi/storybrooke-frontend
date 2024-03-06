@@ -22,12 +22,6 @@ const Home = () => {
   // get the id of logged in user
   const foundId = users?.find((user) => user.username === name)?._id;
 
-  // get users on page load
-  // useEffect(() => {
-  //   getUsers(setUsers, axiosPrivate, navigate, location);
-  //   // eslint-disable-next-line
-  // }, []);
-
   // fetch user interests on page load
   useEffect(() => {
     if (interests.length) {
