@@ -13,8 +13,6 @@ import defaultCover from "../../../Assets/Images/about.png";
 const UsersProfiles = () => {
   // make search user the name on the url
   const searchUser = window.location.pathname.split("/")[2];
-  // current user
-  const currentUser = JSON.parse(localStorage.getItem("user"));
 
   const navigate = useNavigate();
 
