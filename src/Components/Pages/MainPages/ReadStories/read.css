@@ -479,6 +479,7 @@
   font-weight: bold;
   font-style: italic;
   border-top: 1px #ccc solid;
+  margin-top: 5px;
 }
 
 .comment_reply_btn {
@@ -618,6 +619,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  margin-bottom: 10px;
 }
 
 .like_reply_btn button {
