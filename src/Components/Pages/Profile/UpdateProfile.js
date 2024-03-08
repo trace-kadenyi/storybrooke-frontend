@@ -9,7 +9,6 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import "./profile.css";
 import profPicPreloader from "../../../Assets/Images/pic_preloader.gif";
 import preloader from "../../../Assets/Images/submit.gif";
-// import { coverImgDefault } from "../../AppData/data";
 import defaultCover from "../../../Assets/Images/about.png";
 
 const UpdateProfile = () => {
@@ -110,10 +109,7 @@ const UpdateProfile = () => {
     setLoadSubmit(true);
     try {
       //eslint-disable-next-line
-      const response = await axiosPrivate.put(
-        `/profile/${currentUser}`,
-        userProfile
-      );
+      await axiosPrivate.put(`/profile/${currentUser}`, userProfile);
       setSubmitted(true);
       showToastMessage();
       // if username is changed, navigate to login page else navigate to profile page in 3 seconds

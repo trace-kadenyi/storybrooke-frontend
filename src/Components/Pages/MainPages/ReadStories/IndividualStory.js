@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AiFillEdit, AiFillLike, AiFillDislike } from "react-icons/ai";
+import { AiFillEdit, AiFillLike } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
 import { IoEllipsisHorizontalCircle } from "react-icons/io5";
 import { BsFillReplyAllFill } from "react-icons/bs";
-import { formatDistanceToNow, parse, parseISO, isValid } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import logo from "../../../../Assets/Images/logo.png";
@@ -32,7 +32,8 @@ const IndividualStory = () => {
   const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
   const [edited, setEdited] = useState([]); // to show edited on comments that have been edited
   const [viewReplies, setViewReplies] = useState(false); // to show the view replies button
-  const [timeAgo, setTimeAgo] = useState("");
+  const [commentLikes, setCommentLikes] = useState({}); // to show the number of likes on a comment
+  const [replyLikes, setReplyLikes] = useState({}); // to show the number of likes on a reply
 
   // current user
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -144,7 +145,6 @@ const IndividualStory = () => {
           : [];
 
         setComments(fetchedComments);
-
         const editedCommentIds = fetchedComments
           .filter((comment) => comment.edited)
           .map((comment) => comment._id);
@@ -156,7 +156,76 @@ const IndividualStory = () => {
     };
 
     fetchComments();
+
+    // eslint-disable-next-line
   }, [id, comments.length]);
+
+  // store the likes for each comment
+  useEffect(() => {
+    const likesObj = {};
+    comments.forEach((comment) => {
+      likesObj[comment._id] = comment.likes.length;
+      // check if current user has liked the comment
+      if (comment.likes.includes(currentUser)) {
+        const likeBtn = document.querySelector(
+          `.main_comment_like_btn[id="${comment._id}"]`
+        );
+        likeBtn.classList.add("liked");
+      }
+    });
+
+    setCommentLikes(likesObj);
+    // eslint-disable-next-line
+  }, [comments]);
+
+  // store the likes for each reply
+  useEffect(() => {
+    const likesObj = {};
+    comments.forEach((comment) => {
+      if (Array.isArray(replyData[comment._id])) {
+        replyData[comment._id].forEach((reply) => {
+          likesObj[reply._id] = reply.likes.length;
+          // check if current user has liked the reply
+          if (reply.likes.includes(currentUser)) {
+            const likeBtn = document.querySelector(
+              `.main_reply_like_btn[id="${reply._id}"]`
+            );
+            likeBtn.classList.add("liked");
+          }
+        });
+      }
+    });
+
+    setReplyLikes(likesObj);
+    // eslint-disable-next-line
+  }, [replyData]);
+
+  // handle like button
+  const handleCommentLikeBtn = async (e) => {
+    const commentID = e.currentTarget.parentElement.id;
+
+    // Toggle the "liked" class on the like button
+    const likeBtn = e.currentTarget.parentElement;
+    likeBtn.classList.toggle("liked");
+
+    // Update the likes in the database
+    try {
+      await axiosPrivate.put(`/likes/comments/${commentID}`, {
+        username: currentUser,
+      });
+      // fetch the likes for the specific comment
+      const response = await axiosPrivate.get(`/likes/comments/${commentID}`);
+
+      const fetchedLikes = response.data;
+      // updated UI with the new likes
+      setCommentLikes((prevLikes) => ({
+        ...prevLikes,
+        [commentID]: fetchedLikes.likes,
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // handle add comment
   const handleAddComment = async (e) => {
@@ -193,7 +262,6 @@ const IndividualStory = () => {
 
   // toggle ellipsis and edit/delete buttons
   const toggleEllipsis = (e) => {
-    const ellipsis = e.currentTarget;
     const editDeleteBtn =
       e.currentTarget.parentElement.parentElement.nextElementSibling;
     editDeleteBtn.classList.toggle("edit_delete_btn_toggle");
@@ -389,46 +457,32 @@ const IndividualStory = () => {
     }
   };
 
-  // handle replies date
-  // const handleRepliesDate = (commentDate, commentTime) => {
-  //   // Construct a date string in the format: 'Dec 17, 2023 11:28:52'
-  //   const commentDateTimeString = `${commentDate} ${commentTime}`;
+  // replies like button
+  const replyLikeBtnClick = async (e) => {
+    const replyID = e.currentTarget.parentElement.id;
 
-  //   // Create a Date object for the comment date and time
-  //   const commentDateTime = new Date(commentDateTimeString);
+    // Toggle the "liked" class on the like button
+    const likeBtn = e.currentTarget.parentElement;
+    likeBtn.classList.toggle("liked");
 
-  //   // Get the current date and time
-  //   const today = new Date();
+    // Update the likes in the database
+    try {
+      await axiosPrivate.put(`/likes/replies/${replyID}`, {
+        username: currentUser,
+      });
+      // fetch the likes for the specific reply
+      const response = await axiosPrivate.get(`/likes/replies/${replyID}`);
 
-  //   // Calculate the time difference in milliseconds
-  //   const timeDiff = today - commentDateTime;
-
-  //   // Convert the time difference to seconds, minutes, hours, etc.
-  //   const seconds = Math.floor(timeDiff / 1000);
-  //   const minutes = Math.floor(seconds / 60);
-  //   const hours = Math.floor(minutes / 60);
-  //   const days = Math.floor(hours / 24);
-
-  //   if (seconds <= 0) {
-  //   } else if (seconds < 60) {
-  //     return `${seconds} seconds ago`;
-  //   } else if (minutes < 60) {
-  //     return `${minutes} minutes ago`;
-  //   } else if (hours < 24) {
-  //     return `${hours} hours ago`;
-  //   } else if (days < 30) {
-  //     return `${days} days ago`;
-  //   } else if (days >= 30 && days < 365) {
-  //     const months = Math.floor(days / 30);
-  //     return `${months} months ago`;
-  //   } else if (days >= 365) {
-  //     const years = Math.floor(days / 365);
-  //     return `${years} years ago`;
-  //   } else {
-  //     // Format the comment date and time in the user's local time zone
-  //     return commentDateTime.toLocaleString();
-  //   }
-  // };
+      const fetchedLikes = response.data;
+      // updated UI with the new likes
+      setReplyLikes((prevLikes) => ({
+        ...prevLikes,
+        [replyID]: fetchedLikes.likes,
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // handle comment date
   const handleCommentDate = (dateString) => {
@@ -450,7 +504,7 @@ const IndividualStory = () => {
     const time = localTime.replace(/:\d{2}\s/, " "); // Remove the seconds
     // console.log(time)
 
-    if(time === "Invalid Date") {
+    if (time === "Invalid Date") {
       return fullDate.replace(/:\d{2}\s/, " "); // Remove the seconds
     } else {
       return time;
@@ -538,7 +592,7 @@ const IndividualStory = () => {
     const replyID = e.currentTarget.id;
 
     try {
-      const response = await axiosPrivate.delete(`/comments/reply/${replyID}`);
+      await axiosPrivate.delete(`/comments/reply/${replyID}`);
 
       const newReplies = replyData[commentID].filter((reply) => {
         return reply._id !== replyID;
@@ -690,10 +744,24 @@ const IndividualStory = () => {
                     </div>
                     <div className="comment_reply_div">
                       <div className="like_reply_btn">
-                        <button>
-                          <AiFillLike className="like_icon" />
+                        <p className="likes_para">
+                          {/* likes */}
+                          {commentLikes[comment._id] === 1 ? (
+                            <span>{commentLikes[comment._id]} like</span>
+                          ) : (
+                            <span>{commentLikes[comment._id]} likes</span>
+                          )}
+                        </p>
+                        <button
+                          className="main_comment_like_btn"
+                          id={comment._id}
+                        >
+                          <AiFillLike
+                            className="like_icon"
+                            onClick={handleCommentLikeBtn}
+                          />
                         </button>
-                        <button>
+                        <button className="reply_icon_btn">
                           <BsFillReplyAllFill
                             className="reply_icon"
                             onClick={handleReplyBtn}
@@ -791,8 +859,22 @@ const IndividualStory = () => {
                                 <p className="reply_body">{reply.body}</p>
                               </div>
                               <div className="like_reply_btn">
-                                <button>
-                                  <AiFillLike className="like_icon" />
+                                <p className="likes_para">
+                                  {/* likes */}
+                                  {replyLikes[reply._id] === 1 ? (
+                                    <span>{replyLikes[reply._id]} like</span>
+                                  ) : (
+                                    <span>{replyLikes[reply._id]} likes</span>
+                                  )}
+                                </p>
+                                <button
+                                  id={reply._id}
+                                  className="main_reply_like_btn"
+                                >
+                                  <AiFillLike
+                                    className="like_icon"
+                                    onClick={replyLikeBtnClick}
+                                  />
                                 </button>
                                 {/* <button>
                                   <AiFillDislike className="like_icon" />

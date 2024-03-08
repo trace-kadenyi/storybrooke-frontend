@@ -1,32 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import logo from "../../../Assets/Images/logo.png";
 import { btnOptions } from "../../AppData/data";
-import { getUsers } from "../../AppData/getUsers";
 import preloader from "../../../Assets/Images/base_preloader.gif";
 import "./home.css";
 
 const Home = () => {
   const navigate = useNavigate();
   const [interests, setInterests] = useState([]);
-  const [users, setUsers] = useState();
+  // const [users, setUsers] = useState();
   const [loadInterests, setLoadInterests] = useState(true);
   const axiosPrivate = useAxiosPrivate();
-  const location = useLocation();
 
   // get the name of the logged in user
   const name = JSON.parse(localStorage.getItem("user"));
   // get the id of logged in user
-  const foundId = users?.find((user) => user.username === name)?._id;
-
-  // get users on page load
-  // useEffect(() => {
-  //   getUsers(setUsers, axiosPrivate, navigate, location);
-  //   // eslint-disable-next-line
-  // }, []);
+  // const foundId = users?.find((user) => user.username === name)?._id;
 
   // fetch user interests on page load
   useEffect(() => {
@@ -82,6 +74,7 @@ const Home = () => {
       }
     };
     getInterests();
+    //eslint-disable-next-line
   }, []);
 
   // toast message
