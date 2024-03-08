@@ -31,26 +31,8 @@ const UsersProfiles = () => {
   const [error, setError] = useState(null);
   const axiosPrivate = useAxiosPrivate();
   const [active, setActive] = useState(0);
-  // const [roles, setRoles] = useState({});
 
   const controller = new AbortController();
-
-  // get user roles
-
-  // const getRoles = async () => {
-  //   try {
-  //     const response = await axiosPrivate.get(`/users/username/${currentUser}`);
-
-  //     setRoles(response.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getRoles();
-  // }, []);
-  // const admin = roles.hasOwnProperty("Admin");
 
   // fetch profile details
   useEffect(() => {
@@ -217,12 +199,6 @@ const UsersProfiles = () => {
                       {dateJoined && dateJoined.slice(0, 10)}
                     </span>
                   </p>
-                  {/* delete account button */}
-                  {/* {admin && (
-                    <button className="delete_account_btn">
-                      Delete Account
-                    </button>
-                  )} */}
                 </div>
               </div>
             )}
@@ -265,11 +241,7 @@ const UsersProfiles = () => {
               <div className="profile_interests_list">
                 {loading ? (
                   <div className="main_preloader">
-                    <img
-                      src={storiesPreloader}
-                      alt="preloader"
-                      // className="main_preloader_img"
-                    />
+                    <img src={storiesPreloader} alt="preloader" />
                   </div>
                 ) : (
                   profileInterests.map((interest) => (
