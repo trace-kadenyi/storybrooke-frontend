@@ -32,7 +32,8 @@ const IndividualStory = () => {
   const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
   const [edited, setEdited] = useState([]); // to show edited on comments that have been edited
   const [viewReplies, setViewReplies] = useState(false); // to show the view replies button
-  const [likes, setLikes] = useState({}); // to show the number of likes on a comment
+  const [commentLikes, setCommentLikes] = useState({}); // to show the number of likes on a comment
+  const [replyLikes, setReplyLikes] = useState({}); // to show the number of likes on a reply
 
   // current user
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -167,25 +168,45 @@ const IndividualStory = () => {
       // check if current user has liked the comment
       if (comment.likes.includes(currentUser)) {
         const likeBtn = document.querySelector(
-          `.main_like_button[id="${comment._id}"]`
+          `.main_comment_like_btn[id="${comment._id}"]`
         );
         likeBtn.classList.add("liked");
       }
     });
 
-    setLikes(likesObj);
+    setCommentLikes(likesObj);
     // eslint-disable-next-line
   }, [comments]);
 
+  // store the likes for each reply
+  useEffect(() => {
+    const likesObj = {};
+    comments.forEach((comment) => {
+      if (Array.isArray(replyData[comment._id])) {
+        replyData[comment._id].forEach((reply) => {
+          likesObj[reply._id] = reply.likes.length;
+          // check if current user has liked the reply
+          if (reply.likes.includes(currentUser)) {
+            const likeBtn = document.querySelector(
+              `.main_reply_like_btn[id="${reply._id}"]`
+            );
+            likeBtn.classList.add("liked");
+          }
+        });
+      }
+    });
+
+    setReplyLikes(likesObj);
+    // eslint-disable-next-line
+  }, [replyData]);
+
   // handle like button
-  const handleLikeBtnClick = async (e) => {
+  const handleCommentLikeBtn = async (e) => {
     const commentID = e.currentTarget.parentElement.id;
 
     // Toggle the "liked" class on the like button
     const likeBtn = e.currentTarget.parentElement;
     likeBtn.classList.toggle("liked");
-
-    // Update the likes count
 
     // Update the likes in the database
     try {
@@ -197,7 +218,7 @@ const IndividualStory = () => {
 
       const fetchedLikes = response.data;
       // updated UI with the new likes
-      setLikes((prevLikes) => ({
+      setCommentLikes((prevLikes) => ({
         ...prevLikes,
         [commentID]: fetchedLikes.likes,
       }));
@@ -433,6 +454,33 @@ const IndividualStory = () => {
         // replyList.innerHTML = "No replies yet";
         replyList.classList.add("no_replies");
       }
+    }
+  };
+
+  // replies like button
+  const replyLikeBtnClick = async (e) => {
+    const replyID = e.currentTarget.parentElement.id;
+
+    // Toggle the "liked" class on the like button
+    const likeBtn = e.currentTarget.parentElement;
+    likeBtn.classList.toggle("liked");
+
+    // Update the likes in the database
+    try {
+      await axiosPrivate.put(`/likes/replies/${replyID}`, {
+        username: currentUser,
+      });
+      // fetch the likes for the specific reply
+      const response = await axiosPrivate.get(`/likes/replies/${replyID}`);
+
+      const fetchedLikes = response.data;
+      // updated UI with the new likes
+      setReplyLikes((prevLikes) => ({
+        ...prevLikes,
+        [replyID]: fetchedLikes.likes,
+      }));
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -698,19 +746,22 @@ const IndividualStory = () => {
                       <div className="like_reply_btn">
                         <p className="likes_para">
                           {/* likes */}
-                          {likes[comment._id] === 1 ? (
-                            <span>{likes[comment._id]} like</span>
+                          {commentLikes[comment._id] === 1 ? (
+                            <span>{commentLikes[comment._id]} like</span>
                           ) : (
-                            <span>{likes[comment._id]} likes</span>
+                            <span>{commentLikes[comment._id]} likes</span>
                           )}
                         </p>
-                        <button className="main_like_button" id={comment._id}>
+                        <button
+                          className="main_comment_like_btn"
+                          id={comment._id}
+                        >
                           <AiFillLike
                             className="like_icon"
-                            onClick={handleLikeBtnClick}
+                            onClick={handleCommentLikeBtn}
                           />
                         </button>
-                        <button>
+                        <button className="reply_icon_btn">
                           <BsFillReplyAllFill
                             className="reply_icon"
                             onClick={handleReplyBtn}
@@ -808,8 +859,22 @@ const IndividualStory = () => {
                                 <p className="reply_body">{reply.body}</p>
                               </div>
                               <div className="like_reply_btn">
-                                <button>
-                                  <AiFillLike className="like_icon" />
+                                <p className="likes_para">
+                                  {/* likes */}
+                                  {replyLikes[reply._id] === 1 ? (
+                                    <span>{replyLikes[reply._id]} like</span>
+                                  ) : (
+                                    <span>{replyLikes[reply._id]} likes</span>
+                                  )}
+                                </p>
+                                <button
+                                  id={reply._id}
+                                  className="main_reply_like_btn"
+                                >
+                                  <AiFillLike
+                                    className="like_icon"
+                                    onClick={replyLikeBtnClick}
+                                  />
                                 </button>
                                 {/* <button>
                                   <AiFillDislike className="like_icon" />
