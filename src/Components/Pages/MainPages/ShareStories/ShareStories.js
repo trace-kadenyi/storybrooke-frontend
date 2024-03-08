@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
@@ -22,6 +22,7 @@ const ShareStories = () => {
   const [storyResponse, setStoryResponse] = useState("");
   const [genreResponse, setGenreResponse] = useState("");
   const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
+  const navigate = useNavigate();
 
   // manage error responses
   useEffect(() => {
@@ -167,12 +168,12 @@ const ShareStories = () => {
         }, 3000);
       } else if (error.response.status === 400) {
         setResponse(error.response.data.message);
-        // alert(error.response.data.message);
       } else {
         setResponse("Something went wrong. Please try again");
       }
     }
     setLoadSubmit(false);
+    navigate(`/explore`);
   };
 
   return (
