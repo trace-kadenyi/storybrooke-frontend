@@ -46,6 +46,11 @@ const DeleteAccount = () => {
           </p>
         </>
         <div>
+          <button className="back_to_homepage" onClick={() => navigate("/")}>
+            <span>GO BACK HOME 😃</span>
+          </button>
+        </div>
+        <div>
           <button
             className="delete_account_permanently"
             onClick={deleteAccount}
