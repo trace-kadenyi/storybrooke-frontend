@@ -161,16 +161,34 @@ const IndividualStory = () => {
   }, [id, comments.length]);
 
   // store the likes for each comment
+  // useEffect(() => {
+  //   const likesObj = {};
+  //   comments.forEach((comment) => {
+  //     likesObj[comment._id] = comment.likes.length;
+  //     // check if current user has liked the comment
+  //     if (comment.likes.includes(currentUser)) {
+  //       const likeBtn = document.querySelector(
+  //         `.main_comment_like_btn[id="${comment._id}"]`
+  //       );
+  //       likeBtn.classList.add("liked");
+  //     }
+  //   });
+
+  //   setCommentLikes(likesObj);
+  //   // eslint-disable-next-line
+  // }, [comments]);
+
   useEffect(() => {
     const likesObj = {};
     comments.forEach((comment) => {
-      likesObj[comment._id] = comment.likes.length;
+      likesObj[comment._id] = comment.likes ? comment.likes.length : 0; // Check if comment.likes is not null or undefined
       // check if current user has liked the comment
-      if (comment.likes.includes(currentUser)) {
+      if (comment.likes && comment.likes.includes(currentUser)) {
+        // Check if comment.likes is not null or undefined
         const likeBtn = document.querySelector(
           `.main_comment_like_btn[id="${comment._id}"]`
         );
-        likeBtn.classList.add("liked");
+        likeBtn?.classList.add("liked"); // Optional chaining operator to prevent errors if likeBtn is null or undefined
       }
     });
 
@@ -179,18 +197,40 @@ const IndividualStory = () => {
   }, [comments]);
 
   // store the likes for each reply
+  // useEffect(() => {
+  //   const likesObj = {};
+  //   comments.forEach((comment) => {
+  //     if (Array.isArray(replyData[comment._id])) {
+  //       replyData[comment._id].forEach((reply) => {
+  //         likesObj[reply._id] = reply.likes.length;
+  //         // check if current user has liked the reply
+  //         if (reply.likes.includes(currentUser)) {
+  //           const likeBtn = document.querySelector(
+  //             `.main_reply_like_btn[id="${reply._id}"]`
+  //           );
+  //           likeBtn.classList.add("liked");
+  //         }
+  //       });
+  //     }
+  //   });
+
+  //   setReplyLikes(likesObj);
+  //   // eslint-disable-next-line
+  // }, [replyData]);
+
   useEffect(() => {
     const likesObj = {};
     comments.forEach((comment) => {
       if (Array.isArray(replyData[comment._id])) {
         replyData[comment._id].forEach((reply) => {
-          likesObj[reply._id] = reply.likes.length;
+          likesObj[reply._id] = reply.likes ? reply.likes.length : 0; // Check if reply.likes is not null or undefined
           // check if current user has liked the reply
-          if (reply.likes.includes(currentUser)) {
+          if (reply.likes && reply.likes.includes(currentUser)) {
+            // Check if reply.likes is not null or undefined
             const likeBtn = document.querySelector(
               `.main_reply_like_btn[id="${reply._id}"]`
             );
-            likeBtn.classList.add("liked");
+            likeBtn?.classList.add("liked"); // Optional chaining operator to prevent errors if likeBtn is null or undefined
           }
         });
       }
