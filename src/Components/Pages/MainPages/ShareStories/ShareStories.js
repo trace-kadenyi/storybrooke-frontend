@@ -156,6 +156,7 @@ const ShareStories = () => {
 
       // show toast message
       showToastMessage(response.data.message);
+      navigate(`/explore`);
     } catch (error) {
       if (!error.response) {
         setResponse("No server response");
@@ -173,7 +174,6 @@ const ShareStories = () => {
       }
     }
     setLoadSubmit(false);
-    navigate(`/explore`);
   };
 
   return (
