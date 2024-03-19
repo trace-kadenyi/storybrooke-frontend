@@ -34,6 +34,8 @@ const IndividualStory = () => {
   const [viewReplies, setViewReplies] = useState(false); // to show the view replies button
   const [commentLikes, setCommentLikes] = useState({}); // to show the number of likes on a comment
   const [replyLikes, setReplyLikes] = useState({}); // to show the number of likes on a reply
+  const [storyLikes, setStoryLikes] = useState(0); // to show the number of likes on a story
+  const [likes, setLikes] = useState(0); // to show the number of likes on a story
 
   // current user
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -50,6 +52,7 @@ const IndividualStory = () => {
         setGenres(response.data.genres);
         setDate(response.data.date);
         setBody(response.data.body);
+        setLikes(response.data.likes);
         setLoading(false);
       } catch (error) {
         setError(error);
@@ -161,23 +164,6 @@ const IndividualStory = () => {
   }, [id, comments.length]);
 
   // store the likes for each comment
-  // useEffect(() => {
-  //   const likesObj = {};
-  //   comments.forEach((comment) => {
-  //     likesObj[comment._id] = comment.likes.length;
-  //     // check if current user has liked the comment
-  //     if (comment.likes.includes(currentUser)) {
-  //       const likeBtn = document.querySelector(
-  //         `.main_comment_like_btn[id="${comment._id}"]`
-  //       );
-  //       likeBtn.classList.add("liked");
-  //     }
-  //   });
-
-  //   setCommentLikes(likesObj);
-  //   // eslint-disable-next-line
-  // }, [comments]);
-
   useEffect(() => {
     const likesObj = {};
     comments.forEach((comment) => {
@@ -196,28 +182,38 @@ const IndividualStory = () => {
     // eslint-disable-next-line
   }, [comments]);
 
+    // store the likes for the story
+    // useEffect(() => {
+    //   const storyId = id;
+    //   if(likes && likes.includes(currentUser)){
+    //     const likeBtn = document.querySelector(
+    //       `.main_story_like_btn[id="${storyId}"]`
+    //     );
+    //     likeBtn?.classList.add("liked"); // Optional chaining operator to prevent errors if likeBtn is null or undefined
+    //   }
+    //   setStoryLikes(likes);
+     
+    // }, [likes]);
+
+    const getStoryLikes = async (id) => {
+      try {
+        const response = await axiosPrivate.get(`/likes/story/${id}`);
+        const fetchedLikes = response.data;
+        setStoryLikes(fetchedLikes);
+        console.log(fetchedLikes)
+        console.log(likes)
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    // store the likes for the story
+    useEffect(() => {
+      getStoryLikes(id);
+    }, [id]);
+
   // store the likes for each reply
-  // useEffect(() => {
-  //   const likesObj = {};
-  //   comments.forEach((comment) => {
-  //     if (Array.isArray(replyData[comment._id])) {
-  //       replyData[comment._id].forEach((reply) => {
-  //         likesObj[reply._id] = reply.likes.length;
-  //         // check if current user has liked the reply
-  //         if (reply.likes.includes(currentUser)) {
-  //           const likeBtn = document.querySelector(
-  //             `.main_reply_like_btn[id="${reply._id}"]`
-  //           );
-  //           likeBtn.classList.add("liked");
-  //         }
-  //       });
-  //     }
-  //   });
-
-  //   setReplyLikes(likesObj);
-  //   // eslint-disable-next-line
-  // }, [replyData]);
-
   useEffect(() => {
     const likesObj = {};
     comments.forEach((comment) => {
@@ -250,17 +246,47 @@ const IndividualStory = () => {
 
     // Update the likes in the database
     try {
-      await axiosPrivate.put(`/likes/comments/${commentID}`, {
+      await axiosPrivate.put(`/likes/comment/${commentID}`, {
         username: currentUser,
       });
       // fetch the likes for the specific comment
-      const response = await axiosPrivate.get(`/likes/comments/${commentID}`);
+      const response = await axiosPrivate.get(`/likes/comment/${commentID}`);
 
       const fetchedLikes = response.data;
       // updated UI with the new likes
       setCommentLikes((prevLikes) => ({
         ...prevLikes,
         [commentID]: fetchedLikes.likes,
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
+  // handle story like button
+  const handleStoryLikeBtn = async (e) => {
+    const storyID = e.currentTarget.parentElement.id;
+    console.log(storyID)
+
+    // Toggle the "liked" class on the like button
+    const likeBtn = e.currentTarget.parentElement;
+    likeBtn.classList.toggle("liked");
+
+    // Update the likes in the database
+    try {
+      await axiosPrivate.put(`/likes/story/${storyID}`, {
+        username: currentUser,
+      });
+      // fetch the likes for the specific comment
+      const response = await axiosPrivate.get(`/likes/story/${storyID}`);
+
+      const fetchedLikes = response.data;
+      // updated UI with the new likes
+      setStoryLikes((prevLikes) => ({
+        ...prevLikes,
+        [storyID]: fetchedLikes.likes,
       }));
     } catch (error) {
       console.log(error);
@@ -507,11 +533,11 @@ const IndividualStory = () => {
 
     // Update the likes in the database
     try {
-      await axiosPrivate.put(`/likes/replies/${replyID}`, {
+      await axiosPrivate.put(`/likes/reply/${replyID}`, {
         username: currentUser,
       });
       // fetch the likes for the specific reply
-      const response = await axiosPrivate.get(`/likes/replies/${replyID}`);
+      const response = await axiosPrivate.get(`/likes/reply/${replyID}`);
 
       const fetchedLikes = response.data;
       // updated UI with the new likes
@@ -739,10 +765,32 @@ const IndividualStory = () => {
           </div>
         )}
       </div>
+      <div className="story_likes_div">
+        <p className="story_likes_para">
+          <button
+            className="main_story_like_btn"
+            id={id}
+          >
+            <AiFillLike
+              className="story_like_icon"
+              onClick={handleStoryLikeBtn}
+            />
+          </button>
+          {/* likes */}
+
+          {storyLikes[id] === 1 ? (
+            <span>{storyLikes[id]} LIKE</span>
+          ) : (
+            <span>{storyLikes[id]} LIKES</span>
+          )}
+        </p>
+      </div>
       {/* comments section */}
       {!loading && (
         <div className="comments_div">
-          <h3 className="comments_header">COMMENTS</h3>
+          <h3 className="comments_header" id="comments_sect_id">
+            COMMENTS
+          </h3>
           {/* add a comment */}
           <div className="add_comment_div">
             <form className="add_comment_form" onSubmit={handleAddComment}>
