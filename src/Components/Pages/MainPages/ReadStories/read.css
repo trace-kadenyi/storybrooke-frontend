@@ -62,6 +62,45 @@
   margin: 0 auto;
 }
 
+.story_comments_para {
+  cursor: pointer;
+}
+
+.story_comments_para:hover {
+  text-decoration: underline;
+}
+
+.story_likes_div {
+  width: 80vw;
+  /* border: 2px red solid; */
+  margin: 0 auto;
+}
+
+.story_likes_para {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.story_likes_div button {
+  padding: 2px 5px;
+  color: #548341;
+  border-radius: 5px;
+  border: 1px #548341 solid;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.story_likes_para {
+  color: #fff;
+  padding: 20px;
+}
+
+.story_like_icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #092424;
+}
 /* EXPLORE PAGE */
 
 .explore_sect {
