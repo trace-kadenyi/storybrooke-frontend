@@ -97,9 +97,13 @@
 }
 
 .story_like_icon {
-  font-size: 1.5rem;
+  font-size: 1rem;
   cursor: pointer;
-  color: #092424;
+}
+
+.main_story_like_btn {
+  border-radius: 10px;
+  padding: 5px;
 }
 /* EXPLORE PAGE */
 
@@ -729,6 +733,27 @@
   font-size: 11px;
 }
 
+.story_likes_p,
+.story_comments_para {
+  font-weight: bold;
+}
+
+.story_comments_likes_count {
+  display: flex;
+  width: 80vw;
+  margin: 0 auto;
+  gap: 20px;
+  /* border: 2px red solid; */
+  align-items: center;
+}
+
+.comments_likes_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
 @keyframes shake {
   0% {
     transform: translate(1px, 1px) rotate(0deg);
@@ -767,7 +792,8 @@
 
 .reply_icon_btn:hover,
 .main_comment_like_btn:hover,
-.main_reply_like_btn:hover {
+.main_reply_like_btn:hover,
+.main_story_like_btn:hover {
   animation: shake 0.5s;
 }
 
