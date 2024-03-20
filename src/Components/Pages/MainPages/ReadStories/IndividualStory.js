@@ -745,22 +745,61 @@ const IndividualStory = () => {
           </div>
         )}
       </div>
-      <div className="story_likes_div">
-        <p className="story_likes_para">
-          <button className="main_story_like_btn" id={id}>
-            <AiFillLike
-              className="story_like_icon"
-              onClick={handleStoryLikeBtn}
-            />
-          </button>
-          {/* likes */}
+      <div>
+        {/* story comments count */}
+        <div className="story_comments_likes_count">
+          <span className="likes_para" style={{ color: "white" }}>
+            <i className="fas fa-comments"></i>{" "}
+            {comments.length === 1
+              ? `${comments.length} Comment`
+              : `${comments.length} Comments`}
+          </span>
+          {/* likes count */}
+          {/* <span className="likes_para" id={id} style={{ color: "white" }}>
+            <i className="fas fa-comments"></i>{" "}
+            {storyLikes === 1 ? (
+              <span>{storyLikes} Like</span>
+            ) : (
+              <span>{storyLikes} Likes</span>
+            )}
+          </span> */}
+          {/* story likes */}
+          <div>
+            <button className="main_story_like_btn" id={id}>
+              <AiFillLike
+                className="story_like_icon"
+                onClick={handleStoryLikeBtn}
+              />
+            </button>
+            {/* likes */}
 
-          {storyLikes === 1 ? (
-            <span>{storyLikes} LIKE</span>
-          ) : (
-            <span>{storyLikes} LIKES</span>
-          )}
-        </p>
+            <span className="likes_para" id={id} style={{ color: "white" }}>
+              <i className="fas fa-comments"></i>{" "}
+              {storyLikes === 1 ? (
+                <span>{storyLikes} Like</span>
+              ) : (
+                <span>{storyLikes} Likes</span>
+              )}
+            </span>
+          </div>
+        </div>
+        {/* story likes */}
+        {/* <div className="story_likes_div">
+          <p className="story_likes_para">
+            <button className="main_story_like_btn" id={id}>
+              <AiFillLike
+                className="story_like_icon"
+                onClick={handleStoryLikeBtn}
+              />
+            </button>
+
+            {storyLikes === 1 ? (
+              <span>{storyLikes} LIKE</span>
+            ) : (
+              <span>{storyLikes} LIKES</span>
+            )}
+          </p>
+        </div> */}
       </div>
       {/* comments section */}
       {!loading && (
