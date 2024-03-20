@@ -5,7 +5,7 @@ import { AiFillEdit, AiFillLike } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
 import { IoEllipsisHorizontalCircle } from "react-icons/io5";
 import { BsFillReplyAllFill } from "react-icons/bs";
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow, setSeconds } from "date-fns";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import logo from "../../../../Assets/Images/logo.png";
@@ -53,6 +53,8 @@ const IndividualStory = () => {
         setDate(response.data.date);
         setBody(response.data.body);
         setLikes(response.data.likes);
+        console.log(`fetch likes ${response.data.likes.length}`);
+
         setLoading(false);
       } catch (error) {
         setError(error);
@@ -182,36 +184,18 @@ const IndividualStory = () => {
     // eslint-disable-next-line
   }, [comments]);
 
-    // store the likes for the story
-    // useEffect(() => {
-    //   const storyId = id;
-    //   if(likes && likes.includes(currentUser)){
-    //     const likeBtn = document.querySelector(
-    //       `.main_story_like_btn[id="${storyId}"]`
-    //     );
-    //     likeBtn?.classList.add("liked"); // Optional chaining operator to prevent errors if likeBtn is null or undefined
-    //   }
-    //   setStoryLikes(likes);
-     
-    // }, [likes]);
+  // store the likes for the story
+  useEffect(() => {
+    setStoryLikes(likes.length);
 
-    const getStoryLikes = async (id) => {
-      try {
-        const response = await axiosPrivate.get(`/likes/story/${id}`);
-        const fetchedLikes = response.data;
-        setStoryLikes(fetchedLikes);
-        console.log(fetchedLikes)
-        console.log(likes)
-
-      } catch (error) {
-        console.log(error);
-      }
+    const storyId = id;
+    if (likes && likes.includes(currentUser)) {
+      const likeBtn = document.querySelector(
+        `.main_story_like_btn[id="${storyId}"]`
+      );
+      likeBtn?.classList.add("liked"); // Optional chaining operator to prevent errors if likeBtn is null or undefined
     }
-
-    // store the likes for the story
-    useEffect(() => {
-      getStoryLikes(id);
-    }, [id]);
+  }, [likes]);
 
   // store the likes for each reply
   useEffect(() => {
@@ -263,12 +247,10 @@ const IndividualStory = () => {
     }
   };
 
-
-
   // handle story like button
   const handleStoryLikeBtn = async (e) => {
     const storyID = e.currentTarget.parentElement.id;
-    console.log(storyID)
+    // console.log(storyID)
 
     // Toggle the "liked" class on the like button
     const likeBtn = e.currentTarget.parentElement;
@@ -282,12 +264,10 @@ const IndividualStory = () => {
       // fetch the likes for the specific comment
       const response = await axiosPrivate.get(`/likes/story/${storyID}`);
 
-      const fetchedLikes = response.data;
+      const fetchedLikes = response.data.likes;
+      console.log(`fetched likes ${fetchedLikes}`);
       // updated UI with the new likes
-      setStoryLikes((prevLikes) => ({
-        ...prevLikes,
-        [storyID]: fetchedLikes.likes,
-      }));
+      setStoryLikes(fetchedLikes);
     } catch (error) {
       console.log(error);
     }
@@ -767,10 +747,7 @@ const IndividualStory = () => {
       </div>
       <div className="story_likes_div">
         <p className="story_likes_para">
-          <button
-            className="main_story_like_btn"
-            id={id}
-          >
+          <button className="main_story_like_btn" id={id}>
             <AiFillLike
               className="story_like_icon"
               onClick={handleStoryLikeBtn}
@@ -778,10 +755,10 @@ const IndividualStory = () => {
           </button>
           {/* likes */}
 
-          {storyLikes[id] === 1 ? (
-            <span>{storyLikes[id]} LIKE</span>
+          {storyLikes === 1 ? (
+            <span>{storyLikes} LIKE</span>
           ) : (
-            <span>{storyLikes[id]} LIKES</span>
+            <span>{storyLikes} LIKES</span>
           )}
         </p>
       </div>
