@@ -42,27 +42,26 @@ const Blueprint = ({ story }) => {
           ? story.body[0].substring(0, 100) + "..."
           : story.body[0].substring(0, 200) + "..."}
       </p>
-      {/* comments length */}
-      <span
-        className="likes_para story_comments_para"
-        onClick={handleViewStory}
-        id={story._id}
-      >
-        <i className="fas fa-comments"></i>{" "}
-        {story.comments.length === 1
-          ? `${story.comments.length} comment`
-          : `${story.comments.length} comments`}
-      </span>
-      {/* no of likes */}
-      <span
-        className="likes_para"
-        id={story._id}
-      >
-        <i className="fas fa-comments"></i>{" "}
-        {story.likes.length === 1
-          ? `${story.likes.length} like`
-          : `${story.likes.length} likes`}
-      </span>
+      <div className="comments_likes_container">
+        {/* comments length */}
+        <span
+          className="likes_para story_comments_para"
+          onClick={handleViewStory}
+          id={story._id}
+        >
+          <i className="fas fa-comments"></i>{" "}
+          {story.comments.length === 1
+            ? `${story.comments.length} comment`
+            : `${story.comments.length} comments`}
+        </span>
+        {/* no of likes */}
+        <span className="likes_para story_likes_p" id={story._id}>
+          <i className="fas fa-comments"></i>{" "}
+          {story.likes.length === 1
+            ? `${story.likes.length} like`
+            : `${story.likes.length} likes`}
+        </span>
+      </div>
     </div>
   );
 };
