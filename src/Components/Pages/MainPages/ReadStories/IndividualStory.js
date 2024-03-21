@@ -53,7 +53,7 @@ const IndividualStory = () => {
         setDate(response.data.date);
         setBody(response.data.body);
         setLikes(response.data.likes);
-        console.log(`fetch likes ${response.data.likes.length}`);
+        // console.log(`fetch likes ${response.data.likes.length}`);
 
         setLoading(false);
       } catch (error) {
@@ -265,7 +265,7 @@ const IndividualStory = () => {
       const response = await axiosPrivate.get(`/likes/story/${storyID}`);
 
       const fetchedLikes = response.data.likes;
-      console.log(`fetched likes ${fetchedLikes}`);
+      // console.log(`fetched likes ${fetchedLikes}`);
       // updated UI with the new likes
       setStoryLikes(fetchedLikes);
     } catch (error) {
