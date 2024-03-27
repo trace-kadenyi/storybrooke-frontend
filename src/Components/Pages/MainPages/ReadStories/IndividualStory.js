@@ -461,15 +461,37 @@ const IndividualStory = () => {
     }
   };
 
-  // fetch replies on screen load
-  useEffect(() => {
-    comments.forEach((comment) => {
-      if (viewReplies[comment._id]) {
-        handleFetchReplies(comment._id);
-      }
-    });
-    // eslint-disable-next-line
-  }, []);
+  // replies like button
+  const replyLikeBtnClick = async (e) => {
+    const replyID = e.currentTarget.parentElement.id;
+    const commentID =
+      e.currentTarget.parentElement.parentElement.parentElement.id;
+
+    // Toggle the "liked" class on the like button
+    const likeBtn = e.currentTarget.parentElement;
+    likeBtn.classList.toggle("liked");
+
+    // Update the likes in the database
+    try {
+      await axiosPrivate.put(`/likes/reply/${replyID}`, {
+        username: currentUser,
+      });
+      // fetch the likes for the specific reply
+      const response = await axiosPrivate.get(`/likes/reply/${replyID}`);
+
+      const fetchedLikes = response.data;
+      // updated UI with the new likes
+      setReplyLikes((prevLikes) => ({
+        ...prevLikes,
+        [replyID]: fetchedLikes.likes,
+      }));
+
+      // fetch replies for the specific comment
+      handleFetchReplies(commentID);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // handle view replies
   const handleViewReplies = (commentID) => {
@@ -510,33 +532,6 @@ const IndividualStory = () => {
         // replyList.innerHTML = "No replies yet";
         replyList.classList.add("no_replies");
       }
-    }
-  };
-
-  // replies like button
-  const replyLikeBtnClick = async (e) => {
-    const replyID = e.currentTarget.parentElement.id;
-
-    // Toggle the "liked" class on the like button
-    const likeBtn = e.currentTarget.parentElement;
-    likeBtn.classList.toggle("liked");
-
-    // Update the likes in the database
-    try {
-      await axiosPrivate.put(`/likes/reply/${replyID}`, {
-        username: currentUser,
-      });
-      // fetch the likes for the specific reply
-      const response = await axiosPrivate.get(`/likes/reply/${replyID}`);
-
-      const fetchedLikes = response.data;
-      // updated UI with the new likes
-      setReplyLikes((prevLikes) => ({
-        ...prevLikes,
-        [replyID]: fetchedLikes.likes,
-      }));
-    } catch (error) {
-      console.log(error);
     }
   };
 
