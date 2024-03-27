@@ -461,6 +461,16 @@ const IndividualStory = () => {
     }
   };
 
+  // fetch replies on screen load
+  useEffect(() => {
+    comments.forEach((comment) => {
+      if (viewReplies[comment._id]) {
+        handleFetchReplies(comment._id);
+      }
+    });
+    // eslint-disable-next-line
+  }, []);
+
   // handle view replies
   const handleViewReplies = (commentID) => {
     // Toggle viewReplies state for the specific comment
