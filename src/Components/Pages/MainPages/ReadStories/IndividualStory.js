@@ -5,7 +5,7 @@ import { AiFillEdit, AiFillLike } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
 import { IoEllipsisHorizontalCircle } from "react-icons/io5";
 import { BsFillReplyAllFill } from "react-icons/bs";
-import { formatDistanceToNow, setSeconds } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 
 import MainNavbar from "../../../Navigation/MainNavbar";
 import logo from "../../../../Assets/Images/logo.png";
@@ -195,6 +195,7 @@ const IndividualStory = () => {
       );
       likeBtn?.classList.add("liked"); // Optional chaining operator to prevent errors if likeBtn is null or undefined
     }
+    // eslint-disable-next-line
   }, [likes]);
 
   // store the likes for each reply
