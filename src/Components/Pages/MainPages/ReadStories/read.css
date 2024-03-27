@@ -62,6 +62,49 @@
   margin: 0 auto;
 }
 
+.story_comments_para {
+  cursor: pointer;
+}
+
+.story_comments_para:hover {
+  text-decoration: underline;
+}
+
+.story_likes_div {
+  width: 80vw;
+  /* border: 2px red solid; */
+  margin: 0 auto;
+}
+
+.story_likes_para {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.story_likes_div button {
+  padding: 2px 5px;
+  color: #548341;
+  border-radius: 5px;
+  border: 1px #548341 solid;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.story_likes_para {
+  color: #fff;
+  padding: 20px;
+}
+
+.story_like_icon {
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.main_story_like_btn {
+  border-radius: 10px;
+  padding: 5px;
+}
 /* EXPLORE PAGE */
 
 .explore_sect {
@@ -690,6 +733,27 @@
   font-size: 11px;
 }
 
+.story_likes_p,
+.story_comments_para {
+  font-weight: bold;
+}
+
+.story_comments_likes_count {
+  display: flex;
+  width: 80vw;
+  margin: 0 auto;
+  gap: 20px;
+  /* border: 2px red solid; */
+  align-items: center;
+}
+
+.comments_likes_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
 @keyframes shake {
   0% {
     transform: translate(1px, 1px) rotate(0deg);
@@ -728,7 +792,8 @@
 
 .reply_icon_btn:hover,
 .main_comment_like_btn:hover,
-.main_reply_like_btn:hover {
+.main_reply_like_btn:hover,
+.main_story_like_btn:hover {
   animation: shake 0.5s;
 }
 
