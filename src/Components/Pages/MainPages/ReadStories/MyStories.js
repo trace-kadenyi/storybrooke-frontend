@@ -68,8 +68,17 @@ const MyStories = () => {
           );
         });
         // sort stories by date
+        // uniqueStories.sort((a, b) => {
+        //   return new Date(b.date) - new Date(a.date);
+        // });
+
+        // sort by comments + likes
         uniqueStories.sort((a, b) => {
-          return new Date(b.date) - new Date(a.date);
+          return (
+            b.comments.length +
+            b.likes.length -
+            (a.comments.length + a.likes.length)
+          );
         });
 
         setStories(uniqueStories);
