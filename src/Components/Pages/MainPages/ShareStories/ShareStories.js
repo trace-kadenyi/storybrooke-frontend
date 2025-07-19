@@ -156,7 +156,12 @@ const ShareStories = () => {
 
       // show toast message
       showToastMessage(response.data.message);
-      navigate(`/explore`);
+
+      // get the ID from response
+      const storyId = response.data.storyId;
+
+      // navigate to the new story's page
+      navigate(`/story/${storyId}`);
     } catch (error) {
       if (!error.response) {
         setResponse("No server response");
